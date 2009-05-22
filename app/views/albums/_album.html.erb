@@ -1,0 +1,5 @@
+<p><%= link_to album.title, album %>
+<div id="photos">
+<%= render :partial => album.photos.find(:all, :limit => 2) %>
+</div>
+</p>

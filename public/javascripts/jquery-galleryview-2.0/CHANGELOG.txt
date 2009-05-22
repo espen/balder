@@ -1,0 +1,73 @@
+GalleryView - jQuery Content Gallery Plugin
+Author: 		Jack Anderson
+Documentation: 	http://www.spaceforaname.com/galleryview/
+
+
+Version 2.0 - 2009-05-05
+----------------------------------------
+Revised required HTML markup for GalleryView
+Filmstrip frames are generated automatically (no need for two sets of images)
+Moved majority of aesthetic styling to external CSS
+Default aesthetics for gallery updated
+Set GalleryView to wait until images finish loading before building itself
+Added 'current' class to current filmstrip frame for user customization
+Allowed for more user-defined styling in panels and filmstrip frames
+Filmstrip can now be placed on left and right side of gallery, in addition to top and bottom
+Panel images can now be scaled to fit within panel or zoomed & cropped to fill panel
+Filmstrip images can now be scaled to fit within frame or zoomed & cropped to fill frame
+Panel overlay backgrounds are now only added to those panels with overlays
+'pause_on_hover' option now pauses when mouse hovers over filmstrip as well as panel
+Added option to start gallery on any frame
+Current frame pointer is now built with CSS and its size can be customized easily
+Increased size of hitbox on panel-navigation buttons
+
+Updated options:
+	- filmstrip_position
+		- new allowable values : 'top', 'right', 'bottom', 'left'
+		
+Removed options:
+	- overlay_height
+	- overlay_font_size
+	- overlay_color
+	- background_color
+	- overlay_text_color
+	- caption_text_color
+	- border
+
+New options:
+	- show_panels (boolean)
+	- show_filmstrip (boolean)
+	- start_frame (integer)
+	- pointer_size (integer)
+	- panel_scale
+		- allowable values : 'crop', 'nocrop'
+	- frame_scale
+		- allowable values : 'crop', 'nocrop'
+	- frame_gap (integer)
+	
+
+Version 1.1 - 2009-04-05
+----------------------------------------
+Added feature allowing filmstrip w/o panels
+Added feature allowing panels w/o filmstrip
+Added feature allowing filmstrip placement above or below panels
+Added new graphics for panel navigation
+Anchored navigation buttons to edges of filmstrip, rather than gallery boundaries
+New options:
+	- filmstrip_position
+		- allowable values : 'top', 'bottom'
+	- overlay_position
+		- allowable values : 'top', 'bottom'
+
+Version 1.0.1 - 2009-03-30
+----------------------------------------
+Fixed bug allowing blank frames to display in filmstrip
+Changed pointer graphic from GIF to PNG to allow for greater customization
+Added 'overflow: hidden' to panels to prevent oversized content from breaking gallery
+Disabled frame clicking during filmstrip animation
+Changed pointer border from 4px to 2px
+
+
+Version 1.0
+----------------------------------------
+2009-03-29 : Initial Release

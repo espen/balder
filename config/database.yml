@@ -1,0 +1,15 @@
+development:
+    adapter: postgresql
+    database: gallery_development
+    username: gallery
+    password: changeme
+production:    
+    adapter: postgresql
+    database: gallery
+    username: gallery
+    password: changeme
+test:
+    adapter: postgresql
+    database: gallery_test
+    username: gallery
+    password: changeme

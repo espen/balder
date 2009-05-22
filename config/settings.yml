@@ -1,0 +1,16 @@
+development:
+    site_name: Gallery
+    admin_email: espen@inspired.no
+    site_url: gallery.dev:3000
+    photos_path: '/users/Espen/gallery/'
+    thumbs_path: '/users/Espen/gallery_thumbs/'
+    photos_path_public: '/files/'
+    thumbs_path_public: '/thumbs/'
+    thumb_width: 200
+    thumb_height: 200
+production:
+    site_name: Gallery
+    admin_email: espen@inspired.no
+    site_url: photos.inspired.no
+    photos_path: '/users/Espen/gallery/'
+    photos_path_public: '/photos/'
