@@ -6,7 +6,11 @@ RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+
 Rails::Initializer.run do |config|
+
+  config.gem "authlogic"  
+  #config.gem "image_science"
 
   config.time_zone = 'Copenhagen'
 
@@ -25,6 +29,4 @@ Rails::Initializer.run do |config|
     :user_name      => "espen@inspired.no",
     :password       => "tkg5megmeg"
   }
-  
-  #config.gem "image_science"
 end
