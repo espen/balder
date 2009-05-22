@@ -1,0 +1,9 @@
+<h1>New Album</h1>
+ 
+<% form_for @album do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "form", :object => f %>
+  <%= f.submit "Create" %>
+<% end %>
+ 
+<br /><%= link_to "All albums", albums_path %>

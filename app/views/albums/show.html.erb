@@ -32,6 +32,9 @@ $('#photos').galleryView({
 
 -->
 
+<% if current_user %>
+<%= link_to "Edit album", edit_album_path( @album )%>
+<% end %>
 <link href="/javascripts/galleria/galleria.css" rel="stylesheet" type="text/css" media="screen"> 
 <script type="text/javascript" src="/javascripts/galleria/jquery.galleria.js"></script> 
 <script type="text/javascript"> 
