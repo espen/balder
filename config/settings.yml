@@ -9,8 +9,12 @@ development:
     thumb_width: 200
     thumb_height: 200
 production:
-    site_name: Gallery
+    site_name: 'Espen Antonsen photos'
     admin_email: espen@inspired.no
     site_url: photos.inspired.no
-    photos_path: '/users/Espen/gallery/'
-    photos_path_public: '/photos/'
+    photos_path: '/home/espen/photos/originals/'
+    thumbs_path: '/home/espen/photos/modified/'
+    photos_path_public: '/files/'
+    thumbs_path_public: '/thumbs/'
+    thumb_width: 200
+    thumb_height: 200

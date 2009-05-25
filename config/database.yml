@@ -4,12 +4,9 @@ development:
     username: gallery
     password: changeme
 production:    
-    adapter: postgresql
-    database: gallery
-    username: gallery
+    adapter: mysql
+    encoding: utf8
+    username: photogallery
     password: changeme
-test:
-    adapter: postgresql
-    database: gallery_test
-    username: gallery
-    password: changeme
+    database: gallery_production
+    socket: /var/run/mysqld/mysqld.sock
