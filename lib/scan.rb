@@ -2,7 +2,7 @@ module ScanFiles
 #  protected
   require "find"
   #require 'RMagick'
-  require "Image_Science"
+  require "image_science"
 
   supported_files = ["jpeg", "jpg", "gif", "png"]
 
