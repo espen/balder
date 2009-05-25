@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   map.logout "logout", :controller => "user_sessions", :action => "destroy"
   map.resources :photos
   map.resources :albums
+  map.resources :tags, :has_many => [ :photos ]
   #map.connect ':controller/:action/:id'
   #map.connect ':controller/:action/:id.:format'
   

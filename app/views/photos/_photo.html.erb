@@ -1,4 +1,4 @@
 <li>
 	<a href="<%= APP_CONFIG[:thumbs_path_public] + photo.album.path + "/" + photo.id.to_s + "_large.jpg" %>" title="<%= photo.title %>">
-	<%= image_tag APP_CONFIG[:thumbs_path_public] + photo.album.path + "/" + photo.id.to_s + "_small.jpg" %></a>
+	<%= image_tag APP_CONFIG[:thumbs_path_public] + photo.album.path + "/" + photo.id.to_s + "_small.jpg", { :id => 'thumb_' + photo.id.to_s } %></a>
 </li>

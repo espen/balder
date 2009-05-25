@@ -2,7 +2,7 @@ class PhotosController < ApplicationController
   before_filter :require_user, :only => [:new, :create, :edit, :update, :destroy]
 
   def index
-    @photos = Photo.find(:all)
+    @photos = Tag.find_by_title( params[:tag_id] ).photos
     respond_to do |format|
       format.html
       format.json  { render :json => @photos }

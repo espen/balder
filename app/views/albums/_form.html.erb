@@ -1,4 +1,7 @@
 <%= form.label :title %><br />
 <%= form.text_field :title %><br />
+<%= form.label :description %><br />
+<%= form.text_area :description %><br />
 <br />
-<%= @album.path %>
+Location on disk: <i><%= APP_CONFIG[:photos_path] + @album.path %></i><br/>
+Contains: <%= @album.photos.count %> photos<br/>

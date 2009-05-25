@@ -1,0 +1,10 @@
+<h1>Edit Photo</h1>
+ 
+<% form_for @photo do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "form", :object => f %>
+  <%= f.submit "Update" %>
+<% end %>
+
+<%= image_tag APP_CONFIG[:thumbs_path_public] + @photo.album.path + "/" + @photo.id.to_s + "_large.jpg" %>
+<br /><%= link_to "All albums", albums_path %>

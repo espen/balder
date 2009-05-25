@@ -1,0 +1,3 @@
+<h1><%= @album.title %></h1>
+
+<%= render :partial => @album.photos.find(:all, :limit => 10) %>

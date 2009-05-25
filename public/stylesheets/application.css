@@ -1,0 +1,55 @@
+.galleria_container {
+	margin:0 auto;
+	text-align: center;
+}
+
+#thumbstrip { 
+     
+    /* required settings */ 
+    position:relative; 
+    overflow:hidden;          
+    width: 602px;
+    height: 85px;
+	margin: 0 auto;
+	padding: 0;
+	background-color: #000000;
+}
+
+#thumbstrip ul {     
+    /* this cannot be too large */ 
+    width:20000em;
+    position:absolute;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+} 
+ 
+/*  
+    a single item. must be floated on horizontal scrolling 
+    typically this element is the one that *you* will style 
+    the most. 
+*/ 
+#thumbstrip ul li { 
+    float:left;
+	background: black;
+	padding: 5px;
+	margin: 0;
+	cursor: pointer;
+}
+
+
+#photo_large img {
+	border: 1px solid black;
+}
+
+SPAN.tagMatches {
+    margin-left: 10px;
+}
+
+SPAN.tagMatches SPAN {
+    padding: 2px;
+    margin-right: 4px;
+    background-color: #0000AB;
+    color: #fff;
+    cursor: pointer;
+}
