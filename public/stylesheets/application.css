@@ -29,6 +29,15 @@
     typically this element is the one that *you* will style 
     the most. 
 */ 
+
+LABEL.big {
+    font-weight: bold;
+}
+
+INPUT.big {
+    font-size: 22px;
+}
+
 #thumbstrip ul li { 
     float:left;
 	background: black;

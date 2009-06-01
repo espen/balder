@@ -19,7 +19,6 @@ jQuery(function($) {
     	})        
     }
 
-	
 	if ( $('#thumbstrip').length ) {
     	$('#thumbstrip').scrollable( {
     		items : '#thumbs',
@@ -35,6 +34,9 @@ jQuery(function($) {
         $('#photo_tag_list').tagSuggest({
           tags: $('#all_tags').val().split('\'')
         })
+    }
+    
+    if ( $('FORM #upload').length ) {
     }
 
 	//$('div.scrollable').scrollable().click( $('#gallery ul').children().index( $('#gallery li.active') ) )

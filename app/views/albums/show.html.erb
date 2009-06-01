@@ -1,30 +1,6 @@
-<% content_for :head do %>
-<link rel="stylesheet" href="/javascripts/galleria/galleria.css" type="text/css" media="screen" charset="utf-8">
+<% for photo in @album.photos %>
+<%= link_to image_tag( photo.public_path_modified("album") ), photo %>
 <% end %>
 
-<% content_for :javascript do %>
-<script type="text/javascript" src="/javascripts/galleria/jquery.galleria.js"></script> 
-<script type="text/javascript" src="/javascripts/scrollable/jquery.scrollable-1.0.2.js"></script>
-<script type="text/javascript" src="/javascripts/jquery.mousewheel.3.0.2/jquery.mousewheel.js"></script> 
-<% end %>
-
-<h1><%= @album.title %></h1>
-
-<% if current_user %>
-<%= link_to "Edit album", edit_album_path( @album )%>
-<% end %>
-<%= link_to "Generate PDF", album_path( @album, :pdf)  %>
-
-<div id="photo">
-	<div id="photo_metadata"></div>
-	<div id="photo_large">
-	</div>
-</div>
-
-<div id="thumbstrip">
-<ul id="thumbs" class="gallery">
-	<%= render :partial => @album.photos.find(:all) %>
-</ul>
-</div>
-
-<p><%= @album.description %></p>
+<br /><%= link_to "Update album", edit_album_path(@album) %>
+<br /><%= link_to "All albums", albums_path %>

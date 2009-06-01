@@ -1,7 +1,19 @@
-<%= form.label :title %><br />
-<%= form.text_field :title %><br />
+<%= form.label :title, :Title, {:class => 'big'} %><br />
+<%= form.text_field :title, {:class => 'big'} %><br />
 <%= form.label :description %><br />
 <%= form.text_area :description %><br />
+
+<%= form.label :address %><br />
+<%= form.text_area :address, { :rows => 3} %><br />
+
+<%= form.label :note %><br />
+<%= form.text_area :note %><br />
+
+<%= form.label :tag_list %><br />
+<%= form.text_field :tag_list, { :autocomplete => "off"} %><br />
+
 <br />
+<% if @album.path? %>
 Location on disk: <i><%= APP_CONFIG[:photos_path] + @album.path %></i><br/>
 Contains: <%= @album.photos.count %> photos<br/>
+<% end %>

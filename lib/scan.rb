@@ -2,38 +2,30 @@ module ScanFiles
 #  protected
   require "find"
   #require 'RMagick'
-  require "image_science"
 
   supported_files = ["jpeg", "jpg", "gif", "png"]
 
   def self.FullScan
+    prevalbum = ""
     Find.find( APP_CONFIG[:photos_path] ) { |path|
       if File.file?(path) && [".jpeg", ".jpg", ".gif", ".png"].include?( File.extname(path) )
         relpath = File.dirname( path ).sub(APP_CONFIG[:photos_path], '')
         relfile = path.sub(APP_CONFIG[:photos_path], '')
-        puts relpath
         album = Album.find_by_path( relpath )
+        if prevalbum != relpath
+          puts relpath
+          prevalbum = relpath
+        end
         if album.nil?
           puts "New album : " + File.basename( relpath )
           album = Album.create( :path => relpath, :title => File.basename( File.dirname(path) ) )
-          Dir.mkdir(  APP_CONFIG[:thumbs_path] + album.path )
         end
-        if Photo.find_by_path( relpath ).nil?
-          puts "New photo added"
+        photo = Photo.find_by_path( relfile )
+        if photo.nil?
+          puts "  New photo added " + relfile
           photo = Photo.create( :album => album, :title => File.basename(path).sub( File.extname(path), '' ) , :path => relfile )
-          #image = Magick::Image.read(APP_CONFIG[:photos_path] + photo.path)
-          ImageScience.with_image(APP_CONFIG[:photos_path] + relfile) do |img|
-              puts "thumbing.."
-
-              img.thumbnail(75) do |thumb|
-                thumb.save APP_CONFIG[:thumbs_path] + photo.album.path + "/" + photo.id.to_s + "_small" + File.extname( APP_CONFIG[:photos_path] + photo.path )
-              end
-              img.thumbnail(600) do |thumb|
-                thumb.save APP_CONFIG[:thumbs_path] + photo.album.path + "/" + photo.id.to_s + "_large" + File.extname( APP_CONFIG[:photos_path] + photo.path )
-              end
-          end
-          #self.CreateThumbnail( photo, image, "small", 150, 150 )
-          #self.CreateThumbnail( photo, image, "large", 600, 500 )
+        else
+          puts "  Found photo " + relfile
         end
       end
     }

@@ -1,4 +1,4 @@
 <h1>Tags</h1>
 <% for tag in @tags %>
-<%= tag.title %>
+<p><%= link_to tag.title, tag_photos_path(tag) %></p>
 <% end %>

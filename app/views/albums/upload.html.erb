@@ -1,0 +1,35 @@
+<% content_for :javascript do %>
+<script type="text/javascript" src="/javascripts/jquery.uploadify-v1.6.2.mit/jquery.uploadify.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#photo').fileUpload({
+			uploader:'/javascripts/jquery.uploadify-v1.6.2.mit/uploader.swf',
+			script:'<%= photos_path %>',
+			scriptData: {
+				'<%= get_session_key %>' : '<%= cookies[get_session_key] %>',
+				'method' : '_put',
+		        'authenticity_token' : '<%= u form_authenticity_token %>',
+				'photo[album_id]' : "<%= @album.id %>"
+			},
+			cancelImg:'/javascripts/jquery.uploadify-v1.6.2.mit/cancel.png',
+			multi:true,
+			auto:true,
+			onComplete : function (e,queueId,fileObj,res,data) {
+				if (res.substring(0, 7) === "FILEID:") {
+					var image = $('<img>').appendTo('#thumbs')
+					image.css('display','none')
+					image.attr('src', res.substring(7) )
+					image.fadeIn('slow')
+				}
+			}
+		})
+})
+</script>
+<% end %>
+<form>
+<input type="file" id="photo" name="photo" />
+<br />
+<div id="thumbs"></div>
+</form>
+
