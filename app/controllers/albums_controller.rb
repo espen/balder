@@ -9,6 +9,15 @@ class AlbumsController < ApplicationController
       format.xml  { render :xml => @albums }
     end
   end
+
+  def untouched
+    @albums = Album.untouched()
+    respond_to do |format|
+      format.html
+      format.json  { render :json => @albums }
+      format.xml  { render :xml => @albums }
+    end
+  end
   
   def show
     @album = Album.find( params[:id])

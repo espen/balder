@@ -4,8 +4,10 @@ Made by Espen Antonsen
 
 == Requirements
 
+Tested with Ruby 1.8.6 and Rails 2.3
+
 Software
-- FreeIamge (required for Image Science)
+- FreeImage (required for Image_Science)
 - ExifTool (required for Mini_EfixTool)
 
 Ruby Gems

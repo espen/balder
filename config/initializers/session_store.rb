@@ -6,7 +6,7 @@
 # no regular words or you'll be exposed to dictionary attacks.
 ActionController::Base.session = {
   :key         => '_gallery_session',
-  :secret      => 'eb2b1c59315d0f788fd425feab3e10d78a6830dd2bf843a56ac4af333eb290781b06e6605c15d87a1539181b3a928852b76f7459e963b32fdb77e5995af0b1d6'
+  :secret      => '06xfeafeop90cuepaiam324eoimxeaioa2b4220c445486dace48f53fc1a0d4ec4e8de033e1db323628d66b6cx990loibjustintime99'
 }
 
 # Use the database for sessions instead of the cookie-based default,
@@ -14,4 +14,5 @@ ActionController::Base.session = {
 # (create the session table with "rake db:sessions:create")
 # ActionController::Base.session_store = :active_record_store
 
-ActionController::Dispatcher.middleware.use FlashSessionCookieMiddleware, ActionController::Base.session_options[:key]
+ActionController::Dispatcher.middleware.insert_before(ActionController::Session::CookieStore, FlashSessionCookieMiddleware, ActionController::Base.session_options[:key])
+#ActionController::Dispatcher.middleware.use FlashSessionCookieMiddleware, ActionController::Base.session_options[:key]

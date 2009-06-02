@@ -1,0 +1,5 @@
+<h1>Collections</h1>
+<% for collection in @collections %>
+<%= link_to collection.title, collection %>
+<%= render :partial => collection.albums %>
+<% end %>

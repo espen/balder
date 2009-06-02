@@ -7,13 +7,14 @@ ActionController::Routing::Routes.draw do |map|
   map.logout "logout", :controller => "user_sessions", :action => "destroy"
 
   map.resources :photos, :collection => { :untouched => :get }
-  map.resources :albums, :has_many => [ :photos ], :collection => { :untouched => :get }, :member => { :upload => :get}
+  map.resources :albums, :collection => { :untouched => :get }, :member => { :upload => :get}, :has_many => [ :photos ]
+  map.resources :collections
   map.resources :tags, :has_many => [ :photos ]
   
 	map.namespace :admin do |admin|
     admin.resources :users
   end
   
-  map.root :controller => "albums"
+  map.root :controller => "collections"
 
 end

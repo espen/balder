@@ -1,6 +1,7 @@
 <% for photo in @album.photos %>
-<%= link_to image_tag( photo.public_path_modified("album") ), photo %>
+<%= link_to image_tag( photo.path_modified_public("album") ), photo %>
 <% end %>
 
 <br /><%= link_to "Update album", edit_album_path(@album) %>
+<br /><%= link_to "Upload photos", upload_album_path(@album) %>
 <br /><%= link_to "All albums", albums_path %>

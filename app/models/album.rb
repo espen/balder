@@ -1,5 +1,7 @@
 class Album < ActiveRecord::Base
   has_many :photos, :dependent => :destroy
+  has_many :collection_albums
+  has_many :collections, :through => :collection_albums
 
   validates_uniqueness_of :path, :message => "Album already exsists on disc"
 
@@ -9,45 +11,69 @@ class Album < ActiveRecord::Base
 
   attr_accessor :tag_list
   attr_protected :path
+
   
-  protected
+
+  def self.untouched
+    self.find(:all, :conditions => "Albums.Id IN ( SELECT DISTINCT Photos.Album_Id FROM Photos WHERE Photos.description IS NULL AND Photos.Id NOT IN ( SELECT Photo_ID FROM Photo_Tags) )" )
+  end
+
   
   def ensure_path
     self.path = self.title if !self.path
   end
   
   def tag_list
+    # should maybe cache this to databse?
+    
     tags = Array.new
     self.photos.map{ |photo|
         if photo.tags.empty?
+          # photo has no tags => no unversial tags for this album
           return
         else
           photo.tags
-        end }.each_with_index{ |tag,i|
-          puts tag.inspect
-            tag.each { |t|
-              puts t.title
-              puts i
-            if i == 0
-              tags.push(t.title)
-            elsif !tags.include?(t.title)
-              tags.delete(t.title)
-            end
-          }
-        }
-    return tags.join(" ")
+        end
+    }.each_with_index{ |photo_tags,i|
+        # returns tag collection for each photo
+        if i == 0
+          tags = photo_tags
+        else
+          # combine arrays if they have identical tags.
+          # Will remove tags that are only tagged to one photo
+          tags = tags & photo_tags
+        end
+    }
+    return tags.collect{|tag| tag.title }.join(" ")
   end
-
+  
   def tag_list=(tags)
     return if tags == self.tag_list
+    current_tags = self.tag_list.split(" ")
+    tags = tags.split(" ")
     
-    #TODO HERE!
-    ts = Array.new
-    tags.split(" ").each do |tag|
-      ts.push( Tag.find_or_create_by_title( :title => tag) )
+    # find tags that should be removed from this album - thus remove from all photos in album
+    # i.e. tags listed in self.tag_list but no in parameter tags
+    #current_tags.map {|tag|tag if !tags.include?(tag) }.compact
+    (current_tags - tags).each { |tag|
+      #puts "remove #{tag}"
+      self.photos.each {|photo|
+        #TODO in photo model
+        #photo.tag_remove( tag )
+      }
+    }
+
+    # add universial tags to all photos in album
+    tags.each do |tag|
+      #puts "tag photos with #{tag}" if !current_tags.include?( tag )
+      self.photos.each { |photo|
+        #TODO in photo model
+        #photo.tag_with( tag ) if !current_tags.include?( tag ) # no need to re-tag
+      }
     end
-    self.tags = ts
-  end  
+  end
+  protected
+
   private
   
   def create_folders

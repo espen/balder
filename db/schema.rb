@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090529155414) do
+ActiveRecord::Schema.define(:version => 20090602131547) do
 
   create_table "albums", :force => true do |t|
     t.string   "title",       :null => false
@@ -21,6 +21,20 @@ ActiveRecord::Schema.define(:version => 20090529155414) do
     t.float    "longitude"
     t.float    "latitude"
     t.text     "note"
+  end
+
+  create_table "collection_albums", :force => true do |t|
+    t.integer  "collection_id"
+    t.integer  "album_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "collections", :force => true do |t|
+    t.string   "title",       :null => false
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "photo_tags", :force => true do |t|
@@ -37,6 +51,8 @@ ActiveRecord::Schema.define(:version => 20090529155414) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "path"
+    t.float    "longitude"
+    t.float    "latitude"
   end
 
   create_table "tags", :force => true do |t|

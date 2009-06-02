@@ -98,6 +98,7 @@ if(jQuery)(
 						for (var name in settings.scriptData) {
 							scriptDataString += '&' + name + '=' + settings.scriptData[name];
 						}
+						alert( scriptDataString )
 						data += '&scriptData=' + escape(scriptDataString); 
 					}
 					data += '&btnWidth=' + settings.width;

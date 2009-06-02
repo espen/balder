@@ -19,11 +19,6 @@ Rails::Initializer.run do |config|
 
   config.i18n.default_locale = 'no-NB'
 
-  config.action_controller.session = {
-    :session_key => '_gallery_session',
-    :secret      => '060feafeop90cuepaiam324eoimxeaioa2b4220c445486dace48f53fc0a0d4ec4e8de033e1db323628d66b6cx990loibjustintime99'
-  }
-
   config.action_mailer.smtp_settings = {
     :address        => "smtp.gmail.com",
     :port           => 587,

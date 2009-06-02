@@ -1,4 +1,4 @@
 <li>
-	<a href="<%= photo.public_path_modified("large") %>" title="<%= photo.title %>">
-	<%= image_tag photo.public_path_modified("album"), { :id => 'thumb_' + photo.id.to_s } %></a>
+	<a href="<%= photo.path_modified_public("large") %>" title="<%= photo.title %>">
+	<%= image_tag photo.path_modified_public("album"), { :id => 'thumb_' + photo.id.to_s } %></a>
 </li>

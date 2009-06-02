@@ -1,8 +1,9 @@
 <h1><%= @photo.title%></h1>
-<%= image_tag @photo.public_path_modified("large") %>
+<%= image_tag @photo.path_modified_public("large") %>
 
 <br/>
 Tagged with: <%= @photo.tag_list %>
 <p><%= @photo.description %></p>
 <br /><%= link_to "Update photo details", edit_photo_path(@photo) %>
+<br /><%= link_to "Back to #{@photo.album.title}", @photo.album %>
 <br /><%= link_to "All albums", albums_path %>

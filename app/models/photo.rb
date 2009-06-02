@@ -9,7 +9,9 @@ class Photo < ActiveRecord::Base
   validates_uniqueness_of :path, :message => "Photo already exsists on disc"
   validates_presence_of :title
   
-  before_create :create_thumbnails, :read_exif
+  before_create :exif_read
+  after_create :create_thumbnails
+  before_update :exif_write # should only write if tags are changed as images can be large and thus ExifTool will take a while to write to the file
   before_destroy :destroy_file
 
   attr_accessor :tag_list
@@ -20,20 +22,16 @@ class Photo < ActiveRecord::Base
     self.find(:all, :conditions => "Photos.description IS NULL AND Photos.Id NOT IN ( SELECT Photo_ID FROM Photo_Tags)", :include => :album )
   end
   
-  def path_original
-    return APP_CONFIG[:photos_path] + self.path
+  def extension
+    return File.extname(self.path_original)
   end
   
   def path_original_public
     return APP_CONFIG[:photos_path_public] + self.path
   end
 
-  def path_modified(size)
-    return APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_" + size + ".jpg"
-  end
-
   def path_modified_public(size)
-    return APP_CONFIG[:thumbs_path_public] + self.album.path + "/" + self.id.to_s + "_" + size + ".jpg"
+    return APP_CONFIG[:thumbs_path_public] + self.album.path + "/" + self.id.to_s + "_" + size + self.extension
   end
 
   
@@ -49,40 +47,6 @@ class Photo < ActiveRecord::Base
     self.tags = ts
   end
   
-  
-  def create_thumbnails
-    ImageScience.with_image(APP_CONFIG[:photos_path] + self.path) do |img|
-        #puts "    thumbing it..thumbing it.."
-        ext = File.extname( APP_CONFIG[:photos_path] + self.path )
-
-        img.thumbnail(85) do |thumb|
-          thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_thumb" + ext
-        end
-        img.thumbnail(150) do |thumb|
-          thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_album" + ext
-        end
-        img.thumbnail(800) do |thumb|
-          thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_large" + ext
-        end
-    end
-  end
-  
-  def read_exif
-    photo = MiniExiftool.new(self.path_original)
-    self.longitude = photo.GPSLongitude
-    self.latitude = photo.GPSLatitude
-    self.title = photo.DocumentName
-    self.description = photo.ImageDescription
-  end
-  
-  def write_exif
-    photo = MiniExiftool.new(self.path_original)
-    photo.GPSLongitude = self.longitude
-    photo.GPSLatitude = self.latitude
-    photo.DocumentName = self.title
-    photo.ImageDescription = self.description
-    photo.save
-  end
   
   def exif_info
     photo = MiniExiftool.new(self.path_original)
@@ -101,10 +65,55 @@ class Photo < ActiveRecord::Base
     File.open(APP_CONFIG[:photos_path] + self.path, "wb") { |f| f.write(data.read) }
   end
 
+  protected
+  
+  def path_original
+    return APP_CONFIG[:photos_path] + self.path
+  end
+
+  def path_modified(size)
+    return APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_" + size + self.extension
+  end
+  
   
   private
+
+  def create_thumbnails
+    ImageScience.with_image(APP_CONFIG[:photos_path] + self.path) do |img|
+        #puts "    thumbing it..thumbing it.."
+        ext = File.extname( APP_CONFIG[:photos_path] + self.path )
+
+        img.thumbnail(85) do |thumb|
+          thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_thumb" + ext
+        end
+        img.thumbnail(150) do |thumb|
+          thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_album" + ext
+        end
+        img.thumbnail(800) do |thumb|
+          thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_large" + ext
+        end
+    end
+  end
+
+  def exif_read
+    photo = MiniExiftool.new(self.path_original)
+    self.longitude = photo.GPSLongitude if self.longitude.nil?
+    self.latitude = photo.GPSLatitude if self.latitude.nil?
+    self.title = photo.DocumentName if self.title.nil?
+    self.description = photo.ImageDescription if self.description.nil?
+    self.tag_list = photo.Keywords.map { |tag| tag.gsub(" ", "_") }.join(" ") if self.tags.empty? && !photo.Keywords.nil?
+  end
   
-  
+  def exif_write
+    photo = MiniExiftool.new(self.path_original)
+    photo.GPSLongitude = self.longitude
+    photo.GPSLatitude = self.latitude
+    photo.DocumentName = self.title
+    photo.ImageDescription = self.description
+    photo.Keywords = self.tags
+    photo.save
+  end
+
   def destroy_file
     #puts "DELETE THUMBS OF " + APP_CONFIG[:photos_path] + self.path
     #File.delete( APP_CONFIG[:photos_path] + self.path  ) if File.exists?( APP_CONFIG[:photos_path] + self.path )

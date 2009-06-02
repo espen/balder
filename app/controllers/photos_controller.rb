@@ -45,10 +45,13 @@ class PhotosController < ApplicationController
       @photo = Photo.new(params[:photo])
       if params[:Filedata]
         @photo.swf_uploaded_data = params[:Filedata]
-        @photo.save!
-
-        format.html { render :text => "FILEID:" + @photo.public_path_modified("album") }
-        format.xml  { render :nothing => true }
+        if @photo.save
+          format.html { render :text => "FILEID:" + @photo.path_modified_public("album") }
+          format.xml  { render :nothing => true }
+        else
+          format.html { render :text => "ERRORS:" + @photo.errors.full_messages.join(" "), :status => 500 }
+          format.xml  { render :xml => @photo.errors, :status => 500 }
+        end
       else
         if @photo.save
           flash[:notice] = 'Created'
