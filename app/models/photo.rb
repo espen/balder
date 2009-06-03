@@ -22,9 +22,6 @@ class Photo < ActiveRecord::Base
     self.find(:all, :conditions => "Photos.description IS NULL AND Photos.Id NOT IN ( SELECT Photo_ID FROM Photo_Tags)", :include => :album )
   end
   
-  def extension
-    return File.extname(self.path_original)
-  end
   
   def path_original_public
     return APP_CONFIG[:photos_path_public] + self.path
@@ -32,6 +29,21 @@ class Photo < ActiveRecord::Base
 
   def path_modified_public(size)
     return APP_CONFIG[:thumbs_path_public] + self.album.path + "/" + self.id.to_s + "_" + size + self.extension
+  end
+  
+  def tag(title)
+    return if self.tags.collect{|tag|tag.title}.include?( title )
+    self.photo_tags.create(:tag => Tag.find_or_create_by_title( :title => title) )
+    self.reload
+  end
+  
+  def untag(title)
+    return if !self.tags.collect{|tag|tag.title}.include?( title )
+    # perhaps not the best way but it finds the correct PhotoTag and deletes it
+    self.photo_tags.select{|photo_tag|
+      photo_tag.tag.title == title
+    }.each {|photo_tag|photo_tag.destroy}
+    self.reload
   end
 
   
@@ -67,6 +79,11 @@ class Photo < ActiveRecord::Base
 
   protected
   
+  
+  def extension
+    return File.extname(self.path_original)
+  end
+
   def path_original
     return APP_CONFIG[:photos_path] + self.path
   end
@@ -75,8 +92,8 @@ class Photo < ActiveRecord::Base
     return APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_" + size + self.extension
   end
   
-  
   private
+
 
   def create_thumbnails
     ImageScience.with_image(APP_CONFIG[:photos_path] + self.path) do |img|

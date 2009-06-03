@@ -44,11 +44,11 @@ class Album < ActiveRecord::Base
           tags = tags & photo_tags
         end
     }
-    return tags.collect{|tag| tag.title }.join(" ")
+    return tags.collect{|tag| tag.title }.sort.join(" ")
   end
   
   def tag_list=(tags)
-    return if tags == self.tag_list
+    return if tags.split(" ").sort.join(" ") == self.tag_list
     current_tags = self.tag_list.split(" ")
     tags = tags.split(" ")
     
@@ -58,8 +58,7 @@ class Album < ActiveRecord::Base
     (current_tags - tags).each { |tag|
       #puts "remove #{tag}"
       self.photos.each {|photo|
-        #TODO in photo model
-        #photo.tag_remove( tag )
+        photo.untag( tag )
       }
     }
 
@@ -67,8 +66,7 @@ class Album < ActiveRecord::Base
     tags.each do |tag|
       #puts "tag photos with #{tag}" if !current_tags.include?( tag )
       self.photos.each { |photo|
-        #TODO in photo model
-        #photo.tag_with( tag ) if !current_tags.include?( tag ) # no need to re-tag
+        photo.tag( tag ) if !current_tags.include?( tag ) # no need to re-tag
       }
     end
   end
