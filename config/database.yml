@@ -10,8 +10,11 @@ production:
     password: changeme
     database: gallery_production
     socket: /var/run/mysqld/mysqld.sock
-test:
+test: &TEST
     adapter: postgresql
     database: gallery_test
     username: gallery
     password: changeme
+
+cucumber:
+  <<: *TEST
