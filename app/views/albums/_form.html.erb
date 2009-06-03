@@ -1,3 +1,9 @@
+<% content_for :javascript do %>
+<script src="/javascripts/tag/tag.js" type="text/javascript" charset="utf-8"></script>
+<% end %>
+
+<%= hidden_field_tag :all_tags, "'#{Tag.find(:all).map { |tag| tag.title }.join('\',\'')}'" %>
+
 <%= form.label :title, :Title, {:class => 'big'} %><br />
 <%= form.text_field :title, {:class => 'big'} %><br />
 <%= form.label :description %><br />
@@ -10,7 +16,7 @@
 <%= form.text_area :note %><br />
 
 <%= form.label :tag_list %><br />
-<%= form.text_field :tag_list, { :autocomplete => "off"} %><br />
+<%= form.text_field :tag_list, { :autocomplete => "off", :class => 'tag_list'} %><br />
 
 <br />
 <% if @album.path? %>

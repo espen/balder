@@ -7,8 +7,8 @@ $(document).ready(function() {
 			uploader:'/javascripts/jquery.uploadify-v1.6.2.mit/uploader.swf',
 			script:'<%= photos_path %>',
 			scriptData: {
-				'<%= get_session_key %>' : '<%= u cookies[get_session_key] %>',
-				'<%= request_forgery_protection_token %>' : '<%= u form_authenticity_token %>',
+				'<%= get_session_key %>' : encodeURIComponent('<%= u cookies[get_session_key] %>'),
+				'<%= request_forgery_protection_token %>' : encodeURIComponent('<%= u form_authenticity_token %>'),
 				'photo[album_id]' : "<%= @album.id %>"
 			},
 			cancelImg:'/javascripts/jquery.uploadify-v1.6.2.mit/cancel.png',

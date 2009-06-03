@@ -6,6 +6,6 @@
 <%= form.text_field :title %><br />
 <br />
 <%= form.label :tag_list %><br />
-<%= form.text_field :tag_list, { :autocomplete => "off"} %><br />
+<%= form.text_field :tag_list, { :autocomplete => "off", :class => 'tag_list'} %><br />
 <br/>
 <p>On disk: ~/<%= @photo.path %></p>

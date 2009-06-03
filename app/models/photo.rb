@@ -54,7 +54,7 @@ class Photo < ActiveRecord::Base
   def tag_list=(tags)
     ts = Array.new
     tags.split(" ").each do |tag|
-      ts.push( Tag.find_or_create_by_title( :title => tag) )
+      ts.push( Tag.find_or_create_by_title( :title => tag.downcase) )
     end
     self.tags = ts
   end
@@ -118,7 +118,7 @@ class Photo < ActiveRecord::Base
     self.latitude = photo.GPSLatitude if self.latitude.nil?
     self.title = photo.DocumentName if self.title.nil?
     self.description = photo.ImageDescription if self.description.nil?
-    self.tag_list = photo.Keywords.map { |tag| tag.gsub(" ", "_") }.join(" ") if self.tags.empty? && !photo.Keywords.nil?
+    self.tag_list = (self.tags.empty? ? "" : self.album.tag_list) + " " + (photo.Keywords.map { |tag| tag.gsub(" ", "_") }.join(" ") if !photo.Keywords.nil?)
   end
   
   def exif_write
@@ -130,12 +130,12 @@ class Photo < ActiveRecord::Base
     photo.Keywords = self.tags
     photo.save
   end
-
+  
   def destroy_file
     #puts "DELETE THUMBS OF " + APP_CONFIG[:photos_path] + self.path
-    #File.delete( APP_CONFIG[:photos_path] + self.path  ) if File.exists?( APP_CONFIG[:photos_path] + self.path )
-    File.delete( APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_thumb" + File.extname( APP_CONFIG[:photos_path] + self.path ) ) if File.exists?( APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_small" + File.extname( APP_CONFIG[:photos_path] + self.path ) )
-    File.delete( APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_album" + File.extname( APP_CONFIG[:photos_path] + self.path ) ) if File.exists?( APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_small" + File.extname( APP_CONFIG[:photos_path] + self.path ) )
+    File.delete( APP_CONFIG[:photos_path] + self.path  ) if File.exists?( APP_CONFIG[:photos_path] + self.path )
+    File.delete( APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_thumb" + File.extname( APP_CONFIG[:photos_path] + self.path ) ) if File.exists?( APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_thumb" + File.extname( APP_CONFIG[:photos_path] + self.path ) )
+    File.delete( APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_album" + File.extname( APP_CONFIG[:photos_path] + self.path ) ) if File.exists?( APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_album" + File.extname( APP_CONFIG[:photos_path] + self.path ) )
     File.delete( APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_large" + File.extname( APP_CONFIG[:photos_path] + self.path ) ) if File.exists?( APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_large" + File.extname( APP_CONFIG[:photos_path] + self.path ) )
   end
 end

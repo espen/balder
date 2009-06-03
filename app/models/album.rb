@@ -24,7 +24,8 @@ class Album < ActiveRecord::Base
   end
   
   def tag_list
-    # should maybe cache this to databse?
+    # should maybe cache this to database?
+    # should maybe return array instead?
     
     tags = Array.new
     self.photos.map{ |photo|
@@ -49,7 +50,7 @@ class Album < ActiveRecord::Base
   
   def tag_list=(tags)
     return if tags.split(" ").sort.join(" ") == self.tag_list
-    current_tags = self.tag_list.split(" ")
+    current_tags = ( self.tag_list.nil? ? [] : self.tag_list.split(" ") )
     tags = tags.split(" ")
     
     # find tags that should be removed from this album - thus remove from all photos in album
@@ -81,7 +82,7 @@ class Album < ActiveRecord::Base
   
   def destroy_directory
     #puts "DELETE DIRECTORY " + APP_CONFIG[:photos_path] + self.path
-    #Dir.delete( APP_CONFIG[:photos_path] + self.path + "/" ) if File.exists?( APP_CONFIG[:photos_path] + self.path )
-    #Dir.delete( APP_CONFIG[:thumbs_path] + self.path  ) if File.exists?( APP_CONFIG[:thumbs_path] + self.path )
+    Dir.delete( APP_CONFIG[:thumbs_path] + self.path  ) if File.exists?( APP_CONFIG[:thumbs_path] + self.path )
+    Dir.delete( APP_CONFIG[:photos_path] + self.path + "/" ) if File.exists?( APP_CONFIG[:photos_path] + self.path )
   end
 end
