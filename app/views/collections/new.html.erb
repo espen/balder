@@ -1,0 +1,9 @@
+<h1>New collection</h1>
+ 
+<% form_for @collection do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "form", :object => f %>
+  <%= f.submit "Create" %>
+<% end %>
+ 
+<br /><%= link_to "All collections", collections_path %>

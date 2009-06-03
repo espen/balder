@@ -1,1 +1,6 @@
+<h1><%= h @collection.title %></h1>
+<p><%= h @collection.description %></p>
 <%= render :partial => @collection.albums %>
+
+<br /><%= link_to "Update collection", edit_collection_path(@collection) %>
+<br /><%= link_to "All collections", collections_path %>

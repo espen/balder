@@ -1,0 +1,12 @@
+<h1>Edit collection</h1>
+ 
+<% form_for @collection do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "form", :object => f %>
+  <%= f.submit "Update" %>
+<% end %>
+
+<br /><%= link_to("Delete collection", { :action => "destroy", :id => @collection },
+  :confirm => "Are you sure you want to delete this collection?",
+  :method => :delete) %>
+<br /><%= link_to "All collections", collections_path %>
