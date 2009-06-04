@@ -1,5 +1,12 @@
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
 
+
+Given /^the following (.+) records?$/ do |factory, table|
+  table.hashes.each do |hash|
+    Factory(factory, hash)
+  end
+end
+
 # Commonly used webrat steps
 # http://github.com/brynary/webrat
 

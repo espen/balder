@@ -4,9 +4,6 @@
 <br/>
 Tagged with: <%= @photo.tag_list %>
 <p><%= @photo.description %></p>
-<% if @current_user.role.access_to("photo_note") %>
-<p><%= @photo.note %></p>
-<% end %>
 <br /><%= link_to "Update photo details", edit_photo_path(@photo) %>
 <br /><%= link_to "Back to #{@photo.album.title}", @photo.album %>
 <br /><%= link_to "All albums", albums_path %>

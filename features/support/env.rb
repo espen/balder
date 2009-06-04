@@ -8,10 +8,12 @@ Cucumber::Rails.bypass_rescue # Comment out this line if you want Rails own erro
                               # (e.g. rescue_action_in_public / rescue_responses / rescue_from)
 
 require 'webrat'
-
 Webrat.configure do |config|
   config.mode = :rails
 end
 
-require 'cucumber/rails/rspec'
-require 'webrat/core/matchers'
+#require 'cucumber/rails/rspec'
+#require 'webrat/core/matchers'
+#require 'factory_girl'
+
+require "#{Rails.root}/spec/factories"

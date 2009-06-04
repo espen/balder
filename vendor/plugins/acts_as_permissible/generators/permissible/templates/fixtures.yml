@@ -1,0 +1,48 @@
+one:
+    id: 1
+    permissible_id: 7
+    permissible_type: "<%= class_name %>"
+    action: "view_something"
+    granted: 1
+two:
+    id: 2
+    permissible_id: 7
+    permissible_type: "<%= class_name %>"
+    action: "delete_something"
+    granted: 0
+three:
+    id: 3
+    permissible_id: 8
+    permissible_type: "<%= class_name %>"
+    action: "view_something"
+    granted: 1
+four:
+    id: 4
+    permissible_id: 8
+    permissible_type: "<%= class_name %>"
+    action: "delete_something"
+    granted: 1
+five:
+    id: 5
+    permissible_id: 8
+    permissible_type: "<%= class_name %>"
+    action: "update_something"
+    granted: 1
+six:
+    id: 6
+    permissible_id: 8
+    permissible_type: "<%= class_name %>"
+    action: "create_something"
+    granted: 0
+perm:
+    id: 7
+    permissible_id: 47
+    permissible_type: "User"
+    action: "non_important"
+    granted: 1
+perm2:
+    id: 8
+    permissible_id: 48
+    permissible_type: "User"
+    action: "non_important"
+    granted: 1

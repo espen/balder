@@ -10,6 +10,10 @@ module NavigationHelpers
     
     when /the homepage/
       '/'
+    when /the list of albums/
+        albums_path
+    when /the list of collections/
+      collections_path
     
     # Add more mappings here.
     # Here is a more fancy example:

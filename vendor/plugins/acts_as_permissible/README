@@ -1,0 +1,68 @@
+ActsAsPermissible
+=================
+
+Source:
+http://github.com/NoamB/acts_as_permissible/tree/master
+More information at:
+http://github.com/NoamB/acts_as_permissible/wikis
+
+This plugin enables any activerecord model to have permissions.
+It provides a set of methods for querying the model's permissions.
+In addition, the plugin can generate roles support, which turns in into a full RBAC (Role Based Access Control) solution.
+
+Any model which includes the line "acts_as_permissible" can have permissions, and with roles support it can also have roles which in turn have their own permissions.
+Roles can also belong to roles, which creates a sort of inheritance hierarchy.
+When permissions are calculated, the model's permissions are merged with the model's role permissions (if any), which in turn are merged with the role's roles permissions, until a finite permissions hash is generated.
+
+In the case of identical keys, a false value overrides a true value, A true value overrides a nil value, and a nil value is false.
+
+Setup
+=====
+script/generate permissible <PermissionModelName> [RoleModelName]
+
+The role model name is optional. If you do not want the roles support generated, use the --skip-roles option.
+
+examples: script/generate permissible Permission Role
+		  script/generate permissible Permission Group
+		  script/generate permissible Allowance --skip-roles
+
+use --skip-migration if you don't want a migration created for the permissions model.
+
+use --rspec to force rspec tests installed (currenty these are the only ones available).
+
+Add any permissions you want to your permissions table.
+Add any roles you want to your roles table.
+Add user->role relationships in your roles_memberships table.
+Add role->role relationships in your roles_memberships table.
+
+Usage
+=====
+
+	class User < Activerecord::Base
+		acts_as_permissible
+	end
+
+Now a user will have the following methods:
+
+	@user.permissions_hash() # => {:view_something => true, :delete_something => false}
+
+	@user.has_permission?("view_something") # => true
+	@user.has_permission?("view_something", "delete_something") # => false
+	@user.has_permission?("delete_something") # => false
+	@user.has_permission?("create_something") # => false
+
+	@user.permissions_hash() # => {:view_something => true, :delete_something => false}
+	@user.permissions << Permission.new(:action => "new_thing", :granted => true)
+	@user.permissions_hash() # => {:view_something => true, :delete_something => false}
+	@user.reload_permissions!() # => {:view_something => true, :delete_something => false, :new_thing => true}
+	@user.permissions_hash() # => {:view_something => true, :delete_something => false, :new_thing => true}
+	# this is useful for getting the hash again into memory after the permissions table was updated.
+
+And with roles support:
+
+	@user.in_role?("publisher") # => true
+	@user.in_role?("publisher","advertiser") # => false
+	@user.in_any_role?("publisher","advertiser") => true
+	@user.full_permissions_hash() # will return a merged hash of user and roles permissions.
+
+Copyright (c) 2008 Noam Ben-Ari, released under the MIT license

@@ -19,3 +19,6 @@ config.gem "cucumber",    :lib => false,        :version => ">=0.3.9"
 config.gem "webrat",      :lib => false,        :version => ">=0.4.4"
 config.gem "rspec",       :lib => false,        :version => ">=1.2.6"
 config.gem "rspec-rails", :lib => 'spec/rails', :version => ">=1.2.6"
+config.gem "thoughtbot-factory_girl",
+             :lib    => "factory_girl",
+             :source => "http://gems.github.com"

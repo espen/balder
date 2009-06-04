@@ -1,0 +1,25 @@
+publishers_to_customers:
+    id: 1
+    roleable_id: 1 
+    roleable_type: "<%= role_model_name %>"
+    <%= role_model_file_name %>_id: 3
+advertisers_to_customers:
+    id: 2
+    roleable_id: 2
+    roleable_type: "<%= role_model_name %>"
+    <%= role_model_file_name %>_id: 3
+admins_to_company:
+    id: 3
+    roleable_id: 5
+    roleable_type: "<%= role_model_name %>"
+    <%= role_model_file_name %>_id: 4
+company_to_admins:
+    id: 4
+    roleable_id: 4
+    roleable_type: "<%= role_model_name %>"
+    <%= role_model_file_name %>_id: 5
+publishers_to_company:
+    id: 5
+    roleable_id: 1
+    roleable_type: "<%= role_model_name %>"
+    <%= role_model_file_name %>_id: 4

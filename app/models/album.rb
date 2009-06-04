@@ -7,7 +7,7 @@ class Album < ActiveRecord::Base
 
   before_validation :ensure_path
   after_create :create_folders
-  before_destroy :destroy_directory
+  after_destroy :destroy_folders
 
   attr_accessor :tag_list
   attr_protected :path
@@ -80,9 +80,9 @@ class Album < ActiveRecord::Base
     Dir.mkdir( APP_CONFIG[:thumbs_path] + self.path ) 
   end
   
-  def destroy_directory
+  def destroy_folders
     #puts "DELETE DIRECTORY " + APP_CONFIG[:photos_path] + self.path
     Dir.delete( APP_CONFIG[:thumbs_path] + self.path  ) if File.exists?( APP_CONFIG[:thumbs_path] + self.path )
-    Dir.delete( APP_CONFIG[:photos_path] + self.path + "/" ) if File.exists?( APP_CONFIG[:photos_path] + self.path )
+    Dir.delete( APP_CONFIG[:photos_path] + self.path ) if File.exists?( APP_CONFIG[:photos_path] + self.path )
   end
 end

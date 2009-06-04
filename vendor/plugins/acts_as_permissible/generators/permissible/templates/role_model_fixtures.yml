@@ -1,0 +1,15 @@
+publishers:
+    id: 1
+    name: "Publishers"
+advertisers:
+    id: 2
+    name: "Advertisers"
+customers:
+    id: 3
+    name: "Customers"
+company:
+    id: 4
+    name: "Company"
+admins:
+    id: 5
+    name: "Admins"
