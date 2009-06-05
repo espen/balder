@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090602131547) do
+ActiveRecord::Schema.define(:version => 20090604202930) do
 
   create_table "albums", :force => true do |t|
     t.string   "title",       :null => false
@@ -37,6 +37,15 @@ ActiveRecord::Schema.define(:version => 20090602131547) do
     t.datetime "updated_at"
   end
 
+  create_table "permissions", :force => true do |t|
+    t.integer  "permissible_id"
+    t.string   "permissible_type"
+    t.string   "action"
+    t.boolean  "granted"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "photo_tags", :force => true do |t|
     t.integer  "tag_id"
     t.integer  "photo_id"
@@ -53,6 +62,20 @@ ActiveRecord::Schema.define(:version => 20090602131547) do
     t.text     "path"
     t.float    "longitude"
     t.float    "latitude"
+  end
+
+  create_table "role_memberships", :force => true do |t|
+    t.integer  "roleable_id"
+    t.string   "roleable_type"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tags", :force => true do |t|

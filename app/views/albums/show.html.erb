@@ -1,5 +1,10 @@
+<h1><%= @album.title %></h1>
 <% for photo in @album.photos %>
 <%= link_to image_tag( photo.path_modified_public("album") ), photo %>
+<% end %>
+<p><%= @album.description %></p>
+<% if current_user && current_user.has_permission?("see_album_note") %>
+<p><%= @album.note %></p>
 <% end %>
 
 <br /><%= link_to "Update album", edit_album_path(@album) %>

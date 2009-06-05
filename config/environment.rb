@@ -11,7 +11,8 @@ Rails::Initializer.run do |config|
 
   config.gem "authlogic"  
   config.gem 'mime-types', :lib => 'mime/types'
-  #config.gem "image_science"
+  config.gem "image_science"
+  config.gem "mini_exiftool"
   
   config.load_paths += %W( #{RAILS_ROOT}/app/middleware )
 
@@ -19,12 +20,4 @@ Rails::Initializer.run do |config|
 
   config.i18n.default_locale = 'no-NB'
 
-  config.action_mailer.smtp_settings = {
-    :address        => "smtp.gmail.com",
-    :port           => 587,
-    :domain         => "espen@inspired.no",
-    :authentication => :plain,
-    :user_name      => "espen@inspired.no",
-    :password       => "tkg5megmeg"
-  }
 end
