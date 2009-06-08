@@ -38,4 +38,11 @@ Put photos in containing folders(albums) in the specified gallery folder. This f
 ./trip to iran/mosque in yazd.jpg
 ./trip to iran/powder snow in dizin.jpg
 
-Each folder => album
+Every time you manually add photos to disk you must run:
+
+	require "scan"
+	ScanFiles.FullScan
+
+In future releases this will be automated.
+
+Uploads will be written to the database and thus no need to manually scan the folders.

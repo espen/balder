@@ -15,7 +15,7 @@ class Photo < ActiveRecord::Base
   before_destroy :destroy_file
 
   attr_accessor :tag_list
-  attr_protected :path
+  #attr_protected :path
   
   named_scope :untouched, :conditions => "Photos.description IS NULL AND Photos.Id NOT IN ( SELECT Photo_ID FROM Photo_Tags)", :include => :album 
   
@@ -109,6 +109,9 @@ class Photo < ActiveRecord::Base
   end
 
   def exif_read
+    puts "exif"
+    puts self.path
+    puts self.path_original
     photo = MiniExiftool.new(self.path_original)
     self.longitude = photo.GPSLongitude if self.longitude.nil?
     self.latitude = photo.GPSLatitude if self.latitude.nil?
