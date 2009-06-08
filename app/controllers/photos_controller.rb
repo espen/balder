@@ -1,14 +1,16 @@
 class PhotosController < ApplicationController
 
-  before_filter :require_role_admin, :only => [:untouched, :new, :create, :edit, :update, :destroy]
+  before_filter :require_role_admin, :only => [:untouched, :upload, :new, :create, :edit, :update, :destroy]
 
   def index
     if params[:tag_id]
       @photos = Tag.find_by_title( params[:tag_id] ).photos
+    elsif params[:album_id]
+      @photos = Album.find( params[:album_id]).photos.find(:all)
     elsif params[:q]
       @photos = Photo.find(:all, :limit => 20, :conditions => [ "Photos.description LIKE :q OR Photos.title LIKE :q OR Photos.Id IN ( SELECT Photo_Id FROM Photo_Tags LEFT OUTER JOIN Tags ON Photo_Tags.Tag_Id = Tags.Id WHERE Tags.Title LIKE :q) ", { :q => '%' + params[:q] + '%' } ], :include => :album )
     else
-      @photos = Photo.find(:all, :limit => 20)
+      @photos = Photo.find(:all)
     end
     respond_to do |format|
       format.html
@@ -18,7 +20,12 @@ class PhotosController < ApplicationController
   end
   
   def untouched
-    @photos = Photo.untouched()
+    if params[:album_id]
+      @album = Album.find( params[:album_id])
+      @photos = @album.photos.untouched
+    else
+      @photos = Photo.untouched()
+    end
     respond_to do |format|
       format.html
       format.json  { render :json => @photos }
@@ -37,6 +44,10 @@ class PhotosController < ApplicationController
 
   def new
     @photo = Photo.new
+  end
+
+  def upload
+    @album = Album.find( params[:album_id])
   end
 
   def create
@@ -68,14 +79,31 @@ class PhotosController < ApplicationController
     @photo = Photo.find( params[:id])
   end
 
+  def edit_multiple
+    if params[:album_id]
+      @photos = Album.find( params[:album_id] ).photos
+    else
+      @photos = Photo.find( params[:photo_ids] )
+    end
+  end
+
   def update
     @photo = Photo.find( params[:id])
     if @photo.update_attributes(params[:photo])
-      flash[:notice] = "Account updated!"
+      flash[:notice] = "Photo updated!"
       redirect_to @photo
     else
       render :action => :edit
     end
+  end
+
+  def update_multiple
+    @photos = Photo.find(params[:photo_ids])
+    @photos.each do |photo|
+      photo.update_attributes!(params[:photo].reject { |k,v| v.blank? })
+    end
+    flash[:notice] = "Updated photos!"
+    redirect_to photos_path
   end
   
   def destroy

@@ -1,6 +1,6 @@
 class AlbumsController < ApplicationController
 
-  before_filter :require_role_admin, :only => [:untouched, :upload, :new, :create, :edit, :update, :destroy]
+  before_filter :require_role_admin, :only => [:untouched, :new, :create, :edit, :update, :destroy]
   
   def index
     if params[:tag_id]
@@ -36,10 +36,6 @@ class AlbumsController < ApplicationController
     end
   end
 
-  def upload
-    @album = Album.find( params[:id])
-  end
-    
   def new
     @album = Album.new
   end
@@ -62,7 +58,7 @@ class AlbumsController < ApplicationController
   def update
     @album = Album.find( params[:id])
     if @album.update_attributes(params[:album])
-      flash[:notice] = "Account updated!"
+      flash[:notice] = "Album updated!"
       redirect_to @album
     else
       render :action => :edit

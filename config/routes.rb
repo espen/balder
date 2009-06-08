@@ -1,19 +1,18 @@
 ActionController::Routing::Routes.draw do |map|
-  #map.resources :users
-  map.resource :user_session
   map.resource :account, :controller => "users"
-  map.signup "signup", :controller => "users", :action => "new"
   map.login "login", :controller => "user_sessions", :action => "new"
+  map.authenticate "authenticate", :controller => "user_sessions", :action => "create"
   map.logout "logout", :controller => "user_sessions", :action => "destroy"
 
-  map.resources :photos, :collection => { :untouched => :get }
-  map.resources :albums, :collection => { :untouched => :get }, :member => { :upload => :get}, :has_many => [ :photos ]
+  map.resources :photos,
+    :collection => { :untouched => :get, :edit_multiple => :post, :update_multiple => :put, :upload => :get }
+  map.resources :albums, :collection => { :untouched => :get} do |album|
+    album.resources :photos, :collection => { :untouched => :get, :upload => :get, :edit_multiple => :get }
+  end
   map.resources :collections
   map.resources :tags, :has_many => [ :photos, :albums ]
   
-	map.namespace :admin do |admin|
-    admin.resources :users
-  end
+  map.resources :users, :controller => "admin/users"
   
   map.root :controller => "collections"
 

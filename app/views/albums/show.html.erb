@@ -3,10 +3,13 @@
 <%= link_to image_tag( photo.path_modified_public("album") ), photo %>
 <% end %>
 <p><%= @album.description %></p>
-<% if current_user && current_user.has_permission?("see_album_note") %>
+<% if has_permission?("see_album_note") %>
 <p><%= @album.note %></p>
 <% end %>
 
+<% if has_role?("admin") %>
 <br /><%= link_to "Update album", edit_album_path(@album) %>
-<br /><%= link_to "Upload photos", upload_album_path(@album) %>
+<br /><%= link_to "Update photos", edit_multiple_album_photos_path(@album) %>
+<br /><%= link_to "Upload photos", upload_album_photos_path(@album) %>
+<% end %>
 <br /><%= link_to "All albums", albums_path %>

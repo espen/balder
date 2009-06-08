@@ -16,12 +16,8 @@ class Photo < ActiveRecord::Base
 
   attr_accessor :tag_list
   attr_protected :path
-
-
-  def self.untouched
-    self.find(:all, :conditions => "Photos.description IS NULL AND Photos.Id NOT IN ( SELECT Photo_ID FROM Photo_Tags)", :include => :album )
-  end
   
+  named_scope :untouched, :conditions => "Photos.description IS NULL AND Photos.Id NOT IN ( SELECT Photo_ID FROM Photo_Tags)", :include => :album 
   
   def path_original_public
     return APP_CONFIG[:photos_path_public] + self.path
@@ -118,7 +114,7 @@ class Photo < ActiveRecord::Base
     self.latitude = photo.GPSLatitude if self.latitude.nil?
     self.title = photo.DocumentName if self.title.nil?
     self.description = photo.ImageDescription if self.description.nil?
-    self.tag_list = (self.tags.empty? ? "" : self.album.tag_list) + " " + (photo.Keywords.map { |tag| tag.gsub(" ", "_") }.join(" ") if !photo.Keywords.nil?)
+    self.tag_list = (self.tags.empty? ? "" : self.album.tag_list) + " " + (photo.Keywords.nil? ? "" : photo.Keywords.map { |tag| tag.gsub(" ", "_") }.join(" "))
   end
   
   def exif_write
