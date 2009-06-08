@@ -2,5 +2,7 @@
 <p><%= h @collection.description %></p>
 <%= render :partial => @collection.albums %>
 
+<% if current_user && current_user.in_role?("admin") %>
 <br /><%= link_to "Update collection", edit_collection_path(@collection) %>
+<% end %>
 <br /><%= link_to "All collections", collections_path %>

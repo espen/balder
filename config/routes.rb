@@ -9,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :photos, :collection => { :untouched => :get }
   map.resources :albums, :collection => { :untouched => :get }, :member => { :upload => :get}, :has_many => [ :photos ]
   map.resources :collections
-  map.resources :tags, :has_many => [ :photos ]
+  map.resources :tags, :has_many => [ :photos, :albums ]
   
 	map.namespace :admin do |admin|
     admin.resources :users

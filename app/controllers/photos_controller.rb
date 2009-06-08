@@ -1,5 +1,6 @@
 class PhotosController < ApplicationController
-  before_filter :require_user, :only => [:new, :create, :edit, :update, :destroy]
+
+  before_filter :require_role_admin, :only => [:untouched, :new, :create, :edit, :update, :destroy]
 
   def index
     if params[:tag_id]
@@ -39,8 +40,6 @@ class PhotosController < ApplicationController
   end
 
   def create
-    
-
     respond_to do |format|
       @photo = Photo.new(params[:photo])
       if params[:Filedata]

@@ -1,5 +1,6 @@
 class CollectionsController < ApplicationController
-  before_filter :require_user, :only => [:new, :create, :edit, :update, :delete, :destroy]
+  
+  before_filter :require_role_admin, :only => [:new, :create, :edit, :update, :destroy]
   
   def index
     @collections = Collection.find(:all)
