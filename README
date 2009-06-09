@@ -9,13 +9,13 @@ Made by Espen Antonsen
 * Read and writes EXIF
 * Organize in albums (events in iPhoto)
 * Combine albums in collections (albums in iPhoto)
-* Upload multiple photos (using uploadify)
+* Upload multiple photos
 * Tag photos. Can also tag albums (actually all photos in album is tagged)
 * User management with roles and permissions.
 
 == Requirements
 
-Tested with Ruby 1.8.6 and Rails 2.3
+Rails 2.3
 
 Software
 - FreeImage (required for Image_Science)

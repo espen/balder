@@ -98,9 +98,10 @@ class PhotosController < ApplicationController
   end
 
   def update_multiple
-    @photos = Photo.find(params[:photo_ids])
-    @photos.each do |photo|
-      photo.update_attributes!(params[:photo].reject { |k,v| v.blank? })
+    @photos = params[:photos][:photo]
+    @photos.each do |photo_id|
+      photo = Photo.find( photo_id )
+      photo.update_attributes!(params[:photos][:photo][photo_id].reject { |k,v| v.blank? })
     end
     flash[:notice] = "Updated photos!"
     redirect_to photos_path

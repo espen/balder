@@ -34,4 +34,5 @@ $(document).ready(function() {
 <div id="thumbs"></div>
 </form>
 
+<br /><%= link_to "Edit uploaded photos", untouched_album_photos_path( @album ) %>
 <br /><%= link_to "Back to #{@album.title}", @album %>
