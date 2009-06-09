@@ -1,6 +1,6 @@
 <h1>Edit Account</h1>
  
-<% form_for [:admin, @user] do |f| %>
+<% form_for @user do |f| %>
   <%= f.error_messages %>
   <%= render :partial => "form", :object => f %>
   <%= f.submit "Update" %>
@@ -10,4 +10,4 @@
   :confirm => "Are you sure you want to delete this user?",
   :method => :delete) %>
 
-<br /><%= link_to "All users", admin_users_path %>
+<br /><%= link_to "All users", users_path %>

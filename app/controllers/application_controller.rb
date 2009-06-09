@@ -7,8 +7,11 @@ class ApplicationController < ActionController::Base
 
   filter_parameter_logging :password, :password_confirmation
   helper_method :current_user, :current_user_session
+
+
   
   private
+
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
       @current_user_session = UserSession.find
@@ -19,22 +22,50 @@ class ApplicationController < ActionController::Base
       @current_user = current_user_session && current_user_session.user
     end
 
+    def require_role(roles = [])
+      unless current_user && current_user.in_role?(*roles)
+        store_location
+        flash[:notice] = "You must have permission to access this page"
+        redirect_to account_path
+        return false
+      end
+      return true
+    end
+
+    def require_role_admin
+      return false if !require_user
+      return require_role("admin")
+    end
+    
+    def require_permission(permissions = [])
+      return false if !require_user
+      unless current_user && current_user.has_permission?(*permissions)
+        store_location
+        flash[:notice] = "You must have permission to access this page"
+        redirect_to account_path
+        return false
+      end
+      return true
+    end
+
     def require_user
       unless current_user
         store_location
         flash[:notice] = "You must be logged in to access this page"
-        redirect_to new_user_session_url
+        redirect_to login_path
         return false
       end
+      return true
     end
  
     def require_no_user
       if current_user
         store_location
-        flash[:notice] = "You must be logged out to access this page"
-        redirect_to account_url
+        flash[:notice] = "Already logged in. Please logout"
+        redirect_to account_path
         return false
       end
+      return true
     end
     
     def store_location

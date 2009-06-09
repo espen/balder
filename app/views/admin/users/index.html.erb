@@ -1,3 +1,5 @@
 <% for user in @users %>
-<h2><%= link_to user.name || user.email , [:admin, user] %></h2>
+<h2><%= link_to user.name || user.email , user %></h2>
 <% end %>
+
+<br /><%= link_to "New user", new_user_path %>

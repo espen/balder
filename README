@@ -1,6 +1,17 @@
-== Welcome to Gallery!
+== Welcome to the gallery without a name
 
 Made by Espen Antonsen
+
+== Features
+
+* Stores photos to disk in folders
+* Create various thumbnails
+* Read and writes EXIF
+* Organize in albums (events in iPhoto)
+* Combine albums in collections (albums in iPhoto)
+* Upload multiple photos (using uploadify)
+* Tag photos. Can also tag albums (actually all photos in album is tagged)
+* User management with roles and permissions.
 
 == Requirements
 
@@ -16,3 +27,22 @@ Ruby Gems
 - Image_Science
 - RubyInline (required for Image_Science)
 - Mini_ExifTool
+
+== Installation
+
+Put photos in containing folders(albums) in the specified gallery folder. This format is recommended:
+
+./ski weekend in hemsedal/snow.jpg
+./ski weekend in hemsedal/afterski.jpg
+./trip to iran/beautiful girls in tehran.jpg
+./trip to iran/mosque in yazd.jpg
+./trip to iran/powder snow in dizin.jpg
+
+Every time you manually add photos to disk you must run:
+
+	require "scan"
+	ScanFiles.FullScan
+
+In future releases this will be automated.
+
+Uploads will be written to the database and thus no need to manually scan the folders.

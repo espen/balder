@@ -11,13 +11,10 @@ class Album < ActiveRecord::Base
 
   attr_accessor :tag_list
   attr_protected :path
+  
+  named_scope :untouched, :conditions => "Albums.Id IN ( SELECT DISTINCT Photos.Album_Id FROM Photos WHERE Photos.description IS NULL AND Photos.Id NOT IN ( SELECT Photo_ID FROM Photo_Tags) )"
 
   
-
-  def self.untouched
-    self.find(:all, :conditions => "Albums.Id IN ( SELECT DISTINCT Photos.Album_Id FROM Photos WHERE Photos.description IS NULL AND Photos.Id NOT IN ( SELECT Photo_ID FROM Photo_Tags) )" )
-  end
-
   
   def ensure_path
     self.path = self.title if !self.path

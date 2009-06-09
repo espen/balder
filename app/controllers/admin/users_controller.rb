@@ -1,7 +1,7 @@
 class Admin::UsersController < Admin::ApplicationController
 	
   def index
-    @users = User.find(:all)
+    @users = User.find(:all, :order => "Name, email")
   end
   
   def show
@@ -16,7 +16,7 @@ class Admin::UsersController < Admin::ApplicationController
     @user = User.new(params[:user])
     if @user.save
       flash[:notice] = "Account registered!"
-      redirect_to [:admin, @user]
+      redirect_to @user
     else
       render :action => :new
     end
@@ -30,7 +30,7 @@ class Admin::UsersController < Admin::ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:notice] = "Account updated!"
-      redirect_to [:admin, @user]
+      redirect_to @user
     else
       render :action => :edit
     end
@@ -39,7 +39,7 @@ class Admin::UsersController < Admin::ApplicationController
   def destroy
     @user = User.find(params[:id])
     if @user.destroy
-      redirect_to admin_users_path
+      redirect_to users_path
     else
       redirect_to @user
     end

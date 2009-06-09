@@ -1,6 +1,6 @@
 class CollectionsController < ApplicationController
-  before_filter :require_user, :only => [:new, :create, :edit, :update, :delete, :destroy]
   
+  before_filter :require_role_admin, :only => [:new, :create, :edit, :update, :destroy]  
   def index
     @collections = Collection.find(:all)
     respond_to do |format|
@@ -41,7 +41,7 @@ class CollectionsController < ApplicationController
   def update
     @collection = Collection.find( params[:id])
     if @collection.update_attributes(params[:collection])
-      flash[:notice] = "collection updated!"
+      flash[:notice] = "Collection updated!"
       redirect_to @collection
     else
       render :action => :edit
