@@ -115,7 +115,7 @@ class Photo < ActiveRecord::Base
   end
 
   def exif_read
-    puts "exif"
+    puts "exif read"
     puts self.path
     puts self.path_original
     photo = MiniExiftool.new(self.path_original)
