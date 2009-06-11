@@ -4,7 +4,7 @@
 <% for album in @collection.albums %>
 <div class="row">
   <div class="title">
-	<%= render :partial => "photos/thumb", :locals => {:photo => album.photos.first } %>
+	<%= render :partial => "photos/thumb", :locals => {:photo => album.photos.first } unless album.photos.empty? %>
 	<p><%= link_to album.title, collection_album_path(@collection, album) %></p>
   </div>
   <div class="image">

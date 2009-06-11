@@ -3,7 +3,11 @@
 <% for collection in @collections %>
 	<div class="thumb">
 		<h3><%= link_to collection.title, collection %></h3>
-		<%= render :partial => collection.albums.find(:first) %>
+		<%= render :partial => collection.albums.find(:first), :locals => {:photosize => 'collection'} %>
 	</div>
 <% end %>
 </div>
+
+<% if has_role?("admin") %>
+<br /><%= link_to "New collection", new_collection_path %>
+<% end %>

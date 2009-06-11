@@ -6,7 +6,7 @@
   <%= f.submit "Update" %>
 <% end %>
 
-<br /><%= link_to("Delete collection", { :action => "destroy", :id => @collection },
+<br /><%= link_to("Delete this collection", { :action => "destroy", :id => @collection },
   :confirm => "Are you sure you want to delete this collection?",
   :method => :delete) %>
 <br /><%= link_to "All collections", collections_path %>

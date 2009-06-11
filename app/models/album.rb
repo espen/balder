@@ -4,8 +4,9 @@ class Album < ActiveRecord::Base
   has_many :collections, :through => :collection_albums
 
   validates_uniqueness_of :path, :message => "Album already exsists on disc"
-
-  before_validation :ensure_path
+  validates_presence_of :title, :message => "can't be blank"
+  
+  before_validation :ensure_path, :set_title
   after_create :create_folders
   after_destroy :destroy_folders
 
@@ -21,7 +22,11 @@ class Album < ActiveRecord::Base
   
   
   def ensure_path
-    self.path = self.title if !self.path
+    self.path = self.title unless self.path
+  end
+  
+  def set_title
+    self.title = File.basename( File.dirname(self.path) ) unless self.title || !self.path
   end
   
   def tag_list
@@ -77,13 +82,13 @@ class Album < ActiveRecord::Base
   private
   
   def create_folders
-    Dir.mkdir( APP_CONFIG[:photos_path] + self.path ) if !File.exists?( APP_CONFIG[:photos_path] + self.path )
-    Dir.mkdir( APP_CONFIG[:thumbs_path] + self.path ) if !File.exists?( APP_CONFIG[:photos_path] + self.path ) 
+    Dir.mkdir( APP_CONFIG[:photos_path] + self.path ) unless File.exists?( APP_CONFIG[:photos_path] + self.path )
+    Dir.mkdir( APP_CONFIG[:thumbs_path] + self.path ) unless File.exists?( APP_CONFIG[:thumbs_path] + self.path ) 
   end
   
   def destroy_folders
     #puts "DELETE DIRECTORY " + APP_CONFIG[:photos_path] + self.path
-    Dir.delete( APP_CONFIG[:thumbs_path] + self.path  ) if File.exists?( APP_CONFIG[:thumbs_path] + self.path )
     Dir.delete( APP_CONFIG[:photos_path] + self.path ) if File.exists?( APP_CONFIG[:photos_path] + self.path )
+    Dir.delete( APP_CONFIG[:thumbs_path] + self.path  ) if File.exists?( APP_CONFIG[:thumbs_path] + self.path )
   end
 end

@@ -9,6 +9,7 @@ class Photo < ActiveRecord::Base
   validates_uniqueness_of :path, :message => "Photo already exsists on disc"
   validates_presence_of :title
   
+  before_validation :set_title
   before_create :exif_read
   after_create :create_thumbnails
   before_update :exif_write # should only write if tags are changed as images can be large and thus ExifTool will take a while to write to the file
@@ -23,6 +24,10 @@ class Photo < ActiveRecord::Base
 
   def to_param
      id.to_s + '-' + title.gsub(/[^a-z0-9]+/i, '-')
+  end
+  
+  def set_title
+    self.title = File.basename( File.dirname(path) ).gsub( self.extension, "" ) unless self.title
   end
   
   def path_original_public
@@ -79,6 +84,24 @@ class Photo < ActiveRecord::Base
     File.open(APP_CONFIG[:photos_path] + self.path, "wb") { |f| f.write(data.read) }
   end
 
+
+  def create_thumbnails
+    ImageScience.with_image(APP_CONFIG[:photos_path] + self.path) do |img|
+        img.cropped_thumbnail(200) do |thumb|
+          thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_collection" + self.extension
+        end
+        img.cropped_thumbnail(100) do |thumb|
+          thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_album" + self.extension
+        end
+        img.thumbnail(210) do |thumb|
+          thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_preview" + self.extension
+        end
+        img.thumbnail(950) do |thumb|
+          thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_single" + self.extension
+        end
+    end
+  end
+
   protected
   
   
@@ -93,26 +116,8 @@ class Photo < ActiveRecord::Base
   def path_modified(size)
     return APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_" + size + self.extension
   end
-  
+
   private
-
-
-  def create_thumbnails
-    ImageScience.with_image(APP_CONFIG[:photos_path] + self.path) do |img|
-        #puts "    thumbing it..thumbing it.."
-        ext = File.extname( APP_CONFIG[:photos_path] + self.path )
-
-        img.thumbnail(85) do |thumb|
-          thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_thumb" + ext
-        end
-        img.thumbnail(150) do |thumb|
-          thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_album" + ext
-        end
-        img.thumbnail(800) do |thumb|
-          thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_large" + ext
-        end
-    end
-  end
 
   def exif_read
     photo = MiniExiftool.new(self.path_original)

@@ -1,6 +1,7 @@
 class CollectionsController < ApplicationController
   
-  before_filter :require_role_admin, :only => [:new, :create, :edit, :update, :destroy]  
+  before_filter :require_role_admin, :only => [:new, :create, :edit, :update, :destroy]
+
   def index
     @collections = Collection.find(:all)
     respond_to do |format|
@@ -35,11 +36,11 @@ class CollectionsController < ApplicationController
   end
   
   def edit
-    @collection = Collection.find( params[:id])
+    @collection = Collection.find_by_title( params[:id])
   end
 
   def update
-    @collection = Collection.find( params[:id])
+    @collection = Collection.find_by_title( params[:id])
     if @collection.update_attributes(params[:collection])
       flash[:notice] = "Collection updated!"
       redirect_to @collection
@@ -49,7 +50,7 @@ class CollectionsController < ApplicationController
   end
   
   def destroy
-    @collection = Collection.find( params[:id])
+    @collection = Collection.find_by_title( params[:id])
     if @collection.destroy
       redirect_to collections_path
     else

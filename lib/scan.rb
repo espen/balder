@@ -18,17 +18,23 @@ module ScanFiles
         end
         if album.nil?
           puts "New album : " + File.basename( relpath )
-          album = Album.create( :path => relpath, :title => File.basename( File.dirname(path) ) )
+          album = Album.create( :path => relpath )
         end
         photo = Photo.find_by_path( relfile )
         if photo.nil?
           puts "  New photo added " + relfile
-          photo = Photo.create( :album => album, :title => File.basename(path).sub( File.extname(path), '' ) , :path => relfile )
+          photo = Photo.create( :album => album, :path => relfile )
         else
           puts "  Found photo " + relfile
         end
       end
     }
+  end
+  
+  def self.RecreateThumbnails
+    Photo.find(:all).each {|photo|
+        photo.create_thumbnails()
+      }
   end
   
   def self.CreateThumbnail(photo,image,thumbname,width,height)
