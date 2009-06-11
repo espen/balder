@@ -1,1 +1,1 @@
-<p><%= render :partial => "photos/thumb", :locals => {:photo => album.photos.find(:first) } %></p>
+<p><%= render :partial => "photos/thumb", :locals => { :photo => album.photos.find(:first) } unless album.photos.empty? %></p>

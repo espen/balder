@@ -115,9 +115,6 @@ class Photo < ActiveRecord::Base
   end
 
   def exif_read
-    puts "exif read"
-    puts self.path
-    puts self.path_original
     photo = MiniExiftool.new(self.path_original)
     self.longitude = photo.GPSLongitude if self.longitude.nil?
     self.latitude = photo.GPSLatitude if self.latitude.nil?

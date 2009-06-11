@@ -38,7 +38,6 @@ class PhotosController < ApplicationController
     previous_rs = Photo.previous( @photo.id, @photo.album )
     @previous = previous_rs.first if !previous_rs.empty?
     next_rs = Photo.next( @photo.id, @photo.album )
-    puts next_rs.inspect
     @next = next_rs.first if !next_rs.empty?
     respond_to do |format|
       format.html
