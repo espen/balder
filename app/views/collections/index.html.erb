@@ -1,5 +1,9 @@
-<h1>Collections</h1>
+<h2>Collections</h2>
+<div id="multipleimages">
 <% for collection in @collections %>
-<%= link_to collection.title, collection %>
-<%= render :partial => collection.albums %>
+	<div class="thumb">
+		<h3><%= link_to collection.title, collection %></h3>
+		<%= render :partial => collection.albums.find(:first) %>
+	</div>
 <% end %>
+</div>

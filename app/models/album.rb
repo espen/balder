@@ -14,6 +14,10 @@ class Album < ActiveRecord::Base
   
   named_scope :untouched, :conditions => "Albums.Id IN ( SELECT DISTINCT Photos.Album_Id FROM Photos WHERE Photos.description IS NULL AND Photos.Id NOT IN ( SELECT Photo_ID FROM Photo_Tags) )"
 
+  def to_param
+     title.gsub(/[^a-z0-9]+/i, '-')
+  end
+
   
   
   def ensure_path

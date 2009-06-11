@@ -4,13 +4,13 @@ class PhotosController < ApplicationController
 
   def index
     if params[:tag_id]
-      @photos = Tag.find_by_title( params[:tag_id] ).photos
+      @photos = Tag.find_by_title( params[:tag_id] ).photos.find(:all, :order => "Photos.Id ASC")
     elsif params[:album_id]
-      @photos = Album.find( params[:album_id]).photos.find(:all)
+      @photos = Album.find_by_title( params[:album_id]).photos.find(:all, :order => "Photos.Id ASC")
     elsif params[:q]
-      @photos = Photo.find(:all, :limit => 20, :conditions => [ "Photos.description LIKE :q OR Photos.title LIKE :q OR Photos.Id IN ( SELECT Photo_Id FROM Photo_Tags LEFT OUTER JOIN Tags ON Photo_Tags.Tag_Id = Tags.Id WHERE Tags.Title LIKE :q) ", { :q => '%' + params[:q] + '%' } ], :include => :album )
+      @photos = Photo.find(:all, :limit => 20, :conditions => [ "Photos.description LIKE :q OR Photos.title LIKE :q OR Photos.Id IN ( SELECT Photo_Id FROM Photo_Tags LEFT OUTER JOIN Tags ON Photo_Tags.Tag_Id = Tags.Id WHERE Tags.Title LIKE :q) ", { :q => '%' + params[:q] + '%' } ], :include => :album, :order => "Photos.Id ASC" )
     else
-      @photos = Photo.find(:all)
+      @photos = Photo.find(:all, :order => "Photos.Id ASC")
     end
     respond_to do |format|
       format.html
@@ -21,7 +21,7 @@ class PhotosController < ApplicationController
   
   def untouched
     if params[:album_id]
-      @album = Album.find( params[:album_id])
+      @album = Album.find_by_title( params[:album_id])
       @photos = @album.photos.untouched
     else
       @photos = Photo.untouched()
@@ -34,7 +34,12 @@ class PhotosController < ApplicationController
   end
   
   def show
-    @photo = Photo.find( params[:id])
+    @photo = Photo.find( params[:id] )
+    previous_rs = Photo.previous( @photo.id, @photo.album )
+    @previous = previous_rs.first if !previous_rs.empty?
+    next_rs = Photo.next( @photo.id, @photo.album )
+    puts next_rs.inspect
+    @next = next_rs.first if !next_rs.empty?
     respond_to do |format|
       format.html
       format.json  { render :json => @photo }
@@ -47,7 +52,7 @@ class PhotosController < ApplicationController
   end
 
   def upload
-    @album = Album.find( params[:album_id])
+    @album = Album.find_by_title( params[:album_id])
   end
 
   def create

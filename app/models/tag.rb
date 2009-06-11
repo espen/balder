@@ -11,10 +11,8 @@ class Tag < ActiveRecord::Base
   end
 
   def to_param
-     #{ }"#{id}-#{name.gsub(/[^a-z0-9]+/i, '-')}"
-     #id.to_s+'-'+name.downcase.gsub(/[^a-z0-9]+/i, '-')
-     #id.to_s+'-'+name.downcase.gsub(' ', '-')
-     self.title
+     #id.to_s+'-'+
+     title.downcase.gsub(/[^a-z0-9]+/i, '-')
    end
 
    protected

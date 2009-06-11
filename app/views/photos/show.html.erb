@@ -1,5 +1,21 @@
 <h1><%= @photo.title%></h1>
-<%= image_tag @photo.path_modified_public("large") %>
+
+<div id="fullimage">
+	<div id="navigation">
+		<p class="links">
+			<% unless @previous.nil?%>
+			<%= link_to "Previous", [ @photo.album.collections.first, @photo.album, @previous] %>
+			<% unless @next.nil? %>
+			 | 
+			<% end %>
+			<% end %>
+			<% unless @next.nil? %>
+			<%= link_to "Next", [ @photo.album.collections.first, @photo.album, @next] %> 
+			<% end %>
+		</p>
+	</div>
+  <p><%= image_tag @photo.path_modified_public("large") %></p>
+</div>
 
 <br/>
 Tagged with: <%= @photo.tag_list %>

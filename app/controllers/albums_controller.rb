@@ -27,7 +27,7 @@ class AlbumsController < ApplicationController
   end
   
   def show
-    @album = Album.find( params[:id])
+    @album = Album.find_by_title( params[:id])
     respond_to do |format|
       format.html
       format.json  { render :json => @album }

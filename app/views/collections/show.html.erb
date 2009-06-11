@@ -1,8 +1,21 @@
-<h1><%= h @collection.title %></h1>
+<h2><%= h @collection.title %></h2>
 <p><%= h @collection.description %></p>
-<%= render :partial => @collection.albums %>
 
+<% for album in @collection.albums %>
+<div class="row">
+  <div class="title">
+	<%= render :partial => "photos/thumb", :locals => {:photo => album.photos.first } %>
+	<p><%= link_to album.title, collection_album_path(@collection, album) %></p>
+  </div>
+  <div class="image">
+	<%= render :partial => "photos/thumb", :collection => album.photos.find(:all, :limit => 5, :offset => 1), :as => :photo %>
+  </div>
+</div>
+<% end %>
+
+<div style="clear:both;">
 <% if has_role?("admin") %>
 <br /><%= link_to "Update collection", edit_collection_path(@collection) %>
 <% end %>
 <br /><%= link_to "All collections", collections_path %>
+</div>

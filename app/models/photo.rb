@@ -18,6 +18,12 @@ class Photo < ActiveRecord::Base
   #attr_protected :path
   
   named_scope :untouched, :conditions => "Photos.description IS NULL AND Photos.Id NOT IN ( SELECT Photo_ID FROM Photo_Tags)", :include => :album 
+  named_scope :previous, lambda { |p,a| { :conditions => ["id < :id AND Album_Id = :album ", { :id => p, :album => a } ], :limit => 1, :order => "Id DESC"} }
+  named_scope :next, lambda { |p,a| { :conditions => ["id > :id AND Album_Id = :album ", { :id => p, :album => a } ], :limit => 1, :order => "Id ASC"} }
+
+  def to_param
+     id.to_s + '-' + title.gsub(/[^a-z0-9]+/i, '-')
+  end
   
   def path_original_public
     return APP_CONFIG[:photos_path_public] + self.path
