@@ -3,7 +3,7 @@
 <% for collection in @collections %>
 	<div class="thumb">
 		<h3><%= link_to collection.title, collection %></h3>
-		<%= render :partial => collection.albums.find(:first), :locals => {:photosize => 'collection'} %>
+		<%= link_to (image_tag collection.albums.find(:first).photos.first.path_modified_public('collection') ), collection_path(collection) %>
 	</div>
 <% end %>
 </div>

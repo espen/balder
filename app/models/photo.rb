@@ -78,14 +78,17 @@ class Photo < ActiveRecord::Base
   # Thanks to bug in Flash 8 the content type is always set to application/octet-stream.
   # From: http://blog.airbladesoftware.com/2007/8/8/uploading-files-with-swfupload
   def swf_uploaded_data=(data)
+    RAILS_DEFAULT_LOGGER.info('swf_uploaded_data start')
     data.content_type = MIME::Types.type_for(data.original_filename)
     self.title = data.original_filename
     self.path = self.album.path + "/" + data.original_filename
     File.open(APP_CONFIG[:photos_path] + self.path, "wb") { |f| f.write(data.read) }
+    RAILS_DEFAULT_LOGGER.info('swf_uploaded_data done')
   end
 
 
   def create_thumbnails
+    RAILS_DEFAULT_LOGGER.info('create thumb')
     ImageScience.with_image(APP_CONFIG[:photos_path] + self.path) do |img|
         img.cropped_thumbnail(200) do |thumb|
           thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_collection" + self.extension
