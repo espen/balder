@@ -10,6 +10,7 @@ class FlashSessionCookieMiddleware
     if env['HTTP_USER_AGENT'] =~ /^(Adobe|Shockwave) Flash/
       params = ::Rack::Utils.parse_query(env['QUERY_STRING'])
       env['HTTP_COOKIE'] = [ @session_key, params[@session_key] ].join('=').freeze unless params[@session_key].nil?
+      read_buffer.force_encoding("ascii-8bit") if RUBY_VERSION >= "1.9" 
     end
     @app.call(env)
   end

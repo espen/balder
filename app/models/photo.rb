@@ -82,7 +82,7 @@ class Photo < ActiveRecord::Base
     data.content_type = MIME::Types.type_for(data.original_filename)
     self.title = data.original_filename
     self.path = self.album.path + "/" + data.original_filename
-    File.open(APP_CONFIG[:photos_path] + self.path, 'w:binary') { |f| f.write(data.read) }
+    File.open(APP_CONFIG[:photos_path] + self.path, 'wb') { |f| f.write(data.read) }
     RAILS_DEFAULT_LOGGER.info('swf_uploaded_data done')
   end
 
