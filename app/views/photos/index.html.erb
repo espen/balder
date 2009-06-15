@@ -1,1 +1,1 @@
-<ul><%= render :partial => @photos %></ul>
+<ul><%= render :partial => 'photos/thumb',:collection => @photos, :as => :photo %></ul>
