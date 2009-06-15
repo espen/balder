@@ -36,11 +36,11 @@ class CollectionsController < ApplicationController
   end
   
   def edit
-    @collection = Collection.find_by_title( params[:id])
+    @collection = Collection.find( params[:id])
   end
 
   def update
-    @collection = Collection.find_by_title( params[:id])
+    @collection = Collection.find( params[:id])
     if @collection.update_attributes(params[:collection])
       flash[:notice] = "Collection updated!"
       redirect_to @collection
@@ -50,7 +50,7 @@ class CollectionsController < ApplicationController
   end
   
   def destroy
-    @collection = Collection.find_by_title( params[:id])
+    @collection = Collection.find( params[:id])
     if @collection.destroy
       redirect_to collections_path
     else

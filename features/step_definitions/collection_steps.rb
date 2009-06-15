@@ -13,5 +13,5 @@ Then /^I should have ([0-9]+) collections?$/ do |count|
 end
 
 Then /^collection (.+) should have ([0-9]+) albums?$/ do |collection,count|
-  Collection.find_by_title(collection).albums.count.should == count.to_i
+  Collection.find(collection).albums.count.should == count.to_i
 end

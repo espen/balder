@@ -4,7 +4,7 @@ class AlbumsController < ApplicationController
   
   def index
     if params[:tag_id]
-      @albums = Album.find(:all, :conditions => [ "Id IN ( SELECT DISTINCT Photos.ALbum_id FROM Photos WHERE Photos.Id IN ( SELECT Photo_Id FROM Photo_Tags WHERE Photo_Tags.Tag_Id = :q) )", { :q => Tag.find_by_title( params[:tag_id] ).id } ])
+      @albums = Album.find(:all, :conditions => [ "Id IN ( SELECT DISTINCT Photos.ALbum_id FROM Photos WHERE Photos.Id IN ( SELECT Photo_Id FROM Photo_Tags WHERE Photo_Tags.Tag_Id = :q) )", { :q => Tag.find( params[:tag_id] ).id } ])
     elsif params[:q]
       @albums = Album.find(:all, :conditions => [ "Id IN ( SELECT DISTINCT Photos.Album_Id FROM Photos WHERE Photos.description LIKE :q OR Photos.title LIKE :q OR Photos.Id IN ( SELECT Photo_Id FROM Photo_Tags LEFT OUTER JOIN Tags ON Photo_Tags.Tag_Id = Tags.Id WHERE Tags.Title LIKE :q) )", { :q => '%' + params[:q] + '%' } ])
     else

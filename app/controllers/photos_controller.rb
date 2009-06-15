@@ -4,9 +4,9 @@ class PhotosController < ApplicationController
 
   def index
     if params[:tag_id]
-      @photos = Tag.find_by_title( params[:tag_id] ).photos.find(:all, :order => "Photos.Id ASC")
+      @photos = Tag.find( params[:tag_id] ).photos.find(:all, :order => "Photos.Id ASC")
     elsif params[:album_id]
-      @photos = Album.find_by_title( params[:album_id]).photos.find(:all, :order => "Photos.Id ASC")
+      @photos = Album.find( params[:album_id]).photos.find(:all, :order => "Photos.Id ASC")
     elsif params[:q]
       @photos = Photo.find(:all, :limit => 20, :conditions => [ "Photos.description LIKE :q OR Photos.title LIKE :q OR Photos.Id IN ( SELECT Photo_Id FROM Photo_Tags LEFT OUTER JOIN Tags ON Photo_Tags.Tag_Id = Tags.Id WHERE Tags.Title LIKE :q) ", { :q => '%' + params[:q] + '%' } ], :include => :album, :order => "Photos.Id ASC" )
     else
@@ -21,7 +21,7 @@ class PhotosController < ApplicationController
   
   def untouched
     if params[:album_id]
-      @album = Album.find_by_title( params[:album_id])
+      @album = Album.find( params[:album_id])
       @photos = @album.photos.untouched
     else
       @photos = Photo.untouched()
@@ -51,7 +51,7 @@ class PhotosController < ApplicationController
   end
 
   def upload
-    @album = Album.find_by_title( params[:album_id])
+    @album = Album.find( params[:album_id])
   end
 
   def create

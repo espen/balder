@@ -13,7 +13,7 @@ end
 
 Given /^I have albums titled (.+) in collection (.+)$/ do |titles,collection|
   titles.split(', ').each do |title|
-    CollectionAlbum.create( :collection => Collection.find_by_title(collection), :album => Album.create!(:title => title) )
+    CollectionAlbum.create( :collection => Collection.find(collection), :album => Album.create!(:title => title) )
   end
 end
 
