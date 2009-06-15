@@ -128,7 +128,7 @@ class Photo < ActiveRecord::Base
     self.latitude = photo.GPSLatitude if self.latitude.nil?
     self.title = photo.DocumentName if self.title.nil?
     self.description = photo.ImageDescription if self.description.nil?
-    self.tag_list = (self.tags.empty? ? "" : self.album.tag_list) + " " + (photo.Keywords.nil? ? "" : photo.Keywords.map { |tag| tag.gsub(" ", "_") }.join(" "))
+    self.tag_list = (self.tags.empty? ? "" : self.album.tag_list) + " " + (photo.Keywords.nil? ? "" : photo.Keywords.to_a.map { |tag| tag.gsub(" ", "_") }.join(" "))
   end
   
   def exif_write
