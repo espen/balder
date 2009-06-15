@@ -3,7 +3,7 @@
 <% for collection in @collections %>
 	<div class="thumb">
 		<h3><%= link_to collection.title, collection %></h3>
-		<%= link_to (image_tag collection.albums.find(:first).photos.first.path_modified_public('collection') ), collection_path(collection) %>
+		<%= link_to (image_tag collection.albums.find(:first).photos.first.path_modified_public('collection') ), collection_path(collection) unless collection.albums.empty? || collection.albums.find(:first).photos.empty? %>
 	</div>
 <% end %>
 </div>
