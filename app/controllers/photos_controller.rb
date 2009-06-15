@@ -8,7 +8,7 @@ class PhotosController < ApplicationController
     elsif params[:album_id]
       @photos = Album.find( params[:album_id]).photos.find(:all, :order => "photos.id ASC")
     elsif params[:q]
-      @photos = Photo.find(:all, :limit => 20, :conditions => [ "photos.description LIKE :q OR photos.title LIKE :q OR photos.id IN ( SELECT photo_id FROM photo_tags LEFT OUTER JOIN tags ON photo_tags.tag_id = tags.id WHERE tags.title LIKE :q) ", { :q => '%' + params[:q] + '%' } ], :include => :album, :order => "Photos.Id ASC" )
+      @photos = Photo.find(:all, :limit => 20, :conditions => [ "photos.description LIKE :q OR photos.title LIKE :q OR photos.id IN ( SELECT photo_id FROM photo_tags LEFT OUTER JOIN tags ON photo_tags.tag_id = tags.id WHERE tags.title LIKE :q) ", { :q => '%' + params[:q] + '%' } ], :include => :album, :order => "photos.id ASC" )
     else
       @photos = Photo.find(:all, :order => "photos.id ASC")
     end
