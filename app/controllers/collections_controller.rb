@@ -12,7 +12,7 @@ class CollectionsController < ApplicationController
   end
   
   def show
-    @collection = Collection.find_by_title( params[:id] )
+    @collection = Collection.find( params[:id] )
     respond_to do |format|
       format.html
       format.json  { render :json => @collection }

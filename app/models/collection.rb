@@ -5,7 +5,8 @@ class Collection < ActiveRecord::Base
   attr_accessor :album_list
 
   def to_param
-     title.gsub(/[^a-z0-9]+/i, '-')
+     #title.gsub(/[^a-z0-9]+/i, '-')
+     "#{id}-#{title.parameterize}"
   end
 
   def album_list=(albums)
