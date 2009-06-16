@@ -16,6 +16,7 @@
 <div style="clear:both;">
 <% if has_role?("admin") %>
 <br /><%= link_to "Update collection", edit_collection_path(@collection) %>
+<br /><%= link_to "New album", new_collection_album_path(@collection) %>
 <% end %>
 <br /><%= link_to "All collections", collections_path %>
 </div>
