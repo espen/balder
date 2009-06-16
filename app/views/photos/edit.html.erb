@@ -1,4 +1,6 @@
 <h1>Edit Photo</h1>
+
+<%= image_tag @photo.path_modified_public("preview") %>
  
 <% form_for @photo do |f| %>
   <%= f.error_messages %>
@@ -6,8 +8,8 @@
   <%= f.submit "Update" %>
 <% end %>
 
-<%= image_tag @photo.path_modified_public("large") %>
-<br /><%= link_to("Delete photo", { :action => "destroy", :id => @photo },
+<% content_for :action_links do %>
+<%= link_to("Delete photo", { :action => "destroy", :id => @photo },
   :confirm => "Are you sure you want to delete this photo?",
   :method => :delete) %>
-<br /><%= link_to "All albums", albums_path %>
+<% end %>

@@ -192,3 +192,6 @@ div#header h1 p {
 td {
 	vertical-align: bottom;
 }
+p#notice {
+    color: green;
+}

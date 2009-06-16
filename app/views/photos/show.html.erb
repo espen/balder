@@ -17,12 +17,11 @@
   <p><%= image_tag @photo.path_modified_public("single") %></p>
 </div>
 
-<br/>
-Tagged with: <%= @photo.tag_list %>
 <p><%= @photo.description %></p>
+<p>Tagged with: <%= @photo.tags.map {|tag| (link_to tag.title, tag_photos_path(tag) ) + " " } %></p>
 
+<% content_for :action_links do %>
 <% if has_role?("admin") %>
-<br /><%= link_to "Update photo details", edit_photo_path(@photo) %>
+<br /><%= link_to "Edit photo", edit_photo_path(@photo) %>
 <% end %>
-<br /><%= link_to "Back to #{@photo.album.title}", @photo.album %>
-<br /><%= link_to "All albums", albums_path %>
+<% end %>

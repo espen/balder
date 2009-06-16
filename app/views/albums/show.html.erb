@@ -13,13 +13,19 @@
 </div>
 
 <p><%= @album.description %></p>
-<% if has_permission?("see_album_note") %>
+<p>Tagged with: <%= @album.tags.map {|tag| (link_to tag.title, tag_photos_path(tag) ) + " " } %></p>
+
+<% if has_role?("admin") %>
+<p><%= @album.address %></p>
+<% end %>
+<% if has_role?("admin") %>
 <p><%= @album.note %></p>
 <% end %>
 
+<% content_for :action_links do %>
 <% if has_role?("admin") %>
-<br /><%= link_to "Update album", edit_album_path(@album) %>
-<br /><%= link_to "Update photos", edit_multiple_album_photos_path(@album) %>
-<br /><%= link_to "Upload photos", upload_album_photos_path(@album) %>
+<%= link_to "Edit album", edit_album_path(@album) %> |&nbsp;
+<%= link_to "Edit all photos", edit_multiple_album_photos_path(@album) %> |&nbsp;
+<%= link_to "Add photos", upload_album_photos_path(@album) %>
 <% end %>
-<br /><%= link_to "All albums", albums_path %>
+<% end %>

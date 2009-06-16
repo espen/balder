@@ -55,14 +55,11 @@ class PhotosController < ApplicationController
   end
 
   def create
-    RAILS_DEFAULT_LOGGER.info('create method')
     respond_to do |format|
       @photo = Photo.new(params[:photo])
       if params[:Filedata]
-        RAILS_DEFAULT_LOGGER.info('getting file')
         @photo.swf_uploaded_data = params[:Filedata]
         if @photo.save
-          RAILS_DEFAULT_LOGGER.info('saved')
           format.html { render :text => "FILEID:" + @photo.path_modified_public("album") }
           format.xml  { render :nothing => true }
         else
@@ -84,6 +81,7 @@ class PhotosController < ApplicationController
   
   def edit
     @photo = Photo.find( params[:id])
+    @tags = Tag.find(:all).map { |tag| tag.title }.join('\',\'')
   end
 
   def edit_multiple

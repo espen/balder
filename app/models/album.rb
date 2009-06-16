@@ -10,7 +10,7 @@ class Album < ActiveRecord::Base
   after_create :create_folders
   after_destroy :destroy_folders
 
-  attr_accessor :tag_list
+  attr_accessor :tags
   attr_protected :path
   
   named_scope :untouched, :conditions => "Albums.Id IN ( SELECT DISTINCT Photos.Album_Id FROM Photos WHERE Photos.description IS NULL AND Photos.Id NOT IN ( SELECT Photo_ID FROM Photo_Tags) )"
@@ -30,7 +30,7 @@ class Album < ActiveRecord::Base
     self.title = File.basename( File.dirname(self.path) ) unless self.title || !self.path
   end
   
-  def tag_list
+  def tags
     # should maybe cache this to database?
     # should maybe return array instead?
     
@@ -52,13 +52,13 @@ class Album < ActiveRecord::Base
           tags = tags & photo_tags
         end
     }
-    return tags.collect{|tag| tag.title }.sort.join(" ")
+    return tags
   end
   
-  def tag_list=(tags)
-    return if tags.split(" ").sort.join(" ") == self.tag_list
+  def tags=(tags)
+    tags = tags.split(" ").sort
+    return if tags == self.tag_list
     current_tags = ( self.tag_list.nil? ? [] : self.tag_list.split(" ") )
-    tags = tags.split(" ")
     
     # find tags that should be removed from this album - thus remove from all photos in album
     # i.e. tags listed in self.tag_list but no in parameter tags

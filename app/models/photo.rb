@@ -10,9 +10,10 @@ class Photo < ActiveRecord::Base
   validates_presence_of :title
   
   before_validation :set_title
+  before_save :ensure_file
   before_create :exif_read
   after_create :create_thumbnails
-  before_update :exif_write # should only write if tags are changed as images can be large and thus ExifTool will take a while to write to the file
+  #before_update :exif_write # should only write if tags are changed as images can be large and thus ExifTool will take a while to write to the file
   before_destroy :destroy_file
 
   attr_accessor :tag_list
@@ -23,11 +24,7 @@ class Photo < ActiveRecord::Base
   named_scope :next, lambda { |p,a| { :conditions => ["id > :id AND Album_Id = :album ", { :id => p, :album => a } ], :limit => 1, :order => "Id ASC"} }
 
   def to_param
-     id.to_s + '-' + title.gsub(/[^a-z0-9]+/i, '-')
-  end
-  
-  def set_title
-    self.title = File.basename( File.dirname(path) ).gsub( self.extension, "" ) unless self.title
+     self.id.to_s + '-' + self.title.parameterize
   end
   
   def path_original_public
@@ -53,9 +50,8 @@ class Photo < ActiveRecord::Base
     self.reload
   end
 
-  
   def tag_list
-    return self.tags.find(:all, :order => 'title').collect{ |t| t.title }.join(" ")
+    return self.tags.find(:all, :order => 'title').collect{ |t| t.title }.sort.join(" ")
   end
 
   def tag_list=(tags)
@@ -78,18 +74,15 @@ class Photo < ActiveRecord::Base
   # Thanks to bug in Flash 8 the content type is always set to application/octet-stream.
   # From: http://blog.airbladesoftware.com/2007/8/8/uploading-files-with-swfupload
   def swf_uploaded_data=(data)
-    RAILS_DEFAULT_LOGGER.info('swf_uploaded_data start')
     data.content_type = MIME::Types.type_for(data.original_filename)
     self.title = data.original_filename
     self.path = self.album.path + "/" + data.original_filename
     File.open(APP_CONFIG[:photos_path] + self.path, 'wb') { |f| f.write(data.read) }
-    RAILS_DEFAULT_LOGGER.info('swf_uploaded_data done')
   end
 
 
   def create_thumbnails
-    RAILS_DEFAULT_LOGGER.info('create thumb')
-    ImageScience.with_image(APP_CONFIG[:photos_path] + self.path) do |img|
+    ImageScience.with_image(self.path_original) do |img|
         img.cropped_thumbnail(200) do |thumb|
           thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_collection" + self.extension
         end
@@ -106,8 +99,7 @@ class Photo < ActiveRecord::Base
   end
 
   protected
-  
-  
+
   def extension
     return File.extname(self.path_original)
   end
@@ -122,12 +114,20 @@ class Photo < ActiveRecord::Base
 
   private
 
+  def set_title
+    self.title = File.basename( self.path ).gsub( self.extension, "" ) unless self.title
+  end
+  
+  def ensure_file
+    self.destroy if !File.exists?( APP_CONFIG[:photos_path] + self.path )
+  end
+
   def exif_read
     photo = MiniExiftool.new(self.path_original)
     self.longitude = photo.GPSLongitude if self.longitude.nil?
     self.latitude = photo.GPSLatitude if self.latitude.nil?
     self.title = photo.DocumentName if self.title.nil?
-    self.description = photo.ImageDescription if self.description.nil?
+    self.description = photo.ImageDescription if self.description.nil? || photo.ImageDescription == 'Exif_JPEG_PICTURE'
     self.tag_list = (self.tags.empty? ? "" : self.album.tag_list) + " " + (photo.Keywords.nil? ? "" : photo.Keywords.to_a.map { |tag| tag.gsub(" ", "_") }.join(" "))
   end
   
@@ -143,9 +143,10 @@ class Photo < ActiveRecord::Base
   
   def destroy_file
     #puts "DELETE THUMBS OF " + APP_CONFIG[:photos_path] + self.path
-    File.delete( APP_CONFIG[:photos_path] + self.path  ) if File.exists?( APP_CONFIG[:photos_path] + self.path )
-    File.delete( APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_thumb" + File.extname( APP_CONFIG[:photos_path] + self.path ) ) if File.exists?( APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_thumb" + File.extname( APP_CONFIG[:photos_path] + self.path ) )
-    File.delete( APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_album" + File.extname( APP_CONFIG[:photos_path] + self.path ) ) if File.exists?( APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_album" + File.extname( APP_CONFIG[:photos_path] + self.path ) )
-    File.delete( APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_large" + File.extname( APP_CONFIG[:photos_path] + self.path ) ) if File.exists?( APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_large" + File.extname( APP_CONFIG[:photos_path] + self.path ) )
+    File.delete( self.path_original ) if File.exists?( self.path_original )
+    File.delete( self.path_modified("_collection") ) if File.exists?( self.path_modified("_collection") )
+    File.delete( self.path_modified("_album") ) if File.exists?( self.path_modified("_album") )
+    File.delete( self.path_modified("_single") ) if File.exists?( self.path_modified("_single") )
+    File.delete( self.path_modified("_preview") ) if File.exists?( self.path_modified("_preview") )
   end
 end

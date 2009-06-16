@@ -51,7 +51,6 @@ module ScanFiles
         img.resize!(cols, rows)
       end
     }
-    puts "hello"
     puts "write... " + APP_CONFIG[:thumbs_path] + photo.album.path + "/" + photo.id.to_s + "_" + thumbname + File.extname( APP_CONFIG[:photos_path] + photo.path )
     thumb.write(APP_CONFIG[:thumbs_path] + photo.album.path + "/" + photo.id.to_s + "_" + thumbname + File.extname( APP_CONFIG[:photos_path] + photo.path ) )  { self.quality = 100 }
     #image.change_geometry!(MAINSITE_SIZE) { |cols, rows, img|
