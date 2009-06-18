@@ -1,1 +1,14 @@
-<ul><%= render :partial => @photos %></ul>
+<% form_for :photos, :url => update_multiple_photos_path, :html => { :method => :put } do |f| %>
+<% for photo in @photos %>
+<p>
+<% f.fields_for photo do |p|%>
+	<%= render :partial => "photos/thumb", :locals => {:photo => photo } %>
+	<%= p.text_field :title, :index => photo.id %>
+	<%= p.text_field :tags, :index => photo.id, :value => photo.tag_list %>
+<% end%>
+</p>
+<% end%>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
+
+<br /><%= link_to "Back to #{@album.title}", @album %>

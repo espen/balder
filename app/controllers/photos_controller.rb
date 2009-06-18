@@ -86,7 +86,8 @@ class PhotosController < ApplicationController
 
   def edit_multiple
     if params[:album_id]
-      @photos = Album.find( params[:album_id] ).photos
+      @album = Album.find( params[:album_id] )
+      @photos = @album.photos
     else
       @photos = Photo.find( params[:photo_ids] )
     end
@@ -104,9 +105,11 @@ class PhotosController < ApplicationController
 
   def update_multiple
     @photos = params[:photos][:photo]
-    @photos.each do |photo_id|
-      photo = Photo.find( photo_id )
-      photo.update_attributes!(params[:photos][:photo][photo_id].reject { |k,v| v.blank? })
+    @photos.each do |photo_item|
+      photo = Photo.find( photo_item[0] )
+      photo.title = photo_item[1][:title]
+      photo.tag_list = photo_item[1][:tags]
+      photo.save
     end
     flash[:notice] = "Updated photos!"
     redirect_to photos_path

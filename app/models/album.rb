@@ -57,8 +57,8 @@ class Album < ActiveRecord::Base
   
   def tags=(tags)
     tags = tags.split(" ").sort
-    return if tags == self.tag_list
-    current_tags = ( self.tag_list.nil? ? [] : self.tag_list.split(" ") )
+    current_tags = ( self.tags.nil? ? [] : self.tags.split(" ") )
+    return if tags == self.tags
     
     # find tags that should be removed from this album - thus remove from all photos in album
     # i.e. tags listed in self.tag_list but no in parameter tags

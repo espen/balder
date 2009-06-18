@@ -15,8 +15,8 @@
 <%= form.label :note %><br />
 <%= form.text_area :note %><br />
 
-<%= form.label :tag_list %><br />
-<%= form.text_field :tag_list, { :autocomplete => "off", :class => 'tag_list'} %><br />
+<%= form.label :tags %><br />
+<%= form.text_field :tags, { :autocomplete => "off", :class => 'tag_list'} %><br />
 
 <br />
 <% if @album.path? %>

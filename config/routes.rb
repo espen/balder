@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :collections do |collection|
     collection.resources :albums do |album|
-      album.resources :photos
+      album.resources :photos, :collection => { :untouched => :get }
       #album.resources :photos, :collection => { :untouched => :get, :upload => :get, :edit_multiple => :get }
     end
   end
