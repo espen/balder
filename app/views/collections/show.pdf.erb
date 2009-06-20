@@ -1,0 +1,8 @@
+<h2><%= h @collection.title %></h2>
+<p><%= h @collection.description %></p>
+
+<% for album in @collection.albums %>
+<h3><%= album.title %></h3>
+<p><%= render :partial => album.photos %></p>
+
+<% end %>

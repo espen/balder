@@ -24,6 +24,7 @@
 
 <% content_for :action_links do %>
 <% if has_role?("admin") %>
+<%= link_to "PDF", album_path(@album, :format => 'pdf') %> |&nbsp;
 <%= link_to "Edit album", edit_album_path(@album) %> |&nbsp;
 <%= link_to "Edit all photos", edit_multiple_album_photos_path(@album) %> |&nbsp;
 <%= link_to "Add photos", upload_album_photos_path(@album) %>
