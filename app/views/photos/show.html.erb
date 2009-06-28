@@ -18,7 +18,7 @@
 </div>
 
 <p><%= @photo.description %></p>
-<p>Tagged with: <%= @photo.tags.map {|tag| (link_to tag.title, tag_photos_path(tag) ) + " " } %></p>
+<p>Tagged with: <%= @photo.tags.find(:all).map {|tag| tag.title } %></p>
 
 <% content_for :action_links do %>
 <% if has_role?("admin") %>
