@@ -6,8 +6,11 @@
   <%= f.submit "Update" %>
 <% end %>
  
+
+<% content_for :action_links do %>
+<% if has_role?("admin") %>
 <br /><%= link_to("Delete album", { :action => "destroy", :id => @album },
   :confirm => "Are you sure you want to delete this album?",
   :method => :delete) %>
-
-<br /><%= link_to "All albums", albums_path %>
+<% end %>
+<% end %>

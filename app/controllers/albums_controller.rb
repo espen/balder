@@ -19,6 +19,7 @@ class AlbumsController < ApplicationController
 
   def untouched
     @albums = Album.untouched()
+    @albums.ea
     respond_to do |format|
       format.html
       format.json  { render :json => @albums }

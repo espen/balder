@@ -3,7 +3,7 @@ development:
     database: gallery_development
     username: gallery
     password: changeme
-production:    
+production:
     adapter: mysql
     encoding: utf8
     username: photogallery

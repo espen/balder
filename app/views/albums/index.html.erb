@@ -1,4 +1,19 @@
-<h1>Albums</h1>
-<%= render :partial => @albums %>
+<% for album in @albums %>
+<div class="row">
+  <div class="title">
+	<%= render :partial => "photos/thumb", :locals => {:photo => album.photos.first } unless album.photos.empty? %>
+	<p><%= link_to album.title, album %></p>
+  </div>
+  <div class="image">
+	<%= render :partial => "photos/thumb", :collection => album.photos.find(:all, :limit => 5, :offset => 1), :as => :photo %>
+  </div>
+</div>
+<% end %>
 
-<br /><%= link_to "New Album", new_album_path %>
+<% content_for :action_links do %>
+<%= link_to "Show just the photos tagged with #{params[:q]}", photos_path(:q => params[:q]) if params[:q] %>
+<% if has_role?("admin") %>
+<%= " |&nbsp;" if params[:q] %>
+<%= link_to "New album", new_album_path() %>
+<% end %>
+<% end %>

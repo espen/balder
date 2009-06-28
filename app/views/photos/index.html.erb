@@ -1,1 +1,5 @@
 <ul><%= render :partial => 'photos/thumb',:collection => @photos, :as => :photo %></ul>
+
+<% content_for :action_links do %>
+<%= link_to "Show albums containing photos tagged with #{params[:q]}", albums_path(:q => params[:q]) if params[:q] %>
+<% end %>

@@ -3,7 +3,9 @@ class PhotosController < ApplicationController
   before_filter :require_role_admin, :only => [:untouched, :upload, :new, :create, :edit, :update, :destroy]
 
   def index
-    if params[:tag_id]
+    if params[:tag_id] && params[:album_id]
+      @photos = Tag.find_by_title( params[:tag_id] ).photos.find(:all, :conditions => ['photos.album_id = :album', {:album => Album.find(params[:album_id] ) } ], :order => "photos.id ASC")
+    elsif params[:tag_id]
       @photos = Tag.find_by_title( params[:tag_id] ).photos.find(:all, :order => "photos.id ASC")
     elsif params[:album_id]
       @photos = Album.find( params[:album_id]).photos.find(:all, :order => "photos.id ASC")
@@ -83,7 +85,7 @@ class PhotosController < ApplicationController
     @photo = Photo.find( params[:id])
     @tags = Tag.find(:all).map { |tag| tag.title }.join('\',\'')
   end
-
+  
   def edit_multiple
     if params[:album_id]
       @album = Album.find( params[:album_id] )
@@ -107,9 +109,13 @@ class PhotosController < ApplicationController
     @photos = params[:photos][:photo]
     @photos.each do |photo_item|
       photo = Photo.find( photo_item[0] )
-      photo.title = photo_item[1][:title]
-      photo.tag_list = photo_item[1][:tags]
-      photo.save
+      if photo_item[1][:_delete] == "1"
+        photo.destroy
+      else
+        photo.title = photo_item[1][:title]
+        photo.tag_list = photo_item[1][:tags]
+        photo.save
+      end
     end
     flash[:notice] = "Updated photos!"
     redirect_to photos_path
