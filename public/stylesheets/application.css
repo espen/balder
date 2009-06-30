@@ -81,6 +81,7 @@ div#header h1 {
 	letter-spacing: 10px;
 	margin: 10px 0 0 0;
 	float: left;
+	clear: left;
 }
 
 div#header {
@@ -189,6 +190,16 @@ div#header h1 p {
 	letter-spacing: normal;
 	font-weight: normal;
 }
+
+DIV#breadcrumb {
+    float: left;
+}
+
+DIV#action_links {
+    float: right;
+    clear: right;
+}
+
 td {
 	vertical-align: bottom;
 }

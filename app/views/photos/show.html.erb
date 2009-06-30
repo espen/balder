@@ -19,12 +19,12 @@
 
 <p><%= @photo.description %></p>
 <p>Tagged with: 
-<% for tag in @photo.tags %>
-<%= link_to tag.title, tag_photos_path(tag) %>
+<% for tag in @photo.tags.map{|tag|tag.title}.sort %>
+<%= link_to tag, tag_photos_path(tag) %>
 <% end %>
 
 <% content_for :action_links do %>
 <% if has_role?("admin") %>
-<br /><%= link_to "Edit photo", edit_photo_path(@photo) %>
+<%= link_to "Edit photo", edit_photo_path(@photo) %>
 <% end %>
 <% end %>

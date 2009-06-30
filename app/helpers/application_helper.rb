@@ -14,12 +14,12 @@ module ApplicationHelper
        level = level.gsub(/^[0-9]+\-/,"") #if levels[index-1] == "photos"
        level = level.gsub("-", " ")
        if index+1 == levels.length
-         links += " #{sep} #{level.upcase}" unless nocrumb.include?(level)
+         #links += " #{sep} #{level.upcase}" unless nocrumb.include?(level)
        else
          links += " #{sep} #{content_tag('a', level.upcase, :href => '/'+levels[0..index].join('/'))}" unless nocrumb.include?(level)
        end
      end
 
-     content_tag("p", links, :id => "breadcrumb")
+     content_tag("div", links, :id => "breadcrumb")
    end  
 end

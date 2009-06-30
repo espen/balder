@@ -16,7 +16,7 @@
 <%= form.text_area :note %><br />
 
 <%= form.label :tags %><br />
-<%= form.text_field :tags, { :autocomplete => "off", :class => 'tag_list'} %><br />
+<%= form.text_field :tags, { :autocomplete => "off", :class => 'tag_list', :value => @album.tags.map{|tag|tag.title}.join(" ") } %><br />
 
 <br />
 <% if @album.path? %>

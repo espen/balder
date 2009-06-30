@@ -92,7 +92,7 @@ class Photo < ActiveRecord::Base
         img.thumbnail(210) do |thumb|
           thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_preview" + self.extension
         end
-        img.thumbnail(950) do |thumb|
+        img.thumbnail(800) do |thumb|
           thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_single" + self.extension
         end
     end
@@ -127,7 +127,7 @@ class Photo < ActiveRecord::Base
     self.longitude = photo.GPSLongitude if self.longitude.nil?
     self.latitude = photo.GPSLatitude if self.latitude.nil?
     self.title = photo.DocumentName if self.title.nil?
-    self.description = photo.ImageDescription if self.description.nil? || photo.ImageDescription == 'Exif_JPEG_PICTURE'
+    self.description = photo.ImageDescription if self.description.nil? || photo.ImageDescription != 'Exif_JPEG_PICTURE'
     self.tag_list = (self.tags.empty? ? "" : self.album.tag_list) + " " + (photo.Keywords.nil? ? "" : photo.Keywords.to_a.map { |tag| tag.gsub(" ", "_") }.join(" "))
   end
   

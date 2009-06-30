@@ -13,7 +13,11 @@
 </div>
 
 <p><%= @album.description %></p>
-<p>Tagged with: <%= @album.tags.map {|tag| (link_to tag.title, album_tag_photos_path(@album, tag) ) + " " } unless @album.tags.nil? %></p>
+<p>Tagged with: 
+<% for tag in @album.photo_tags.map{|tag|tag.title}.sort %>
+<%= link_to tag, album_tag_photos_path(@album, tag )%>
+<% end %>
+</p>
 
 <% if has_role?("admin") %>
 <p><%= @album.address %></p>

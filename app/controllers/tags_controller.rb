@@ -1,7 +1,11 @@
 class TagsController < ApplicationController
 
   def index
-    @tags = Tag.find( :all)
+    if params[:album_id]
+      @tags = Album.find( params[:album_id] ).photo_tags
+    else
+      @tags = Tag.find( :all, :order => 'title')
+    end
     respond_to do |format|
       format.html
       format.json  { render :json => @tags }

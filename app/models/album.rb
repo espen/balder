@@ -49,6 +49,7 @@ class Album < ActiveRecord::Base
         else
           # combine arrays if they have identical tags.
           # Will remove tags that are only tagged to one photo
+          #tags = tags & photo_tags
           tags = tags & photo_tags
         end
     }
@@ -57,27 +58,34 @@ class Album < ActiveRecord::Base
   
   def tags=(tags)
     tags = tags.split(" ").sort
-    current_tags = ( self.tags.nil? ? [] : self.tags.split(" ") )
+    current_tags = ( self.tags.nil? ? [] : self.tags.map{|tag|tag.title} )
     return if tags == self.tags
     
     # find tags that should be removed from this album - thus remove from all photos in album
     # i.e. tags listed in self.tag_list but no in parameter tags
     #current_tags.map {|tag|tag if !tags.include?(tag) }.compact
     (current_tags - tags).each { |tag|
-      #puts "remove #{tag}"
       self.photos.each {|photo|
         photo.untag( tag )
       }
     }
 
     # add universial tags to all photos in album
-    tags.each do |tag|
-      #puts "tag photos with #{tag}" if !current_tags.include?( tag )
+    (tags - current_tags).each do |tag|
       self.photos.each { |photo|
-        photo.tag( tag ) if !current_tags.include?( tag ) # no need to re-tag
+        photo.tag( tag )
       }
     end
   end
+
+  def photo_tags
+    tags = Array.new
+    self.photos.each{ |photo|
+      tags = tags | photo.tags
+    }
+    return tags
+   end
+
   protected
 
   private
