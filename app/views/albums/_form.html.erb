@@ -3,9 +3,11 @@
 <% end %>
 
 <%= hidden_field_tag :all_tags, "'#{Tag.find(:all).map { |tag| tag.title }.join('\',\'')}'" %>
+<%= hidden_field_tag :collection_id, params[:collection_id] %>
 
 <%= form.label :title, :Title, {:class => 'big'} %><br />
 <%= form.text_field :title, {:class => 'big'} %><br />
+
 <%= form.label :description %><br />
 <%= form.text_area :description %><br />
 

@@ -45,6 +45,9 @@ class AlbumsController < ApplicationController
     @album = Album.new(params[:album])
     @album.path = @album.title
     if @album.save
+      if params[:collection_id]
+        @album.collections << Collection.find( params[:collection_id] )
+      end
       flash[:notice] = "Album created!"
       redirect_to @album
     else
