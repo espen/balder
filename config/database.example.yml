@@ -1,0 +1,20 @@
+development:
+    adapter: postgresql
+    database: gallery_development
+    username: gallery
+    password: changeme
+production:
+    adapter: mysql
+    encoding: utf8
+    username: photogallery
+    password: changeme
+    database: gallery_production
+    socket: /var/run/mysqld/mysqld.sock
+test: &TEST
+    adapter: postgresql
+    database: gallery_test
+    username: gallery
+    password: changeme
+
+cucumber:
+  <<: *TEST
