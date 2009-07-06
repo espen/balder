@@ -39,7 +39,13 @@ Ruby Gems
 5. Link up the photo folders
 	ln -s photos/originals gallery/public/files
 	ln -s photos/thumbs gallery/public/thumbs
-6. Start up the project with your preferred web-server
+6. Copy settings file:
+	cp gallery/config/database.example.yml gallery/config/database.yml
+	cp gallery/config/settings.example.yml gallery/config/settings.yml
+7. Create databsae user and edit settings files.
+8. rake db:create
+9. rake db:migrate
+10. Start up the project with your preferred web-server
 
 === Optinal: add photos directly to disk
 
