@@ -1,9 +1,15 @@
 <% content_for :javascript do %>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAA2ASeVD5kkQjUA-G_DcpW6xTYEJCoV24wtogQseyPWcfAg67ZQBRSqFfegsi4Rb7m5RD95qnEcX8gNg" type="text/javascript"></script>
 <script src="/javascripts/tag/tag.js" type="text/javascript" charset="utf-8"></script>
 <% end %>
 
+<div id="map_canvas" style="width: 500px; height: 300px;float:right;border:4px solid black;"></div>
+
 <%= hidden_field_tag :all_tags, "'#{Tag.find(:all).map { |tag| tag.title }.join('\',\'')}'" %>
 <%= hidden_field_tag :collection_id, params[:collection_id] %>
+<%= form.hidden_field :id %>
+<%= form.hidden_field :latitude %>
+<%= form.hidden_field :longitude %>
 
 <%= form.label :title, :Title, {:class => 'big'} %><br />
 <%= form.text_field :title, {:class => 'big'} %><br />
@@ -18,7 +24,7 @@
 <%= form.text_area :note %><br />
 
 <%= form.label :tags %><br />
-<%= form.text_field :tags, { :autocomplete => "off", :class => 'tag_list', :value => @album.tags.map{|tag|tag.title}.join(" ") } %><br />
+<%= form.text_field :tags, { :autocomplete => "off", :class => 'tag_list', :value => (@album.tags.map{|tag|tag.title}.join(" ") unless @album.tags.nil?) } %><br />
 
 <br />
 <% if @album.path? %>

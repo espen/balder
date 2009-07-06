@@ -51,7 +51,7 @@ class Photo < ActiveRecord::Base
   end
 
   def tag_list
-    return self.tags.find(:all, :order => 'title').collect{ |t| t.title }.sort.join(" ")
+    return self.tags.find(:all, :order => 'title').map{ |t| t.title }.sort.join(" ")
   end
 
   def tag_list=(tags)

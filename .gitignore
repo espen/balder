@@ -5,6 +5,8 @@ doc/api
 doc/app
 public/files
 public/thumbs
+config/database.yml
+config/settings.yml
 config/deploy.rb
 config/deploy
 Capfile
