@@ -30,6 +30,21 @@ Ruby Gems
 
 == Installation
 
+1. git clone git://gitorious.org/gallery-without-a-name/gallery-without-a-name.git
+2. install required software listed above
+3. create folders for photos outside rails project:
+	photos/originals
+	photos/thumbs
+4. Web-server must have write access to the photos folders
+5. Link up the photo folders
+	ln -s photos/originals gallery/public/files
+	ln -s photos/thumbs gallery/public/thumbs
+6. Start up the project with your preferred web-server
+
+=== Optinal: add photos directly to disk
+
+The gallery has a web-based upload tool using Flash. Alternatively you can upload files directly by doing this:
+
 Put photos in containing folders(albums) in the specified gallery folder. This format is recommended:
 
 ./ski weekend in hemsedal/snow.jpg
@@ -43,6 +58,4 @@ Every time you manually add photos to disk you must run:
 	require "scan"
 	ScanFiles.FullScan
 
-In future releases this will be automated.
-
-Uploads will be written to the database and thus no need to manually scan the folders.
+In future releases the scan will be automated.
