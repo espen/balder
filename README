@@ -1,17 +1,24 @@
 == Welcome to the gallery without a name
 
-Made by Espen Antonsen
+Made by Espen Antonsen.
 
 == Features
 
 * Stores photos to disk in folders
-* Create various thumbnails
-* Read and writes EXIF
-* Organize in albums (events in iPhoto)
-* Combine albums in collections (albums in iPhoto)
+* Create multiple thumbnails of custom sizes
+* Read and writes EXIF/IPTC title, description and keywords
+* Organize in albums (as events in iPhoto)
+* Combine albums in collections (as albums in iPhoto)
 * Upload multiple photos
 * Tag photos. Can also tag albums (actually all photos in album is tagged)
-* User management with roles and permissions.
+* User management with roles and permissions
+* Geo-location of albums & photos with Google Maps integration.
+
+== Todo
+
+* Theme support?
+* Multiple galleries?
+* Support for ImageMagick in addition to FreeImage?
 
 == Requirements
 
@@ -37,8 +44,9 @@ Ruby Gems
 	photos/thumbs
 4. Web-server must have write access to the photos folders
 5. Link up the photo folders
-	ln -s photos/originals gallery/public/files
-	ln -s photos/thumbs gallery/public/thumbs
+	in the public folder:
+	ln -s /path/to/photos/originals files
+	ln -s /path/to/photos/thumbs thumbs
 6. Copy settings file:
 	cp gallery/config/database.example.yml gallery/config/database.yml
 	cp gallery/config/settings.example.yml gallery/config/settings.yml
@@ -47,7 +55,7 @@ Ruby Gems
 9. rake db:migrate
 10. Start up the project with your preferred web-server
 
-=== Optinal: add photos directly to disk
+=== Optional: add photos directly to disk
 
 The gallery has a web-based upload tool using Flash. Alternatively you can upload files directly by doing this:
 
@@ -59,7 +67,7 @@ Put photos in containing folders(albums) in the specified gallery folder. This f
 ./trip to iran/mosque in yazd.jpg
 ./trip to iran/powder snow in dizin.jpg
 
-Every time you manually add photos to disk you must run:
+Every time you manually add photos to disk you must run the following in script/console:
 
 	require "scan"
 	ScanFiles.FullScan
