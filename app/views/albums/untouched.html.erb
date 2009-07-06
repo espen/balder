@@ -1,4 +1,11 @@
-<h1>Albums</h1>
-<%= render :partial => @albums %>
-
-<br /><%= link_to "All albums", albums_path %>
+<% for album in @albums %>
+<div class="row">
+  <div class="title">
+	<%= render :partial => "photos/thumb", :locals => {:photo => album.photos.first } unless album.photos.empty? %>
+	<p><%= link_to album.title, album %></p>
+  </div>
+  <div class="image">
+	<%= render :partial => "photos/thumb", :collection => album.photos.find(:all, :limit => 5, :offset => 1), :as => :photo %>
+  </div>
+</div>
+<% end %>

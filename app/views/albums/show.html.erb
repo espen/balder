@@ -13,11 +13,14 @@
 </div>
 
 <p><%= @album.description %></p>
+
+<% unless @album.photo_tags.empty? %>
 <p>Tagged with: 
 <% for tag in @album.photo_tags.map{|tag|tag.title}.sort %>
 <%= link_to tag, album_tag_photos_path(@album, tag )%>
 <% end %>
 </p>
+<% end %>
 
 <% if has_role?("admin") %>
 <p><%= @album.address %></p>
