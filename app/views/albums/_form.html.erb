@@ -3,7 +3,7 @@
 <script src="/javascripts/tag/tag.js" type="text/javascript" charset="utf-8"></script>
 <% end %>
 
-<div id="map_canvas" style="width: 500px; height: 300px;float:right;border:4px solid black;"></div>
+<div id="map_canvas"></div>
 
 <%= hidden_field_tag :all_tags, "'#{Tag.find(:all).map { |tag| tag.title }.join('\',\'')}'" %>
 <%= hidden_field_tag :collection_id, params[:collection_id] %>

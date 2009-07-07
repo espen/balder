@@ -6,6 +6,9 @@ class AlbumsController < ApplicationController
     if params[:tag_id]
       @albums = Album.find(:all, :conditions => [ "id IN ( SELECT DISTINCT photos.album_id FROM photos WHERE photos.id IN ( SELECT photo_id FROM photo_tags WHERE photo_tags.tag_id = :q) )", { :q => Tag.find( params[:tag_id] ).id } ])
     elsif params[:q]
+      #search = params[:q]
+      #search = search.split("AND").map{|q|q.strip}
+      #@albums = Album.find(:all, :select => 'DISTINCT albums.id, albums.title', :limit => 20, :conditions => {  :tags => {:title => search}}, :joins => 'LEFT OUTER JOIN photos ON albums.id = photos.album_id LEFT OUTER JOIN photo_tags ON photos.id = photo_tags.photo_id LEFT OUTER JOIN tags ON photo_tags.tag_id = tags.id', :order => "albums.title ASC" )
       @albums = Album.find(:all, :conditions => [ "id IN ( SELECT DISTINCT photos.album_id FROM photos WHERE photos.description LIKE :q OR photos.title LIKE :q OR photos.id IN ( SELECT photo_id FROM photo_tags LEFT OUTER JOIN tags ON photo_tags.tag_id = tags.id WHERE tags.title LIKE :q) )", { :q => '%' + params[:q] + '%' } ])
     else
       @albums = Album.find(:all)

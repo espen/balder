@@ -5,10 +5,11 @@ jQuery(function($) {
           tags: $('#all_tags').val().split('\'')
         })
     }
-    
-    if ( $('#map_canvas').length ) {
-	    var map, locations_on_map = new Array();
+
+    var map, locations_on_map = new Array();    
+    if ( $('#map_canvas').length && $('#album_latitude').val() > '' && $('#album_longitude').val() > '' ) {
 	    mapInitialize()
+	    $('#map_canvas').show()
 	}
 	
 	$("#album_address").change( function () {
@@ -17,6 +18,11 @@ jQuery(function($) {
 	        geocoder.getLatLng(  $("#album_address").val()  , function(point) {
 	                //console.log( point )
 	                if ( point ) {
+	                    if (typeof map == "undefined") {
+                	        $('#map_canvas').show()
+                	        mapInitialize()
+                	    }
+                	    
 	                    $('#album_latitude').val( point.lat() )
 	                    $('#album_longitude').val( point.lng() )
 	                    map.setCenter(new GLatLng( $('#album_latitude').val(), $('#album_longitude').val()), 13);
@@ -24,7 +30,9 @@ jQuery(function($) {
                         map.addOverlay(marker);
                     }
                     else
-                    { alert('Unable to find address') }
+                    {
+                        $('#map_canvas').hide()
+        	        }
 	            }
 	        )
 	    }

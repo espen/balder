@@ -191,6 +191,14 @@ div#header h1 p {
 	font-weight: normal;
 }
 
+DIV#map_canvas {
+    width: 500px;
+    height: 300px;
+    float:right;
+    border:4px solid black;
+    display: none;
+}
+
 DIV#breadcrumb {
     float: left;
 }

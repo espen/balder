@@ -23,6 +23,17 @@ class Photo < ActiveRecord::Base
   named_scope :previous, lambda { |p,a| { :conditions => ["id < :id AND Album_Id = :album ", { :id => p, :album => a } ], :limit => 1, :order => "Id DESC"} }
   named_scope :next, lambda { |p,a| { :conditions => ["id > :id AND Album_Id = :album ", { :id => p, :album => a } ], :limit => 1, :order => "Id ASC"} }
 
+  def self.search(q)
+    if q
+      conditions = q.split("AND").each {|var|
+          
+        }
+      find(:all)
+    else
+      find(:all)
+    end
+  end
+
   def to_param
      self.id.to_s + '-' + self.title.parameterize
   end
