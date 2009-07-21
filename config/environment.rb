@@ -9,7 +9,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
 
-  config.gem "authlogic"  
+  config.gem "authlogic"
   config.gem 'mime-types', :lib => 'mime/types'
   config.gem "image_science"
   config.gem "mini_exiftool"

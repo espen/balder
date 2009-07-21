@@ -6,13 +6,23 @@ jQuery(function($) {
         })
     }
 
-    var map, locations_on_map = new Array();    
+    var map, latlng    
     if ( $('#map_canvas').length && $('#album_latitude').val() > '' && $('#album_longitude').val() > '' ) {
+        latlng = new google.maps.LatLng($('#album_latitude').val(), $('#album_longitude').val());
 	    mapInitialize()
 	    $('#map_canvas').show()
 	}
-	
+    if ( $('#map_canvas').length && $('#photo_latitude').val() > '' && $('#photo_longitude').val() > '' ) {
+        latlng = new google.maps.LatLng($('#photo_latitude').val(), $('#photo_longitude').val());
+	    mapInitialize()
+	    $('#map_canvas').show()
+	}
+
 	$("#album_address").change( function() {
+	    if( !map ) {
+	        mapInitialize()
+    	    $('#map_canvas').show()
+	    }
 	    var geocoder = new google.maps.Geocoder()
 	    var address = this.value
             if (geocoder) {
@@ -26,19 +36,17 @@ jQuery(function($) {
                         position: results[0].geometry.location
                         }
                     )
-
                   } else {
-                    alert("No results found")
+                    //alert("No results found")
                   }
                 } else {
-                  alert("Geocode was not successful for the following reason: " + status)
+                  //alert("Geocode was not successful for the following reason: " + status)
                 }
               });
             }
 	})
 
 	function mapInitialize() {
-	    var latlng = new google.maps.LatLng($('#album_latitude').val(), $('#album_longitude').val());
 	    var myOptions = {
               zoom: 13,
               center: latlng,
