@@ -103,7 +103,7 @@ class Photo < ActiveRecord::Base
         img.thumbnail(210) do |thumb|
           thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_preview" + self.extension
         end
-        img.thumbnail(800) do |thumb|
+        img.thumbnail(950) do |thumb|
           thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_single" + self.extension
         end
     end
