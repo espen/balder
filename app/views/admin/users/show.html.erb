@@ -39,6 +39,7 @@
   <%=h @user.current_login_ip %>
 </p>
  
- 
-<%= link_to 'Edit', edit_user_path(@user) %><br/>
-<br /><%= link_to "All users", users_path %>
+
+<% content_for :action_links do %>
+<%= link_to 'Edit', edit_user_path(@user) %>
+<% end %>

@@ -2,4 +2,6 @@
 <h2><%= link_to user.name || user.email , user %></h2>
 <% end %>
 
-<br /><%= link_to "New user", new_user_path %>
+<% content_for :action_links do %>
+<%= link_to "New user", new_user_path %>
+<% end %>
