@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>ImageGallery</title>
+	<title><%= APP_CONFIG[:site_name] %></title>
 	<%= yield :head %>
 	<%= stylesheet_link_tag 'application' %>
 </head>
@@ -21,7 +21,7 @@
 	<%= link_to 'Login', login_path %>
 	<% end %>
 	</div>
-	<h1>ImageGallery</h1>
+	<h1><%= APP_CONFIG[:site_name] %></h1>
 	<form action="/albums" method="get" id="search">
 		<input type="text" name="q" class="textfie.d"/>
 		<input type="submit" value="Search" class="button" />
