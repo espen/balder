@@ -70,3 +70,9 @@ Put photos in containing folders(albums) in the specified gallery folder. This f
 Every time you manually add photos to disk you must scan by visiting /photos/scan
 
 In future releases the scan will be automated.
+
+== Copyright and license info
+
+This code is copyrighted by Espen Antonsen. The source code is available free under the Eclipse Public License.
+
+If the EPL is not suitable for you please contact me for an alternative license for a fee.
