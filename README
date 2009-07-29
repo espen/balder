@@ -43,23 +43,17 @@ Ruby Gems
 
 == Installation
 
-1. git clone git://gitorious.org/gallery-without-a-name/gallery-without-a-name.git
+1. Clone the project from GitHub or Gitorious:
+	GitHub: git clone git://github.com/espen/balder.git
+	Gitorious: git clone git://gitorious.org/gallery-without-a-name/gallery-without-a-name.git
 2. install required software listed above
-3. create folders for photos outside rails project:
-	photos/originals
-	photos/thumbs
-4. Web-server must have write access to the photos folders
-5. Link up the photo folders
-	in the public folder:
-	ln -s /path/to/photos/originals files
-	ln -s /path/to/photos/thumbs thumbs
-6. Copy settings file:
+3. Copy settings file:
 	cp gallery/config/database.example.yml gallery/config/database.yml
 	cp gallery/config/settings.example.yml gallery/config/settings.yml
-7. Create databsae user and edit settings files.
-8. rake db:create
-9. rake db:migrate
-10. Start up the project with your preferred web-server
+4. Create databsae user and edit settings files.
+5. rake db:create
+6. rake db:migrate
+7. Start up the project with your preferred web-server
 
 === Optional: add photos directly to disk
 
@@ -73,9 +67,6 @@ Put photos in containing folders(albums) in the specified gallery folder. This f
 ./trip to iran/mosque in yazd.jpg
 ./trip to iran/powder snow in dizin.jpg
 
-Every time you manually add photos to disk you must run the following in script/console:
-
-	require "scan"
-	ScanFiles.FullScan
+Every time you manually add photos to disk you must scan by visiting /photos/scan
 
 In future releases the scan will be automated.

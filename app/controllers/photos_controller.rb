@@ -50,6 +50,12 @@ class PhotosController < ApplicationController
       format.xml  { render :xml => @photo }
     end
   end
+  
+  def scan
+  	require "scan"
+  	ScanFiles.FullScan
+  	redirect_to(root_path)
+  end
 
   def new
     @photo = Photo.new

@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.authenticate "authenticate", :controller => "user_sessions", :action => "create"
   map.logout "logout", :controller => "user_sessions", :action => "destroy"
 
-  map.resources :photos, :collection => { :untouched => :get, :edit_multiple => :post, :update_multiple => :put, :upload => :get }
+  map.resources :photos, :collection => { :untouched => :get, :edit_multiple => :post, :update_multiple => :put, :upload => :get, :scan => :get }
   map.resources :albums, :collection => { :untouched => :get, } do |album|
     album.resources :tags do |tag|
       tag.resources :photos, :collection => { :untouched => :get, :upload => :get, :edit_multiple => :get }

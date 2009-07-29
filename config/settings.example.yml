@@ -1,18 +1,18 @@
 development:
     site_name: Photos
-    photos_path: '/photos/originals/'
-    thumbs_path: '/photos/thumbs/'
+    photos_path: 'photos'
+    thumbs_path: 'public/thumbs/'
     photos_path_public: '/files/'
     thumbs_path_public: '/thumbs/'
 production:
     site_name: Photos
-    photos_path: '/photos/originals/'
-    thumbs_path: '/photos/thumbs/'
+    photos_path: 'photos'
+    thumbs_path: 'public/thumbs/'
     photos_path_public: '/files/'
     thumbs_path_public: '/thumbs/'
 test:
     site_name: Photos
-    photos_path: '/photos/originals/'
-    thumbs_path: '/photos/thumbs/'
+    photos_path: 'photos'
+    thumbs_path: 'public/thumbs/'
     photos_path_public: '/files/'
     thumbs_path_public: '/thumbs/'
