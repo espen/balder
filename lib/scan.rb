@@ -18,7 +18,8 @@ module ScanFiles
         end
         if album.nil?
           puts "New album : " + File.basename( relpath )
-          album = Album.new( :path => relpath )
+          album = Album.new()
+          album.path = relpath
           unless album.save
             raise "unable to save album"
           end
@@ -26,7 +27,9 @@ module ScanFiles
         photo = Photo.find_by_path( relfile )
         if photo.nil?
           puts "  New photo added " + relfile
-          photo = Photo.new( :album => album, :path => relfile )
+          photo = Photo.new(  )
+          photo.album = album
+          photo.path = relfile
           unless photo.save
             raise "unable to save photo"
           end
