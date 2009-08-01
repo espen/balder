@@ -1,14 +1,15 @@
 module ScanFiles
-#  protected
   require "find"
-  #require 'RMagick'
 
   supported_files = ["jpeg", "jpg", "gif", "png"]
 
   def self.FullScan
     prevalbum = ""
-    dirs = Find.find( APP_CONFIG[:photos_path] ).collect
-    dirs.sort.each { |path|
+    dirs = Array.new
+    Find.find( APP_CONFIG[:photos_path] ) { |path|
+      dirs.push( path )
+    }
+    dirs.sort.each{|path|
       if File.file?(path) && [".jpeg", ".jpg", ".gif", ".png"].include?( File.extname(path) )
         relpath = File.dirname( path ).sub(APP_CONFIG[:photos_path], '')
         relfile = path.sub(APP_CONFIG[:photos_path], '')
