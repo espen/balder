@@ -19,13 +19,17 @@ module ScanFiles
         if album.nil?
           puts "New album : " + File.basename( relpath )
           album = Album.new( :path => relpath )
-          album.save
+          unless album.save
+            raise "unable to save album"
+          end
         end
         photo = Photo.find_by_path( relfile )
         if photo.nil?
           puts "  New photo added " + relfile
           photo = Photo.new( :album => album, :path => relfile )
-          photo.save
+          unless photo.save
+            raise "unable to save photo"
+          end
         else
           puts "  Found photo " + relfile
         end
