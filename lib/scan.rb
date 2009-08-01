@@ -7,7 +7,7 @@ module ScanFiles
 
   def self.FullScan
     prevalbum = ""
-    dirs = Find.find( APP_CONFIG[:photos_path] )
+    dirs = Find.find( APP_CONFIG[:photos_path] ).collect
     dirs.sort.each { |path|
       if File.file?(path) && [".jpeg", ".jpg", ".gif", ".png"].include?( File.extname(path) )
         relpath = File.dirname( path ).sub(APP_CONFIG[:photos_path], '')
