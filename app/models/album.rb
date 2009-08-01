@@ -13,7 +13,7 @@ class Album < ActiveRecord::Base
   attr_accessor :tags
   attr_protected :path
   
-  named_scope :untouched, :conditions => "Albums.Id IN ( SELECT DISTINCT Photos.Album_Id FROM Photos WHERE Photos.description IS NULL AND Photos.Id NOT IN ( SELECT Photo_ID FROM Photo_Tags) )"
+  named_scope :untouched, :conditions => "albums.Id IN ( SELECT DISTINCT photos.album_id FROM photos WHERE photos.description IS NULL AND photos.id NOT IN ( SELECT photo_id FROM photo_tags) )"
 
   def to_param
     "#{id}-#{title.parameterize}"

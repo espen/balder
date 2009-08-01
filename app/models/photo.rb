@@ -19,9 +19,9 @@ class Photo < ActiveRecord::Base
   attr_accessor :tag_list
   #attr_protected :path
   
-  named_scope :untouched, :conditions => "Photos.description IS NULL AND Photos.Id NOT IN ( SELECT Photo_ID FROM Photo_Tags)", :include => :album 
-  named_scope :previous, lambda { |p,a| { :conditions => ["id < :id AND Album_Id = :album ", { :id => p, :album => a } ], :limit => 1, :order => "Id DESC"} }
-  named_scope :next, lambda { |p,a| { :conditions => ["id > :id AND Album_Id = :album ", { :id => p, :album => a } ], :limit => 1, :order => "Id ASC"} }
+  named_scope :untouched, :conditions => "photos.description IS NULL AND photos.id NOT IN ( SELECT photo_id FROM photo_tags)", :include => :album 
+  named_scope :previous, lambda { |p,a| { :conditions => ["id < :id AND album_Id = :album ", { :id => p, :album => a } ], :limit => 1, :order => "id DESC"} }
+  named_scope :next, lambda { |p,a| { :conditions => ["id > :id AND album_Id = :album ", { :id => p, :album => a } ], :limit => 1, :order => "id ASC"} }
 
   def self.search(q)
     if q
