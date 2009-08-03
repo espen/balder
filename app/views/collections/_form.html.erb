@@ -6,6 +6,3 @@
 
 <%= form.label :album %><br />
 <%= collection_select :collection, :album_list, Album.find(:all, :order => :title), :id, :title, {:selected => @collection.albums.map{|album|album.id} }, {:multiple => true, :rows => 10} %><br />
-
-
-<br />
