@@ -1,4 +1,5 @@
 class TagsController < ApplicationController
+  before_filter :check_public_access
 
   def index
     if params[:album_id]

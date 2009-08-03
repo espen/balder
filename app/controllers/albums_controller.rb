@@ -1,5 +1,5 @@
 class AlbumsController < ApplicationController
-
+  before_filter :check_public_access
   before_filter :require_role_admin, :only => [:untouched, :new, :create, :edit, :update, :destroy]
   
   def index
