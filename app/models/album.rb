@@ -13,7 +13,7 @@ class Album < ActiveRecord::Base
   attr_accessor :tags
   attr_protected :path
   
-  named_scope :untouched, :conditions => "albums.Id IN ( SELECT DISTINCT photos.album_id FROM photos WHERE photos.description IS NULL AND photos.id NOT IN ( SELECT photo_id FROM photo_tags) )"
+  named_scope :untouched, :conditions => "albums.Id IN ( SELECT DISTINCT photos.album_id FROM photos WHERE photos.description IS NULL AND photos.id NOT IN ( SELECT photo_id FROM photo_tags) )", :order => 'title'
 
   def to_param
     "#{id}-#{title.parameterize}"
@@ -27,7 +27,7 @@ class Album < ActiveRecord::Base
   end
   
   def set_title
-    self.title = File.basename( File.dirname(self.path) ) unless self.title || !self.path
+    self.title = File.basename( self.path) unless self.title || !self.path
   end
   
   def tags

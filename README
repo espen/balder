@@ -59,7 +59,10 @@ Ruby Gems
 
 The gallery has a web-based upload tool using Flash. Alternatively you can upload files directly by doing this:
 
-Put photos in containing folders(albums) in the specified gallery folder. This format is recommended:
+Put photos in containing folders(albums) in the specified gallery folder.
+Hierarchy of folders is not fully supported.
+
+This format is recommended:
 
 ./ski weekend in hemsedal/snow.jpg
 ./ski weekend in hemsedal/afterski.jpg

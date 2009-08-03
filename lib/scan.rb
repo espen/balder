@@ -1,5 +1,6 @@
 module ScanFiles
   require "find"
+  
 
   supported_files = ["jpeg", "jpg", "gif", "png"]
 
