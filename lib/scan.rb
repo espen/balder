@@ -1,10 +1,11 @@
 module ScanFiles
   require "find"
-  
+  require "fileutils"
 
   supported_files = ["jpeg", "jpg", "gif", "png"]
 
   def self.FullScan
+    puts "Scanning " + APP_CONFIG[:photos_path]
     prevalbum = ""
     dirs = Array.new
     Find.find( APP_CONFIG[:photos_path] ) { |path|
@@ -14,6 +15,20 @@ module ScanFiles
       if File.file?(path) && [".jpeg", ".jpg", ".gif", ".png"].include?( File.extname(path) )
         relpath = File.dirname( path ).sub(APP_CONFIG[:photos_path], '')
         relfile = path.sub(APP_CONFIG[:photos_path], '')
+        puts relpath
+        relpathdirs = relpath.split("/")
+        relpathparam = ""
+        relpathdirs.each{|d|
+          relpathparam += d.parameterize + "/"
+        }
+        relpathparam = relpathparam.slice(0..relpathparam.length-2)
+        if relpath != relpathparam
+          puts APP_CONFIG[:photos_path] + relpath + " will now be moved to " + APP_CONFIG[:photos_path] + relpathparam
+          FileUtils.mv APP_CONFIG[:photos_path] + relpath, APP_CONFIG[:photos_path] + relpathparam
+          puts "reload!"
+          self.FullScan
+          return
+        end
         album = Album.find_by_path( relpath )
         if prevalbum != relpath
           puts relpath
