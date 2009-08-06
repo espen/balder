@@ -13,7 +13,9 @@ class Album < ActiveRecord::Base
   attr_accessor :tags
   attr_protected :path
   
-  named_scope :untouched, :conditions => "albums.Id IN ( SELECT DISTINCT photos.album_id FROM photos WHERE photos.description IS NULL AND photos.id NOT IN ( SELECT photo_id FROM photo_tags) )", :order => 'title'
+  named_scope :untouched, :conditions => "albums.id IN ( SELECT DISTINCT photos.album_id FROM photos WHERE photos.description IS NULL AND photos.id NOT IN ( SELECT photo_id FROM photo_tags) )", :order => 'title'
+  named_scope :unused, :conditions => "albums.id NOT IN (SELECT album_id FROM collection_albums)"
+  named_scope :used, :conditions => "albums.id IN (SELECT album_id FROM collection_albums)"
 
   def to_param
     "#{id}-#{title.parameterize}"

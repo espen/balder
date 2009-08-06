@@ -17,6 +17,32 @@ jQuery(function($) {
 	    mapInitialize()
 	    $('#map_canvas').show()
 	}
+	
+	$('#collection_albums .delete').livequery('click', function() {
+	    $(this).parent('span').fadeOut('slow', function() { $(this).remove() })
+	})
+	
+	$("#available_albums").change( function() {
+	    if ( this.value == '' ) {
+	        return false
+	    }
+	    else if ( $('#collection_album_list_' + this.value).length ) {
+	        $('#collection_album_list_' + this.value).parent('span').fadeTo('slow', 0.33, function () {
+	            $(this).fadeTo('slow', 1)
+	        })
+	        return false
+	    }
+	    $.getJSON("/albums/" + this.value + '/photos',
+                function(data){
+                    html = '<span style="display:none;"><img src="/images/delete-24x24.png" border="" class="delete" />'
+                    html += '<img alt="' + $("#available_albums :selected").val()  + '_collection" src="/thumbs/' + $("#available_albums :selected").text() + '/' + data[0].photo.id + '_album.jpg" />'
+                    html += '<input id="collection_album_list_' + $("#available_albums :selected").val()  + '" name="collection[album_list][' + $("#available_albums :selected").val()  + ']" type="hidden" />'
+                    html += '</span>'
+                    $('#collection_albums').append(html)
+                    $('#collection_album_list_' + $('#available_albums :selected').val() ).parent('span').fadeIn('slow')
+                })
+	}
+	)
 
 	$("#album_address").change( function() {
 	    if( !map ) {

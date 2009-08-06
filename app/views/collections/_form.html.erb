@@ -4,5 +4,28 @@
 <%= form.label :description %><br />
 <%= form.text_area :description %><br />
 
-<%= form.label :album %><br />
-<%= collection_select :collection, :album_list, Album.find(:all, :order => :title), :id, :title, {:selected => @collection.albums.map{|album|album.id} }, {:multiple => true, :rows => 10} %><br />
+<%= form.label :albums %><br />
+
+<div id="collection_albums">
+<% for album in @collection.albums %>
+<% form.fields_for :album_list do |album_fields| %>
+<span>
+<img src="/images/delete-24x24.png" border="" class="delete" />
+<%= image_tag album.photos.first.path_modified_public('album'), :alt => album.title %>
+<%= album_fields.hidden_field album.id %>
+</span>
+<% end %>
+<% end %>
+</div>
+
+<p class="clear">
+<%
+grouped_options = [
+	['Available albums',[['Choose album to add','']]],
+	['Not used', Album.unused.map{|album|[album.title, album.id]} ],
+	['In use', Album.used.map{|album|[album.title, album.id]} ]
+]
+grouped_options_for_select(grouped_options)
+%>
+<%= select_tag 'available_albums', grouped_options_for_select(grouped_options) %>
+</p>

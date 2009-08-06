@@ -1,3 +1,5 @@
+/* @override http://localhost:3000/stylesheets/application.css */
+
 /* @group Reset */
 
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
@@ -65,6 +67,9 @@ caption {background:#eee;}
 .last {margin-right:0;padding-right:0;}
 .top {margin-top:0;padding-top:0;}
 .bottom {margin-bottom:0;padding-bottom:0;}
+.clear {
+	clear:  both;
+}
 
 
 
@@ -213,4 +218,23 @@ td {
 }
 p#notice {
     color: green;
+}
+
+DIV#collection_albums {
+	width:  710px;
+	clear:  both;
+}
+DIV#collection_albums span {
+	position: relative;
+	display:  block;
+	float:  left;
+	padding:  5px;
+}
+DIV#collection_albums IMG.delete {
+	display:  block;
+	vertical-align: top;
+	position: absolute;
+	cursor:  pointer;
+	right:  8px;
+	top:  8px;
 }
