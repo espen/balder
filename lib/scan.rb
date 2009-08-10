@@ -22,14 +22,19 @@ module ScanFiles
           relpathparam += d.parameterize + "/"
         }
         relpathparam = relpathparam.slice(0..relpathparam.length-2)
+        album = Album.find_by_path( relpath )
         if relpath != relpathparam
           puts APP_CONFIG[:photos_path] + relpath + " will now be moved to " + APP_CONFIG[:photos_path] + relpathparam
           FileUtils.mv APP_CONFIG[:photos_path] + relpath, APP_CONFIG[:photos_path] + relpathparam
           puts "reload!"
+          unless album.nil?
+            album.path = relpathparam
+            album.save!
+          end
           self.FullScan
           return
         end
-        album = Album.find_by_path( relpath )
+
         if prevalbum != relpath
           puts relpath
           prevalbum = relpath
@@ -86,19 +91,4 @@ module ScanFiles
     #image.write(mainsite_file)
   end
 
-  def self.FullScanOld
-    self.ScanDirectory(APP_CONFIG[:photo_directory])
-  end
-
-  def self.ScanDirectory(dir)
-    puts "now scanning: " + dir
-    Dir.entries( dir ).select { |f| (f != "." && f != "..") }.each { |f|
-        if ( File.directory?( dir + f))
-          puts "found directory scan more.. " + dir + f + "/"
-          self.ScanDirectory( dir + f )
-        elsif ( supported_files.include?( File.extname(dir + f) ) )
-          puts "insert file in database: " + f
-        end
-      }
-  end
 end

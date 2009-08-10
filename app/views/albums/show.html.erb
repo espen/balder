@@ -17,10 +17,19 @@
 <% unless @album.photo_tags.empty? %>
 <p>Tagged with: 
 <% for tag in @album.photo_tags.map{|tag|tag.title}.sort %>
-<%= link_to tag, album_tag_photos_path(@album, tag )%>
+<%= link_to tag, album_tag_photos_path(@album, tag) %>
 <% end %>
 </p>
 <% end %>
+
+<% unless @album.collections.empty? %>
+<p>Part of: 
+<% for collection in @album.collections.find(:all, :order => 'title') %>
+<%= link_to collection.title, collection_path(collection) %>
+<% end %>
+</p>
+<% end %>
+
 
 <% if has_role?("admin") %>
 <p><%= @album.address %></p>
@@ -28,6 +37,8 @@
 <% if has_role?("admin") %>
 <p><%= @album.note %></p>
 <% end %>
+
+
 
 <% content_for :action_links do %>
 <% if has_role?("admin") %>
