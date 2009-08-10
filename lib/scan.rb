@@ -16,15 +16,18 @@ module ScanFiles
     Dir.entries( path ).each {|entry|
       pathentry = path + "/" + entry
       if File.directory?(pathentry) && !([".", ".."].include?( entry ))
-        album = Album.find_by_path( pathentry ) || Album.new()
+        album = Album.find_by_path( pathentry.sub(APP_CONFIG[:photos_path], '') ) || Album.new()
         unless entry == entry.parameterize
           puts pathentry + " will now be moved to " + path + "/" + entry.parameterize
           #FileUtils.mv( pathentry, entry.parameterize)
           File.rename( pathentry, path + "/" + entry.parameterize ) unless debug
           pathentry = path + "/" + entry.parameterize
+          moved = true
         end
-        album.path = pathentry
-        album.save! unless debug
+        if moved || album.new_record?
+          album.path = pathentry.sub(APP_CONFIG[:photos_path], '')
+          album.save! unless debug
+        end
         self.ScanDirectory(pathentry, debug)
       elsif File.file?(pathentry)
         self.ScanFile(pathentry, debug)
@@ -38,16 +41,22 @@ module ScanFiles
     return unless [".jpeg", ".jpg", ".gif", ".png"].include?( File.extname(path).downcase )
     puts "analyze file " + path
     pathentry = path
-    photo = Photo.find_by_path( path ) || Photo.new()
+    photo = Photo.find_by_path( path.sub(APP_CONFIG[:photos_path], '') ) || Photo.new()
+    puts "new record " + photo.new_record?.to_s
     unless File.basename( path, File.extname(path) ) == File.basename(path, File.extname(path)).parameterize
       pathentry = File.dirname(path) + "/" + File.basename( path, File.extname(path) ).parameterize  + File.extname(path).downcase
       puts path + " will now be moved to " + pathentry
       #FileUtils.mv( path, File.basename( path, File.extname(path) ).parameterize + File.extname(path).downcase )
       #File.move( path, File.dirname(path) + "/" + File.basename( path, File.extname(path) ).parameterize + File.extname(path) )
       File.rename( path, pathentry ) unless debug
+      moved = true
     end
-    photo.path = pathentry
-    photo.save! unless debug
+    if photo.new_record? || moved
+      puts "save file"
+      photo.path = pathentry.sub(APP_CONFIG[:photos_path], '')
+      photo.album = Album.find_by_path( File.dirname( pathentry ).sub(APP_CONFIG[:photos_path], '') )
+      photo.save! unless debug
+    end
   end
 
   def self.FullScan(debug = false)
