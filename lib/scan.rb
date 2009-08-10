@@ -16,30 +16,26 @@ module ScanFiles
         relpath = File.dirname( path ).sub(APP_CONFIG[:photos_path], '')
         relfile = path.sub(APP_CONFIG[:photos_path], '')
         puts relpath
-        relpathdirs = relpath.split("/")
-        relpathparam = ""
-        relpathdirs.each{|d|
-          relpathparam += d.parameterize + "/"
-        }
-        relpathparam = relpathparam.slice(0..relpathparam.length-2)
         album = Album.find_by_path( relpath )
-        if relpath != relpathparam
-          puts APP_CONFIG[:photos_path] + relpath + " will now be moved to " + APP_CONFIG[:photos_path] + relpathparam
-          FileUtils.mv APP_CONFIG[:photos_path] + relpath, APP_CONFIG[:photos_path] + relpathparam
-          puts "reload!"
-          unless album.nil?
-            album.path = relpathparam
-            album.save!
-          end
-          self.FullScan
-          return
-        end
-
         if prevalbum != relpath
           puts relpath
           prevalbum = relpath
         end
         if album.nil?
+          relpathdirs = relpath.split("/")
+          relpathparam = ""
+          relpathdirs.each{|d|
+            relpathparam += d.parameterize + "/"
+          }
+          relpathparam = relpathparam.slice(0..relpathparam.length-2)
+          if relpath != relpathparam
+            puts APP_CONFIG[:photos_path] + relpath + " will now be moved to " + APP_CONFIG[:photos_path] + relpathparam
+            FileUtils.mv APP_CONFIG[:photos_path] + relpath, APP_CONFIG[:photos_path] + relpathparam
+            puts "reload!"
+            self.FullScan
+            return
+          end
+          
           puts "New album : " + File.basename( relpath )
           album = Album.new()
           album.path = relpath
