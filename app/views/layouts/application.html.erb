@@ -22,7 +22,11 @@
 	<% end %>
 	</div>
 	<h1>
-		<%= if APP_CONFIG[:site_logo] (image_tag APP_CONFIG[:site_logo]) else APP_CONFIG[:site_name] %>
+		<% if APP_CONFIG[:site_logo] %>
+		<%= image_tag APP_CONFIG[:site_logo] %>
+		<% else %>
+		<%= APP_CONFIG[:site_name] %>
+		<% end %>
 		</h1>
 	<form action="/albums" method="get" id="search">
 		<input type="text" name="q" class="textfie.d"/>
