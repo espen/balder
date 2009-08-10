@@ -45,10 +45,8 @@ class AlbumsController < ApplicationController
 
   def create
     @album = Album.new(params[:album])
-    @album.path = @album.title
     if @album.save
       unless params[:collection_id].empty?
-        puts "has params"
         @album.collections << Collection.find( params[:collection_id] )
       end
       flash[:notice] = "Album created!"
