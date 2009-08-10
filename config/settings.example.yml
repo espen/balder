@@ -1,17 +1,20 @@
 development:
-    site_name: Photos
+    site_name: 'Photos'
+    #site_logo: 'logo.png'
     photos_path: <%= RAILS_ROOT + '/photos/' %>
     thumbs_path: <%= RAILS_ROOT + '/public/thumbs/'  %>
     photos_path_public: '/files/'
     thumbs_path_public: '/thumbs/'
 production:
-    site_name: Photos
+    site_name: 'Photos'
+    #site_logo: 'logo.png'
     photos_path: <%= RAILS_ROOT + '/photos/' %>
     thumbs_path: <%= RAILS_ROOT + '/public/thumbs/'  %>
     photos_path_public: '/files/'
     thumbs_path_public: '/thumbs/'
 test:
-    site_name: Photos
+    site_name: 'Photos'
+    #site_logo: 'logo.png'
     photos_path: <%= RAILS_ROOT + '/photos/' %>
     thumbs_path: <%= RAILS_ROOT + '/public/thumbs/'  %>
     photos_path_public: '/files/'

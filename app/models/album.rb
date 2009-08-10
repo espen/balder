@@ -25,7 +25,6 @@ class Album < ActiveRecord::Base
   
   
   def ensure_path
-    puts self.title.parameterize
     self.path = self.title.parameterize unless self.path
   end
   
