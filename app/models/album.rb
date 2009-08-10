@@ -11,7 +11,7 @@ class Album < ActiveRecord::Base
   after_destroy :destroy_folders
 
   attr_accessor :tags
-  attr_protected :path
+  #attr_protected :path
   
   named_scope :untouched, :conditions => "albums.id IN ( SELECT DISTINCT photos.album_id FROM photos WHERE photos.description IS NULL AND photos.id NOT IN ( SELECT photo_id FROM photo_tags) )", :order => 'title'
   named_scope :unused, :conditions => "albums.id NOT IN (SELECT album_id FROM collection_albums)"
@@ -19,7 +19,6 @@ class Album < ActiveRecord::Base
 
   def to_param
     "#{id}-#{title.parameterize}"
-    #self.title.gsub(/[^a-z0-9]+/i, '-')
   end
 
   

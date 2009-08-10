@@ -1,5 +1,5 @@
 class Tag < ActiveRecord::Base
-  has_many :photo_tags
+  has_many :photo_tags, :dependent => :destroy
   has_many :photos, :through => :photo_tags
   
   validates_uniqueness_of :title
@@ -11,10 +11,8 @@ class Tag < ActiveRecord::Base
   end
 
   def to_param
-     #id.to_s+'-'+
-     self.title.parameterize
-     #title.downcase.gsub(/[^a-z0-9]+/i, '-')
-   end
+    "#{id}-#{title.parameterize}"
+  end
 
    protected
 

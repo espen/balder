@@ -2,9 +2,58 @@ module ScanFiles
   require "find"
   require "fileutils"
 
-  supported_files = ["jpeg", "jpg", "gif", "png"]
+  #require "scan";ScanFiles.Scan
+  
+  def self.Scan(debug = true)
+    puts " IN DEBUG MODE " if debug
+    self.ScanDirectory( APP_CONFIG[:photos_path], debug )
+  end
+  
+  
+  def self.ScanDirectory(path, debug)
+    path = File.expand_path( path )
+    puts "analyze directory " + path
+    Dir.entries( path ).each {|entry|
+      pathentry = path + "/" + entry
+      if File.directory?(pathentry) && !([".", ".."].include?( entry ))
+        album = Album.find_by_path( pathentry ) || Album.new()
+        unless entry == entry.parameterize
+          puts pathentry + " will now be moved to " + path + "/" + entry.parameterize
+          #FileUtils.mv( pathentry, entry.parameterize)
+          File.rename( pathentry, path + "/" + entry.parameterize ) unless debug
+          pathentry = path + "/" + entry.parameterize
+        end
+        album.path = pathentry
+        album.save! unless debug
+        self.ScanDirectory(pathentry, debug)
+      elsif File.file?(pathentry)
+        self.ScanFile(pathentry, debug)
+      else
+        puts "ignoring " + pathentry 
+      end
+    }
+  end
+  
+  def self.ScanFile(path, debug)
+    return unless [".jpeg", ".jpg", ".gif", ".png"].include?( File.extname(path).downcase )
+    puts "analyze file " + path
+    pathentry = path
+    photo = Photo.find_by_path( path ) || Photo.new()
+    unless File.basename( path, File.extname(path) ) == File.basename(path, File.extname(path)).parameterize
+      pathentry = File.dirname(path) + "/" + File.basename( path, File.extname(path) ).parameterize  + File.extname(path).downcase
+      puts path + " will now be moved to " + pathentry
+      #FileUtils.mv( path, File.basename( path, File.extname(path) ).parameterize + File.extname(path).downcase )
+      #File.move( path, File.dirname(path) + "/" + File.basename( path, File.extname(path) ).parameterize + File.extname(path) )
+      File.rename( path, pathentry ) unless debug
+    end
+    photo.path = pathentry
+    photo.save! unless debug
+  end
 
-  def self.FullScan
+  def self.FullScan(debug = false)
+    if debug
+      puts "DEBUG"
+    end
     puts "Scanning " + APP_CONFIG[:photos_path]
     prevalbum = ""
     dirs = Array.new
@@ -12,44 +61,65 @@ module ScanFiles
       dirs.push( path )
     }
     dirs.sort.each{|path|
-      if File.file?(path) && [".jpeg", ".jpg", ".gif", ".png"].include?( File.extname(path) )
+      if File.file?(path) && [".jpeg", ".jpg", ".gif", ".png"].include?( File.extname(path).downcase )
         relpath = File.dirname( path ).sub(APP_CONFIG[:photos_path], '')
         relfile = path.sub(APP_CONFIG[:photos_path], '')
         puts relpath
         album = Album.find_by_path( relpath )
+
+        relpathparam = ""
+        relpath.split("/").each{|d|
+          relpathparam += d.parameterize + "/"
+        }
+        relpathparam = relpathparam.slice(0..relpathparam.length-2)
+        if relpath != relpathparam
+          puts APP_CONFIG[:photos_path] + relpath + " will now be moved to " + APP_CONFIG[:photos_path] + relpathparam
+          FileUtils.mv(APP_CONFIG[:photos_path] + relpath, APP_CONFIG[:photos_path] + relpathparam) unless debug
+          FileUtils.mv(APP_CONFIG[:thumbs_path] + relpath, APP_CONFIG[:thumbs_path] + relpathparam) unless debug
+          puts "reload!"
+          self.FullScan unless debug
+          return unless debug
+        end
+
         if prevalbum != relpath
           puts relpath
           prevalbum = relpath
         end
         if album.nil?
-          relpathdirs = relpath.split("/")
-          relpathparam = ""
-          relpathdirs.each{|d|
-            relpathparam += d.parameterize + "/"
-          }
-          relpathparam = relpathparam.slice(0..relpathparam.length-2)
-          if relpath != relpathparam
-            puts APP_CONFIG[:photos_path] + relpath + " will now be moved to " + APP_CONFIG[:photos_path] + relpathparam
-            FileUtils.mv APP_CONFIG[:photos_path] + relpath, APP_CONFIG[:photos_path] + relpathparam
-            puts "reload!"
-            self.FullScan
-            return
-          end
-          
           puts "New album : " + File.basename( relpath )
           album = Album.new()
           album.path = relpath
-          unless album.save
+          unless debug || album.save
             raise "unable to save album"
           end
+          puts "reload!"
+          self.FullScan unless debug
+          return unless debug
         end
         photo = Photo.find_by_path( relfile )
+
+        photorelpathparam = ""
+        relfile.split("/").each{|d|
+          photorelpathparam += d.parameterize + "/"
+        }
+        photorelpathparam = photorelpathparam.slice(0..photorelpathparam.length-2)
+        puts "check if photo " + relfile + " = " + photorelpathparam
+        if relfile != photorelpathparam
+          puts APP_CONFIG[:photos_path] + relfile + " will now be moved to " + APP_CONFIG[:photos_path] + photorelpathparam
+          unless photo.nil?
+            photo.path = photorelpathparam
+            photo.save! unless debug
+          end
+          FileUtils.mv(APP_CONFIG[:photos_path] + photo.path, APP_CONFIG[:photos_path] + photorelpathparam) unless debug
+          FileUtils.mv(APP_CONFIG[:thumbs_path] + photo.path, APP_CONFIG[:thumbs_path] + photorelpathparam) unless debug
+        end
+
         if photo.nil?
-          puts "  New photo added " + relfile
+          puts "  New photo added " + photorelpathparam
           photo = Photo.new(  )
           photo.album = album
-          photo.path = relfile
-          unless photo.save
+          photo.path = photorelpathparam
+          unless debug || photo.save
             raise "unable to save photo"
           end
         else
@@ -57,6 +127,7 @@ module ScanFiles
         end
       end
     }
+    return
   end
   
   def self.RecreateThumbnails

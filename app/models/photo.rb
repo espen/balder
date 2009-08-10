@@ -35,7 +35,7 @@ class Photo < ActiveRecord::Base
   end
 
   def to_param
-     self.id.to_s + '-' + self.title.parameterize
+    "#{id}-#{title.parameterize}"
   end
   
   def path_original_public
