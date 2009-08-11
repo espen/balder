@@ -94,6 +94,7 @@ class Photo < ActiveRecord::Base
 
   def create_thumbnails
     ImageScience.with_image(self.path_original) do |img|
+        puts "thumb " + self.path_original
         img.cropped_thumbnail(200) do |thumb|
           thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_collection" + self.extension
         end
