@@ -90,8 +90,7 @@ class Photo < ActiveRecord::Base
     self.path = self.album.path + "/" + data.original_filename.parameterize
     File.open(APP_CONFIG[:photos_path] + self.path, 'wb') { |f| f.write(data.read) }
   end
-
-
+  
   def create_thumbnails
     return if File.exists?(APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_collection" + self.extension)
     puts "thumb " + self.path_original

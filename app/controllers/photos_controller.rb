@@ -53,7 +53,7 @@ class PhotosController < ApplicationController
   
   def scan
   	require "scan"
-  	ScanFiles.FullScan
+  	ScanFiles.Scan(false)
   	redirect_to(root_path)
   end
 
