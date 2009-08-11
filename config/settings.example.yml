@@ -1,4 +1,5 @@
 development:
+    public: true
     site_name: 'Photos'
     #site_logo: 'logo.png'
     photos_path: <%= RAILS_ROOT + '/photos/' %>
@@ -6,6 +7,7 @@ development:
     photos_path_public: '/files/'
     thumbs_path_public: '/thumbs/'
 production:
+    public: true
     site_name: 'Photos'
     #site_logo: 'logo.png'
     photos_path: <%= RAILS_ROOT + '/photos/' %>
@@ -13,6 +15,7 @@ production:
     photos_path_public: '/files/'
     thumbs_path_public: '/thumbs/'
 test:
+    public: true
     site_name: 'Photos'
     #site_logo: 'logo.png'
     photos_path: <%= RAILS_ROOT + '/photos/' %>
