@@ -28,7 +28,7 @@ class Album < ActiveRecord::Base
   end
   
   def set_title
-    self.title = File.basename( self.path) unless self.title || !self.path
+    self.title = File.basename( self.path).titleize unless self.title || !self.path
   end
   
   def tags

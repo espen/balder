@@ -60,6 +60,9 @@ module ScanFiles
   end
 
   def self.FullScan(debug = false)
+    
+    puts "not in use anymore. use Scan"
+    return
     if debug
       puts "DEBUG"
     end

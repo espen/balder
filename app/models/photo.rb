@@ -127,7 +127,7 @@ class Photo < ActiveRecord::Base
   private
 
   def set_title
-    self.title = File.basename( self.path ).gsub( self.extension, "" ) unless self.title
+    self.title = File.basename( self.path ).gsub( self.extension, "" ).titleize unless self.title
   end
   
   def ensure_file
