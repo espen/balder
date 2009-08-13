@@ -13,7 +13,14 @@ class PhotosController < ApplicationController
       #search = params[:q]
       #search = search.split("AND").map{|q|q.strip}
       #@photos = Photo.find(:all, :select => 'DISTINCT photos.id, photos.album_id, photos.title, photos.path', :limit => 20, :conditions => {  :tags => {:title => search}}, :joins => 'LEFT OUTER JOIN photo_tags ON photos.id = photo_tags.photo_id LEFT OUTER JOIN tags ON photo_tags.tag_id = tags.id', :include => [:album], :order => "photos.title ASC" )
-      @photos = Photo.find(:all, :limit => 20, :conditions => [ "photos.description LIKE :q OR photos.title LIKE :q OR photos.id IN ( SELECT photo_id FROM photo_tags LEFT OUTER JOIN tags ON photo_tags.tag_id = tags.id WHERE tags.title = :t) ", { :q => '%' + params[:q] + '%', :t => params[:q] } ], :include => :album, :order => "photos.id ASC" )
+      params[:q].split(" AND ").each {|q|
+        qphotos = Photo.find(:all, :limit => 20, :conditions => [ "photos.description LIKE :q OR photos.title LIKE :q OR photos.id IN ( SELECT photo_id FROM photo_tags LEFT OUTER JOIN tags ON photo_tags.tag_id = tags.id WHERE tags.title = :t) ", { :q => '%' + q + '%', :t => q } ], :include => :album, :order => "photos.id ASC" )
+        if @photos
+          @photos = @photos & qphotos
+        else
+          @photos = qphotos
+        end
+      }
     else
       @photos = Photo.find(:all, :order => "photos.id ASC")
     end
