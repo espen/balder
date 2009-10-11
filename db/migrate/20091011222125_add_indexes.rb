@@ -8,7 +8,6 @@ class AddIndexes < ActiveRecord::Migration
     add_index :collection_albums, :collection_id
     add_index :collection_albums, :album_id
     add_index :photos, :album_id
-    add_index :photos, :photo_id
     add_index :photo_tags, :tag_id
     add_index :photo_tags, :photo_id
   end
@@ -22,7 +21,6 @@ class AddIndexes < ActiveRecord::Migration
     remove_index :collection_albums, :collection_id
     remove_index :collection_albums, :album_id
     remove_index :photos, :album_id
-    remove_index :photos, :photo_id
     remove_index :photo_tags, :tag_id
     remove_index :photo_tags, :photo_id
   end
