@@ -23,17 +23,6 @@ class Photo < ActiveRecord::Base
   named_scope :previous, lambda { |p,a| { :conditions => ["id < :id AND album_Id = :album ", { :id => p, :album => a } ], :limit => 1, :order => "id DESC"} }
   named_scope :next, lambda { |p,a| { :conditions => ["id > :id AND album_Id = :album ", { :id => p, :album => a } ], :limit => 1, :order => "id ASC"} }
 
-  def self.search(q)
-    if q
-      conditions = q.split("AND").each {|var|
-          
-        }
-      find(:all)
-    else
-      find(:all)
-    end
-  end
-
   def to_param
     "#{id}-#{title.parameterize}"
   end
@@ -76,9 +65,9 @@ class Photo < ActiveRecord::Base
   
   def exif_info
     photo = MiniExiftool.new(self.path_original)
-    photo.tags.sort.each do |tag|
-      puts tag.ljust(28) + photo[tag].to_s
-    end
+    #photo.tags.sort.each do |tag|
+    #  puts tag.ljust(28) + photo[tag].to_s
+    #end
   end
 
   # Map file extensions to mime types.
@@ -92,6 +81,8 @@ class Photo < ActiveRecord::Base
   end
   
   def create_thumbnails
+    # TODO: thumbnails size should be set in settings.yml
+
     return if File.exists?(APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_collection" + self.extension)
     puts "thumb " + self.path_original
     ImageScience.with_image(self.path_original) do |img|
