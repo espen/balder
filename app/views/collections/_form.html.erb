@@ -12,9 +12,9 @@
 <span>
 <img src="/images/delete-24x24.png" border="" class="delete" />
 <% if album.photos.empty? %>
-<%= image_tag album.photos.first.path_modified_public('album'), :alt => album.title %>
+	<%= album.title %>
 <% else %>
-<%= album.title %>
+<%= image_tag album.photos.first.path_modified_public('album'), :alt => album.title %>
 <% end %>
 <%= album_fields.hidden_field album.id %>
 </span>
