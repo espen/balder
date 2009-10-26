@@ -11,7 +11,11 @@
 <% form.fields_for :album_list do |album_fields| %>
 <span>
 <img src="/images/delete-24x24.png" border="" class="delete" />
+<% if album.photos.empty? %>
 <%= image_tag album.photos.first.path_modified_public('album'), :alt => album.title %>
+<% else %>
+<%= album.title %>
+<% end %>
 <%= album_fields.hidden_field album.id %>
 </span>
 <% end %>
