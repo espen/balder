@@ -13,6 +13,7 @@ class CollectionsController < ApplicationController
   
   def show
     @collection = Collection.find( params[:id] )
+    @albums = @collection.albums.find(:all, :order => 'title')
     respond_to do |format|
       format.html
       format.json  { render :json => @collection }
