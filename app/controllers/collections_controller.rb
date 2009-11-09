@@ -3,7 +3,7 @@ class CollectionsController < ApplicationController
   before_filter :require_role_admin, :only => [:new, :create, :edit, :update, :destroy]
 
   def index
-    @collections = Collection.find(:all)
+    @collections = Collection.find(:all, :order => 'title')
     respond_to do |format|
       format.html
       format.json  { render :json => @collections }
