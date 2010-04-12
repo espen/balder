@@ -84,7 +84,7 @@ class Photo < ActiveRecord::Base
     # TODO: thumbnails size should be set in settings.yml
 
     return if File.exists?(APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_collection" + self.extension)
-    puts "thumb " + self.path_original
+
     ImageScience.with_image(self.path_original) do |img|
         img.cropped_thumbnail(200) do |thumb|
           thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_collection" + self.extension
@@ -145,7 +145,6 @@ class Photo < ActiveRecord::Base
   end
   
   def destroy_file
-    #puts "DELETE THUMBS OF " + APP_CONFIG[:photos_path] + self.path
     File.delete( self.path_original ) if File.exists?( self.path_original )
     File.delete( self.path_modified("_collection") ) if File.exists?( self.path_modified("_collection") )
     File.delete( self.path_modified("_album") ) if File.exists?( self.path_modified("_album") )
