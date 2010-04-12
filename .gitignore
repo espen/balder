@@ -10,3 +10,4 @@ config/deploy
 Capfile
 photos
 public/thumbs
+public/uploads

@@ -7,9 +7,15 @@ class ApplicationController < ActionController::Base
 
   filter_parameter_logging :password, :password_confirmation
   helper_method :current_user, :current_user_session
+  
+  before_filter :setup
 
   
   private
+  
+    def setup
+      redirect_to new_account_path if User.all.length == 0
+    end
   
     def check_public_access
       require_user unless APP_CONFIG[:public]

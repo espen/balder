@@ -4,8 +4,8 @@
 <%= form.label :description %><br />
 <%= form.text_area :description %><br />
 
+<% unless @collection.albums.empty? %>
 <%= form.label :albums %><br />
-
 <div id="collection_albums">
 <% for album in @collection.albums %>
 <% form.fields_for :album_list do |album_fields| %>
@@ -33,3 +33,5 @@ grouped_options_for_select(grouped_options)
 %>
 <%= select_tag 'available_albums', grouped_options_for_select(grouped_options) %>
 </p>
+
+<% end %>

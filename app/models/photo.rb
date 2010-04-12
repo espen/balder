@@ -6,13 +6,15 @@ class Photo < ActiveRecord::Base
   has_many :photo_tags, :dependent => :destroy
   has_many :tags, :through => :photo_tags
   
-  validates_uniqueness_of :path, :message => "Photo already exsists on disc"
-  validates_presence_of :title
+  mount_uploader :file, FileUploader
+  
+  #validates_uniqueness_of :path, :message => "Photo already exsists on disc"
+  #validates_presence_of :title
   
   before_validation :set_title
-  before_save :ensure_file
-  before_create :exif_read
-  after_create :create_thumbnails
+  #before_save :ensure_file
+  #before_create :exif_read
+  #after_create :create_thumbnails
   #before_update :exif_write # should only write if tags are changed as images can be large and thus ExifTool will take a while to write to the file
   before_destroy :destroy_file
 
@@ -70,37 +72,6 @@ class Photo < ActiveRecord::Base
     #end
   end
 
-  # Map file extensions to mime types.
-  # Thanks to bug in Flash 8 the content type is always set to application/octet-stream.
-  # From: http://blog.airbladesoftware.com/2007/8/8/uploading-files-with-swfupload
-  def swf_uploaded_data=(data)
-    data.content_type = MIME::Types.type_for(data.original_filename)
-    self.title = data.original_filename
-    self.path = self.album.path + "/" + data.original_filename.parameterize
-    File.open(APP_CONFIG[:photos_path] + self.path, 'wb') { |f| f.write(data.read) }
-  end
-  
-  def create_thumbnails
-    # TODO: thumbnails size should be set in settings.yml
-
-    return if File.exists?(APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_collection" + self.extension)
-
-    ImageScience.with_image(self.path_original) do |img|
-        img.cropped_thumbnail(200) do |thumb|
-          thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_collection" + self.extension
-        end
-        img.cropped_thumbnail(100) do |thumb|
-          thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_album" + self.extension
-        end
-        img.thumbnail(210) do |thumb|
-          thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_preview" + self.extension
-        end
-        img.thumbnail(950) do |thumb|
-          thumb.save APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_single" + self.extension
-        end
-    end
-  end
-
   protected
 
   def extension
@@ -118,11 +89,12 @@ class Photo < ActiveRecord::Base
   private
 
   def set_title
-    self.title = File.basename( self.path ).gsub( self.extension, "" ).titleize unless self.title
+    self.title = "tesitn"
+    #self.title = self.file.filename.titleize unless self.title
   end
   
   def ensure_file
-    self.destroy if !File.exists?( APP_CONFIG[:photos_path] + self.path )
+    #self.destroy if !File.exists?( APP_CONFIG[:photos_path] + self.path )
   end
 
   def exif_read

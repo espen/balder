@@ -76,7 +76,7 @@ class PhotosController < ApplicationController
     respond_to do |format|
       @photo = Photo.new(params[:photo])
       if params[:Filedata]
-        @photo.swf_uploaded_data = params[:Filedata]
+        #@photo.swf_uploaded_data = params[:Filedata]
         if @photo.save
           format.html { render :text => "FILEID:" + @photo.path_modified_public("album") }
           format.xml  { render :nothing => true }

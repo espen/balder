@@ -3,7 +3,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$('#photo').fileUpload({
+	$('#photo_file').fileUpload({
 			uploader:'/javascripts/jquery.uploadify-v1.6.2.mit/uploader.swf',
 			script:'<%= photos_path %>',
 			scriptData: {
@@ -29,7 +29,7 @@ $(document).ready(function() {
 </script>
 <% end %>
 <form>
-<input type="file" id="photo" name="photo" />
+<input type="file" id="photo_file" name="photo[file]" />
 <br />
 <div id="thumbs"></div>
 </form>

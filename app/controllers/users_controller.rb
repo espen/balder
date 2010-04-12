@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:show, :edit, :update, :destroy]
+  skip_filter :setup
 
   def new
     @user = User.new
@@ -9,8 +10,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
+      if User.all.length == 1
+        @user.roles << Role.create(:name => 'admin')
+      end
       flash[:notice] = "Account registered!"
-      redirect_back_or_default account_path
+      redirect_back_or_default new_collection_path
     else
       render :action => :new
     end
