@@ -15,11 +15,14 @@ Rails::Initializer.run do |config|
   #config.gem "mini_exiftool"
   # 
   config.gem "carrierwave"
+  #config.gem "aws-s3", :lib => "aws/s3"
   
   config.load_paths += %W( #{RAILS_ROOT}/app/middleware )
 
   config.time_zone = 'Copenhagen'
 
   config.i18n.default_locale = 'no-NB'
+  
 
+      
 end

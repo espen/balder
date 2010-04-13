@@ -2,23 +2,12 @@ development:
     public: true
     site_name: 'Photos'
     #site_logo: 'logo.png'
-    photos_path: <%= RAILS_ROOT + '/photos/' %>
-    thumbs_path: <%= RAILS_ROOT + '/public/thumbs/'  %>
-    photos_path_public: '/files/'
-    thumbs_path_public: '/thumbs/'
+    #s3_access_key_id: ''
+    #s3_secret_access_key: ''
+    #s3_bucket: ''
 production:
     public: true
     site_name: 'Photos'
-    #site_logo: 'logo.png'
-    photos_path: <%= RAILS_ROOT + '/photos/' %>
-    thumbs_path: <%= RAILS_ROOT + '/public/thumbs/'  %>
-    photos_path_public: '/files/'
-    thumbs_path_public: '/thumbs/'
 test:
     public: true
     site_name: 'Photos'
-    #site_logo: 'logo.png'
-    photos_path: <%= RAILS_ROOT + '/photos/' %>
-    thumbs_path: <%= RAILS_ROOT + '/public/thumbs/'  %>
-    photos_path_public: '/files/'
-    thumbs_path_public: '/thumbs/'

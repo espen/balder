@@ -1,1 +1,1 @@
-<%= link_to (image_tag photo.path_modified_public(defined?(photosize) ? photosize : "album") ), [photo.album.collections.first, photo.album, photo] %>
+<%= link_to (image_tag eval('photo.file.' + (defined?(photosize) ? photosize : "album") + '.url') ), [photo.album.collections.first, photo.album, photo] %>

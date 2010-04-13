@@ -1,14 +1,16 @@
 <% content_for :javascript do %>
-<script type="text/javascript" src="/javascripts/jquery.uploadify-v1.6.2.mit/jquery.uploadify.js"></script>
+<script type="text/javascript" src="/javascripts/uploadify-2.1/jquery.uploadify.v2.1.0.min.js"></script>
+<script type="text/javascript" src="/javascripts/uploadify-2.1/swfobject.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$('#photo_file').fileUpload({
-			uploader:'/javascripts/jquery.uploadify-v1.6.2.mit/uploader.swf',
+	$('#photo_file').uploadify({
+			uploader:'/javascripts/uploadify-2.1/uploadify.swf',
 			script:'<%= photos_path %>',
+			fileDataName    : 'photo[file]',
 			scriptData: {
 				'<%= get_session_key %>' : encodeURIComponent('<%= u cookies[get_session_key] %>'),
-				'<%= request_forgery_protection_token %>' : encodeURIComponent('<%= u form_authenticity_token %>'),
+				'authenticity_token' : encodeURIComponent('<%= u form_authenticity_token if protect_against_forgery?%>'),
 				'photo[album_id]' : "<%= @album.id %>"
 			},
 			cancelImg:'/javascripts/jquery.uploadify-v1.6.2.mit/cancel.png',
@@ -29,7 +31,7 @@ $(document).ready(function() {
 </script>
 <% end %>
 <form>
-<input type="file" id="photo_file" name="photo[file]" />
+<input type="file" id="photo_file" />
 <br />
 <div id="thumbs"></div>
 </form>

@@ -7,13 +7,14 @@ class FileUploader < CarrierWave::Uploader::Base
   #     include CarrierWave::ImageScience
 
   # Choose what kind of storage to use for this uploader
-  storage :file
-  #     storage :s3
+  #storage :file
+  storage :s3
+
 
   # Override the directory where uploaded files will be stored
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    # "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    #{}"uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
     "uploads/files/#{model.album.path}"
   end
 
@@ -30,18 +31,29 @@ class FileUploader < CarrierWave::Uploader::Base
   #     end
 
   # Create different versions of your uploaded files
-  # two firsts should be cropped
        version :collection do
-         process :scale => [200, 200]
+         process :resize_to_fill => [200, 200]
+         def store_dir
+           "uploads/thumbs/#{model.album.path}"
+         end
        end
        version :album do
-         process :scale => [100, 100]
+         process :resize_to_fill => [100, 100]
+         def store_dir
+           "uploads/thumbs/#{model.album.path}"
+         end
        end
        version :preview do
-         process :scale => [210, 210]
+         process :resize_to_fit => [210, 210]
+         def store_dir
+           "uploads/thumbs/#{model.album.path}"
+         end
        end
        version :single do
-         process :scale => [950, 950]
+         process :resize_to_fit => [950, 950]
+         def store_dir
+           "uploads/thumbs/#{model.album.path}"
+         end
        end
 
   # Add a white list of extensions which are allowed to be uploaded,

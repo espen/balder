@@ -1,4 +1,4 @@
-require "image_science"
+#require "image_science"
 require 'mini_exiftool'
 
 class Photo < ActiveRecord::Base
@@ -9,14 +9,11 @@ class Photo < ActiveRecord::Base
   mount_uploader :file, FileUploader
   
   #validates_uniqueness_of :path, :message => "Photo already exsists on disc"
-  #validates_presence_of :title
+  validates_presence_of :title
   
   before_validation :set_title
-  #before_save :ensure_file
-  #before_create :exif_read
-  #after_create :create_thumbnails
-  #before_update :exif_write # should only write if tags are changed as images can be large and thus ExifTool will take a while to write to the file
-  before_destroy :destroy_file
+  before_create :exif_read
+  before_update :exif_write # should only write if tags are changed as images can be large and thus ExifTool will take a while to write to the file
 
   attr_accessor :tag_list
   #attr_protected :path
@@ -27,14 +24,6 @@ class Photo < ActiveRecord::Base
 
   def to_param
     "#{id}-#{title.parameterize}"
-  end
-  
-  def path_original_public
-    return APP_CONFIG[:photos_path_public] + self.path
-  end
-
-  def path_modified_public(size)
-    return APP_CONFIG[:thumbs_path_public] + self.album.path + "/" + self.id.to_s + "_" + size + self.extension
   end
   
   def tag(title)
@@ -74,23 +63,12 @@ class Photo < ActiveRecord::Base
 
   protected
 
-  def extension
-    return File.extname(self.path_original)
-  end
 
-  def path_original
-    return APP_CONFIG[:photos_path] + self.path
-  end
-
-  def path_modified(size)
-    return APP_CONFIG[:thumbs_path] + self.album.path + "/" + self.id.to_s + "_" + size + self.extension
-  end
 
   private
 
   def set_title
-    self.title = "tesitn"
-    #self.title = self.file.filename.titleize unless self.title
+    self.title = self.file.filename.titleize unless self.title
   end
   
   def ensure_file
@@ -98,7 +76,7 @@ class Photo < ActiveRecord::Base
   end
 
   def exif_read
-    photo = MiniExiftool.new(self.path_original)
+    photo = MiniExiftool.new(self.file.path)
     self.longitude = photo.GPSLongitude if self.longitude.nil?
     self.latitude = photo.GPSLatitude if self.latitude.nil?
     self.title = photo.DocumentName if self.title.nil?
@@ -107,7 +85,7 @@ class Photo < ActiveRecord::Base
   end
   
   def exif_write
-    photo = MiniExiftool.new(self.path_original)
+    photo = MiniExiftool.new(self.path.file)
     photo.GPSLongitude = self.longitude
     photo.GPSLatitude = self.latitude
     photo.DocumentName = self.title
@@ -116,11 +94,5 @@ class Photo < ActiveRecord::Base
     photo.save
   end
   
-  def destroy_file
-    File.delete( self.path_original ) if File.exists?( self.path_original )
-    File.delete( self.path_modified("_collection") ) if File.exists?( self.path_modified("_collection") )
-    File.delete( self.path_modified("_album") ) if File.exists?( self.path_modified("_album") )
-    File.delete( self.path_modified("_single") ) if File.exists?( self.path_modified("_single") )
-    File.delete( self.path_modified("_preview") ) if File.exists?( self.path_modified("_preview") )
-  end
+
 end

@@ -6,7 +6,7 @@
 	<% for photo in @album.photos.find(:all, :order => "Id ASC") %>
 	<% count += 1%>
   	<% if count == 1 || ( (count-1) / 4.0 == ( (count-1) / 4.0).to_i ) %><tr><% end %>
-	<td><%= link_to image_tag( photo.path_modified_public("preview") ), [@album.collections.first, @album, photo] %></td>
+	<td><%= link_to image_tag( photo.file.preview.url ), [@album.collections.first, @album, photo] %></td>
   	<% if count / 4.0 == (count / 4.0).to_i %></tr><% end %>
 	<% end %>
 </table>

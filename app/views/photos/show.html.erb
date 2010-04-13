@@ -14,7 +14,7 @@
 			<% end %>
 		</p>
 	</div>
-  <p><%= link_to_if @next, image_tag(@photo.path_modified_public("single")), [ @photo.album.collections.first, @photo.album, @next] %></p>
+  <p><%= link_to_if @next, image_tag(@photo.file.single.url ), [ @photo.album.collections.first, @photo.album, @next] %></p>
 </div>
 
 <p><%= @photo.description %></p>

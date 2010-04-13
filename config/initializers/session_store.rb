@@ -14,5 +14,6 @@ ActionController::Base.session = {
 # (create the session table with "rake db:sessions:create")
 # ActionController::Base.session_store = :active_record_store
 
+
 ActionController::Dispatcher.middleware.insert_before(ActionController::Session::CookieStore, FlashSessionCookieMiddleware, ActionController::Base.session_options[:key])
 #ActionController::Dispatcher.middleware.use FlashSessionCookieMiddleware, ActionController::Base.session_options[:key]

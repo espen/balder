@@ -1,4 +1,5 @@
 class PhotosController < ApplicationController
+#skip_before_filter :verify_authenticity_token
   before_filter :check_public_access
   before_filter :require_role_admin, :only => [:untouched, :upload, :new, :create, :edit, :update, :destroy]
 
@@ -73,27 +74,15 @@ class PhotosController < ApplicationController
   end
 
   def create
+    @photo = Photo.new(params[:photo])
     respond_to do |format|
-      @photo = Photo.new(params[:photo])
-      if params[:Filedata]
-        #@photo.swf_uploaded_data = params[:Filedata]
         if @photo.save
-          format.html { render :text => "FILEID:" + @photo.path_modified_public("album") }
+          format.html { render :text => "FILEID:" + @photo.file.album.url }
           format.xml  { render :nothing => true }
         else
           format.html { render :text => "ERRORS:" + @photo.errors.full_messages.join(" "), :status => 500 }
           format.xml  { render :xml => @photo.errors, :status => 500 }
         end
-      else
-        if @photo.save
-          flash[:notice] = 'Created'
-          format.html { redirect_to(@photo) }
-          format.xml  { render :xml => @photo }
-        else
-          format.html { render :action => "new" }
-          format.xml  { render :xml => @photo.errors }
-        end
-      end
     end
   end
   

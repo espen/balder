@@ -1,6 +1,6 @@
 <h1>Edit Photo</h1>
 
-<%= image_tag @photo.path_modified_public("preview") %>
+<%= image_tag @photo.file.preview.url %>
  
 <% form_for @photo do |f| %>
   <%= f.error_messages %>
