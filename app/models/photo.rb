@@ -12,8 +12,8 @@ class Photo < ActiveRecord::Base
   validates_presence_of :title
   
   before_validation :set_title
-  before_create :exif_read
-  before_update :exif_write # should only write if tags are changed as images can be large and thus ExifTool will take a while to write to the file
+  #before_create :exif_read
+  #before_update :exif_write # should only write if tags are changed as images can be large and thus ExifTool will take a while to write to the file
 
   attr_accessor :tag_list
   #attr_protected :path
@@ -55,7 +55,7 @@ class Photo < ActiveRecord::Base
   
   
   def exif_info
-    photo = MiniExiftool.new(self.path_original)
+    photo = MiniExiftool.new(self.file.path)
     #photo.tags.sort.each do |tag|
     #  puts tag.ljust(28) + photo[tag].to_s
     #end
@@ -68,7 +68,7 @@ class Photo < ActiveRecord::Base
   private
 
   def set_title
-    self.title = self.file.filename.titleize unless self.title
+    self.title = self.file.file.basename.titleize unless self.title
   end
   
   def ensure_file
