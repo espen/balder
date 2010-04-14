@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
     end
   
     def check_public_access
-      require_user unless APP_CONFIG[:public]
+      require_user unless ENV['public'] == 'true'
     end
 
     def current_user_session

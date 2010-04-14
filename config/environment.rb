@@ -6,6 +6,10 @@
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+# Load heroku vars from local file
+balder_env = File.join(RAILS_ROOT, 'config', 'balder.rb')
+load(balder_env) if File.exists?(balder_env)
+
 
 Rails::Initializer.run do |config|
 

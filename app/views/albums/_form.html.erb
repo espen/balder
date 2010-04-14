@@ -27,7 +27,4 @@
 <%= form.text_field :tags, { :autocomplete => "off", :class => 'tag_list', :value => (@album.tags.map{|tag|tag.title}.join(" ") unless @album.tags.nil?) } %><br />
 
 <br />
-<% if @album.path? %>
-Location on disk: <i><%= APP_CONFIG[:photos_path] + @album.path %></i><br/>
 Contains: <%= @album.photos.count %> photos<br/>
-<% end %>
