@@ -92,13 +92,13 @@ class Album < ActiveRecord::Base
   private
   
   def create_folders
-    Dir.mkdir( APP_CONFIG[:photos_path] + self.path ) unless File.exists?( APP_CONFIG[:photos_path] + self.path )
-    Dir.mkdir( APP_CONFIG[:thumbs_path] + self.path ) unless File.exists?( APP_CONFIG[:thumbs_path] + self.path )
+    #Dir.mkdir( APP_CONFIG[:photos_path] + self.path ) unless File.exists?( APP_CONFIG[:photos_path] + self.path )
+    #Dir.mkdir( APP_CONFIG[:thumbs_path] + self.path ) unless File.exists?( APP_CONFIG[:thumbs_path] + self.path )
   end
   
   def destroy_folders
     #puts "DELETE DIRECTORY " + APP_CONFIG[:photos_path] + self.path
-    Dir.delete( APP_CONFIG[:photos_path] + self.path ) if File.exists?( APP_CONFIG[:photos_path] + self.path )
-    Dir.delete( APP_CONFIG[:thumbs_path] + self.path  ) if File.exists?( APP_CONFIG[:thumbs_path] + self.path )
+    #Dir.delete( APP_CONFIG[:photos_path] + self.path ) if File.exists?( APP_CONFIG[:photos_path] + self.path )
+    #Dir.delete( APP_CONFIG[:thumbs_path] + self.path  ) if File.exists?( APP_CONFIG[:thumbs_path] + self.path )
   end
 end

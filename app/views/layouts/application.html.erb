@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title><%= APP_CONFIG[:site_name] %></title>
+	<title><%= ENV['site_name'] %></title>
 	<%= yield :head %>
 	<%= stylesheet_link_tag 'application' %>
 </head>
@@ -22,10 +22,10 @@
 	<% end %>
 	</div>
 	<h1>
-		<% if APP_CONFIG[:site_logo] %>
-		<%= image_tag APP_CONFIG[:site_logo] %>
+		<% if ENV['LOGO'] %>
+		<%= image_tag ENV['LOGO'] %>
 		<% else %>
-		<%= APP_CONFIG[:site_name] %>
+		<%= ENV['TITLE'] %>
 		<% end %>
 		</h1>
 	<form action="/albums" method="get" id="search">
