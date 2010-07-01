@@ -8,7 +8,7 @@ http://balderapp.com
 
 == Features
 
-* Stores photos to disk in folders or on S3
+* Stores photos to disk in folders or on S3 (can run from Heroku...yay)
 * Create multiple thumbnails of custom sizes
 * Read and writes EXIF/IPTC title, description and keywords
 * Organize in albums (as events in iPhoto)
