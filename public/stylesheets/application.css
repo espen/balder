@@ -89,6 +89,11 @@ div#header h1 {
 	clear: left;
 }
 
+div#header h1 a, div#header h1 a:visited, div#header h1 a:active, div#header h1 a:hover {
+    text-decoration: none;
+    color: #222;
+}
+
 div#header {
 	padding: 10px 0;
 }
