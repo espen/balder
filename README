@@ -2,11 +2,13 @@
 
 Made by Espen Antonsen.
 
+Version 1.1
+
 http://balderapp.com
 
 == Features
 
-* Stores photos to disk in folders
+* Stores photos to disk in folders or on S3
 * Create multiple thumbnails of custom sizes
 * Read and writes EXIF/IPTC title, description and keywords
 * Organize in albums (as events in iPhoto)
@@ -20,26 +22,22 @@ http://balderapp.com
 
 Free for personal use. Contact me for commercial license.
 
-== Todo
-
-* Theme support?
-* Multiple galleries?
-* Support for ImageMagick in addition to FreeImage?
-
 == Requirements
 
 Rails 2.3
 
 Software
-- FreeImage (required for Image_Science)
-- ExifTool (required for Mini_EfixTool)
+- RMagicK (required for Carrierwave resizing). Can also use ImageScience
+Optional:
+	- ExifTool (required for Mini_EfixTool)
 
 Ruby Gems
 - AuthLogic
 - Mime-Types
-- Image_Science
-- RubyInline (required for Image_Science)
-- Mini_ExifTool
+- Carrierwave
+Optional:
+	- AWS/S3 (if saving to Amazon s3)
+	- Mini_Exiftool (to read exif info to database. See photo.rb model)
 
 == Installation
 

@@ -1,6 +1,3 @@
-#require "image_science"
-require 'mini_exiftool'
-
 class Photo < ActiveRecord::Base
   belongs_to :album
   has_many :photo_tags, :dependent => :destroy
@@ -53,14 +50,6 @@ class Photo < ActiveRecord::Base
     self.tags = ts
   end
   
-  
-  def exif_info
-    photo = MiniExiftool.new(self.file.path)
-    #photo.tags.sort.each do |tag|
-    #  puts tag.ljust(28) + photo[tag].to_s
-    #end
-  end
-
   protected
 
 
