@@ -15,10 +15,8 @@ Rails::Initializer.run do |config|
 
   config.gem "authlogic"
   config.gem 'mime-types', :lib => 'mime/types'
-  #config.gem "image_science"
-  #config.gem "mini_exiftool"
-  # 
   config.gem "carrierwave"
+  #config.gem "mini_exiftool"
   #config.gem "aws-s3", :lib => "aws/s3"
   
   config.load_paths += %W( #{RAILS_ROOT}/app/middleware )
