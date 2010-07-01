@@ -3,14 +3,17 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name = "viewport" content = "width = device-width">
+	<meta name = "viewport" content = "initial-scale = 1.0, user-scalable=no">
 	<title><%= ENV['TITLE'] %></title>
 	<%= yield :head %>
-	<%= stylesheet_link_tag 'application' %>
+	<%= stylesheet_link_tag 'application', 'iphone' %>
 </head>
 <body>
 <div id="container">
 
 <div id="header">
+	<%= breadcrumbs('/',false) %>
 	<div id="action_links">
 	<%= yield :action_links %>
 	<% if current_user %>
@@ -19,20 +22,13 @@
 	<% end %>
 	</div>
 	<h1>
-		<a href="/">
 		<% if ENV['LOGO'] %>
 		<%= image_tag ENV['LOGO'] %>
 		<% else %>
 		<%= ENV['TITLE'] %>
 		<% end %>
-		</a>
 		</h1>
-	<form action="/albums" method="get" id="search">
-		<input type="text" name="q" class="textfield"/>
-		<input type="submit" value="Search" class="button" />
-    </form>
     <hr class="seperator" />
-	<%= breadcrumbs %>
 </div>
 
 <div id="content">
@@ -41,10 +37,8 @@
 </div>
 
 <div id="footer">
-  
-  <hr class="seperator" />
-  &copy; <a href="http://balderapp.com">Balder</a>.
 </div>
+
 </div>
 
 <%= javascript_include_tag 'jquery-1.3.2.js', 'jquery.livequery.js', 'balder' %>

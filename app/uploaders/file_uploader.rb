@@ -57,7 +57,7 @@ class FileUploader < CarrierWave::Uploader::Base
          end
        end
        version :single do
-         process :resize_to_fit => [950, 950]
+         process :resize_to_limit => [950, 950]
          def store_dir
            "uploads/thumbs/#{model.album.path}"
          end
