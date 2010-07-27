@@ -15,8 +15,9 @@ module ApplicationHelper
        level = level.gsub("-", " ")
        if index+1 == levels.length
          #links += " #{sep} #{level.upcase}" unless nocrumb.include?(level)
-       else
-         links += " #{sep} #{content_tag('a', level.upcase, :href => '/'+levels[0..index].join('/'))}" unless nocrumb.include?(level)
+       elsif !nocrumb.include?(level)
+         links += " " + sep + " "
+         links += content_tag('a', level.upcase, :href => '/'+levels[0..index].join('/'))
        end
      end
 
