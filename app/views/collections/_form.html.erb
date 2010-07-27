@@ -14,7 +14,7 @@
 <% if album.photos.empty? %>
 	<%= album.title %>
 <% else %>
-<%= image_tag album.photos.first.path_modified_public('album'), :alt => album.title %>
+<%= image_tag album.photos.first.file.album.url, :alt => album.title %>
 <% end %>
 <%= album_fields.hidden_field album.id %>
 </span>
