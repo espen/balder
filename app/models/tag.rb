@@ -11,7 +11,7 @@ class Tag < ActiveRecord::Base
   end
 
   def to_param
-    "#{id}-#{title.parameterize}"
+    title.parameterize
   end
 
    protected
