@@ -8,7 +8,7 @@ module ApplicationHelper
      #links = "You are here: "
      links  = content_tag('a', "HOME", :href => "/") if include_home
      
-     nocrumb = ["collections", "albums", "photos", "tags", "new", "edit"]
+     nocrumb = ["collections", "albums", "photos", "tags", "new", "edit", "tags"]
 
      levels.each_with_index do |level, index|
        level = level.gsub(/^[0-9]+\-/,"") #if levels[index-1] == "photos"
