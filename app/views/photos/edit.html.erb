@@ -2,7 +2,7 @@
 
 <%= image_tag @photo.file.preview.url %>
  
-<% form_for @photo do |f| %>
+<%= form_for @photo do |f| %>
   <%= f.error_messages %>
   <%= render :partial => "form", :object => f %>
   <%= f.submit "Update" %>

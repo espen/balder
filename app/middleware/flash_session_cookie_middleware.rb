@@ -8,11 +8,12 @@ class FlashSessionCookieMiddleware
 
   def call(env)
     if env['HTTP_USER_AGENT'] =~ /^(Adobe|Shockwave) Flash/
-      params = ::Rack::Request.new(env).params
-      
-      unless params[@session_key].nil?
-        env['HTTP_COOKIE'] = "#{@session_key}=#{params[@session_key]}".freeze
-      end
+      req = Rack::Request.new(env)
+      env['HTTP_COOKIE'] = [ @session_key,
+                             req.params[@session_key] ]
+                           .join('=').freeze unless req.params[@session_key].nil?
+      env['HTTP_ACCEPT'] = "#{req.params['_http_accept']}"
+                           .freeze unless req.params['_http_accept'].nil?
     end
     
     @app.call(env)
