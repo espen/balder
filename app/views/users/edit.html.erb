@@ -1,6 +1,6 @@
 <h1>Edit My Account</h1>
  
-<% form_for @user, :url => account_path do |f| %>
+<%= form_for @user, :url => account_path do |f| %>
   <%= f.error_messages %>
   <%= render :partial => "form", :object => f %>
   <%= f.submit "Update" %>

@@ -1,4 +1,4 @@
-<% form_for :photos, :url => update_multiple_photos_path, :html => { :method => :put } do |f| %>
+<%= form_for :photos, :url => update_multiple_photos_path, :html => { :method => :put } do |f| %>
 <% for photo in @photos %>
 <p>
 <% f.fields_for photo, :index => photo.id do |p|%>

@@ -1,6 +1,6 @@
 <h1>Edit Album</h1>
  
-<% form_for @album do |f| %>
+<%= form_for @album do |f| %>
   <%= f.error_messages %>
   <%= render :partial => "form", :object => f %>
   <%= f.submit "Update" %>

@@ -240,7 +240,7 @@ class ApplicationCheckerTest < ActiveSupport::TestCase
   end
 
   def test_check_helpers
-    make_file("app/views/users/", "test.html.erb", "<b>blah blah blah</b><% form_for(:thing) do |f| %> <label>doo dah</label> <%= f.whatever %> <% end %>")
+    make_file("app/views/users/", "test.html.erb", "<b>blah blah blah</b><%= form_for(:thing) do |f| %> <label>doo dah</label> <%= f.whatever %> <% end %>")
     @checker.check_old_helpers
 
     assert @checker.alerts.has_key?("Deprecated ERb helper calls")

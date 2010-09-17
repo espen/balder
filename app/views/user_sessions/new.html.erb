@@ -1,6 +1,6 @@
 <h1>Login</h1>
  
-<% form_for @user_session, :url => authenticate_path do |f| %>
+<%= form_for @user_session, :url => authenticate_path do |f| %>
   <%= f.error_messages %>
   <%= f.label :email %><br />
   <%= f.text_field :email %><br />
