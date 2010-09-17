@@ -8,7 +8,7 @@
 <%= form.label :albums %><br />
 <div id="collection_albums">
 <% for album in @collection.albums %>
-<% form.fields_for :album_list do |album_fields| %>
+<%= form.fields_for :album_list do |album_fields| %>
 <span>
 <img src="/images/delete-24x24.png" border="" class="delete" />
 <% if album.photos.empty? %>
