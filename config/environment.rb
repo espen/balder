@@ -16,6 +16,7 @@ Rails::Initializer.run do |config|
   config.gem "authlogic"
   config.gem 'mime-types', :lib => 'mime/types'
   config.gem "carrierwave"
+  config.gem "mysql2"
   #config.gem "mini_exiftool"
   #config.gem "aws-s3", :lib => "aws/s3"
   
