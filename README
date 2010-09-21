@@ -2,7 +2,11 @@
 
 Made by Espen Antonsen.
 
-Version 1.1
+Version 1.2 for Rails3 Beta
+
+Issues:
+- carrierwave not saving to model, only to disk (testet on ubuntu)
+- jpg files not being upload, no error written to log (testet on osx)
 
 http://balderapp.com
 
@@ -24,7 +28,7 @@ Free for personal use. Contact me for commercial license.
 
 == Requirements
 
-Rails 2.3
+Rails 3.0
 
 Software
 - RMagicK (required for Carrierwave resizing). Can also use ImageScience
