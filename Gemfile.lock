@@ -48,6 +48,8 @@ GEM
       mime-types
       treetop (>= 1.4.5)
     mime-types (1.16)
+    mini_magick (2.1)
+      subexec (~> 0.0.4)
     pg (0.9.0)
     polyglot (0.3.1)
     rack (1.2.1)
@@ -69,7 +71,7 @@ GEM
       rake (>= 0.8.4)
       thor (~> 0.14.0)
     rake (0.8.7)
-    rmagick (2.13.1)
+    subexec (0.0.4)
     thor (0.14.1)
     treetop (1.4.8)
       polyglot (>= 0.3.1)
@@ -82,6 +84,6 @@ DEPENDENCIES
   authlogic
   carrierwave!
   mime-types
+  mini_magick
   pg
   rails (= 3.0.0)
-  rmagick
