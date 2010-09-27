@@ -1,12 +1,12 @@
 Given /i am logged in as a user in the (.*) role/i do |role|
   #@user = Factory.create(:user, :name => "Espen Antonsen",  
-  #  :email => "espen@inspired.no",  
-  #  :password => "megmeg")
+  #  :email => "balder@balderapp.com",  
+  #  :password => "balder")
   #@role = Factory.create(:role, :rolename => role)
   #@user.roles << @role
   visits "/login"  
-  fills_in("email", :with => "espen@inspired.no")
-  fills_in("password", :with => "megmeg")
+  fills_in("email", :with => "balder@balderapp.com")
+  fills_in("password", :with => "balder")
   clicks_button("Log in")
 end
 
