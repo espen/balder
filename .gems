@@ -1,4 +1,4 @@
-rails --version '< 3'
+rails --version '2.3.9'
 authlogic
 carrierwave
 aws-s3
