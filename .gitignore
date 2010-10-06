@@ -3,7 +3,7 @@ tmp/**/*
 .DS_Store
 doc/api
 doc/app
-config/balder.rb
+#config/balder.rb
 config/database.yml
 config/settings.yml
 config/deploy.rb
