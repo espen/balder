@@ -1,0 +1,6 @@
+ENV['PUBLIC']           = 'true'
+ENV['TITLE']            = 'photo'
+ENV['HEROKU']           = 'false'
+#ENV['S3_KEY']           = ''
+#ENV['S3_SECRET']        = ''
+#ENV['S3_BUCKET']        = ''
