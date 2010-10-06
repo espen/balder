@@ -2,5 +2,4 @@ rails --version '2.3.9'
 authlogic
 carrierwave --version '0.4.5'
 aws-s3
-#mini_exiftool
 rmagick
