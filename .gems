@@ -1,5 +1,5 @@
-rails --version '2.3.9'
+rails --version '>3'
 authlogic
-carrierwave
+carrierwave --version '>0.4.5'
 aws-s3
 mini_exiftool
