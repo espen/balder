@@ -1,5 +1,5 @@
-ENV['PUBLIC']           = 'true'
-ENV['TITLE']            = 'photo'
+#ENV['PRIVATE']           = 'true'
+#ENV['TITLE']            = 'photo'
 #ENV['HEROKU']           = 'true'
 #ENV['S3_KEY']           = ''
 #ENV['S3_SECRET']        = ''
