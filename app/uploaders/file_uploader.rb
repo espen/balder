@@ -22,7 +22,7 @@ class FileUploader < CarrierWave::Uploader::Base
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     #{}"uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
-    "uploads/files/#{model.album.path}"
+    ENV['STORAGE_PATH'] + "files/#{model.album.path}"
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded
@@ -41,25 +41,25 @@ class FileUploader < CarrierWave::Uploader::Base
        version :collection do
          process :resize_to_fill => [200, 200]
          def store_dir
-           "uploads/thumbs/#{model.album.path}"
+           ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}"
          end
        end
        version :album do
          process :resize_to_fill => [100, 100]
          def store_dir
-           "uploads/thumbs/#{model.album.path}"
+           ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}"
          end
        end
        version :preview do
          process :resize_to_fit => [210, 210]
          def store_dir
-           "uploads/thumbs/#{model.album.path}"
+           ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}"
          end
        end
        version :single do
          process :resize_to_limit => [950, 950]
          def store_dir
-           "uploads/thumbs/#{model.album.path}"
+           ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}"
          end
        end
 

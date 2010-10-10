@@ -1,3 +1,4 @@
+ENV['STORAGE_PATH']       = "uploads" if ENV['STORAGE_PATH'].nil?
 #ENV['PRIVATE']           = 'true'
 #ENV['TITLE']            = 'photo'
 #ENV['HEROKU']           = 'true'
