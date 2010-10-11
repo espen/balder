@@ -1,19 +1,19 @@
 development:
     adapter: postgresql
-    database: gallery_development
-    username: gallery
+    database: balder_development
+    username: balder
     password: changeme
 production:
     adapter: mysql
     encoding: utf8
-    username: photogallery
+    username: balder
     password: changeme
-    database: gallery_production
+    database: balder_production
     socket: /var/run/mysqld/mysqld.sock
 test: &TEST
     adapter: postgresql
     database: gallery_test
-    username: gallery
+    username: balder
     password: changeme
 
 cucumber:

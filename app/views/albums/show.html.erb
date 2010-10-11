@@ -46,6 +46,6 @@
 <%= link_to "Edit album", edit_album_path(@album) %> |&nbsp;
 <%= link_to "Edit all photos", edit_multiple_album_photos_path(@album) %> |&nbsp;
 <%= link_to "Edit untouched photos", untouched_album_photos_path(@album) %> |&nbsp;
-<%= link_to "Add photos", upload_album_photos_path(@album) %>
+<%= link_to "Add photos", upload_collection_album_photos_path(params[:collection_id], @album) %>
 <% end %>
 <% end %>

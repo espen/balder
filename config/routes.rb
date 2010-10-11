@@ -1,27 +1,58 @@
-ActionController::Routing::Routes.draw do |map|
-  map.resource :account, :controller => "users"
-  map.login "login", :controller => "user_sessions", :action => "new"
-  map.authenticate "authenticate", :controller => "user_sessions", :action => "create"
-  map.logout "logout", :controller => "user_sessions", :action => "destroy"
+ActionController::Routing::Routes.draw do
+  resources :account, :as => "users"
+  match "login", :to => "user_sessions#new", :as => :login
+  match "authenticate", :to => "user_sessions#create", :as => :authenticate
+  match "logout", :to => "user_sessions#destroy", :as => :logout
 
-  map.resources :photos, :collection => { :untouched => :get, :edit_multiple => :post, :update_multiple => :put, :upload => :get, :scan => :get }
-  map.resources :albums, :collection => { :untouched => :get, } do |album|
-    album.resources :tags do |tag|
-      tag.resources :photos, :collection => { :untouched => :get, :upload => :get, :edit_multiple => :get }
-    end
-    album.resources :photos, :collection => { :untouched => :get, :upload => :get, :edit_multiple => :get }
-  end
-  map.resources :collections do |collection|
-    collection.resources :albums do |album|
-      album.resources :photos, :collection => { :untouched => :get }
-      #album.resources :photos, :collection => { :untouched => :get, :upload => :get, :edit_multiple => :get }
+  resources :photos do
+    collection do
+      get :untouched
+      post :edit_multiple
+      put :update_multiple
+      get :upload
+      get :scan
     end
   end
+  resources :albums do
+    collection do
+      get :untouched
+    end
+    resources :tags do
+      resources :photos do
+        collection do
+          get :untouched
+          get :upload
+          get :edit_multiple
+        end
+      end
+    end
+    resources :photos do
+      collection do
+        get :untouched
+        get :upload
+        get :edit_multiple
+      end
+    end
+  end
+  resources :collections do
+    resources :albums do
+      resources :photos do
+        collection do
+          get :untouched
+          get :upload
+          get :edit_multiple
+        end
+      end
+    end
+  end
   
-  map.resources :tags, :has_many => [ :photos, :albums ], :shallow => true
+  resources :tags, :shallow => true do
+    resources :photos
+    resources :albums
+  end
   
-  map.resources :users, :controller => "admin/users"
+  resources :users, :to => "admin/users#index"
   
-  map.root :controller => "collections"
+  root :to => "collections#index"
 
 end

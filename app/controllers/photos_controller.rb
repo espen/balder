@@ -74,7 +74,9 @@ class PhotosController < ApplicationController
   end
 
   def create
+    puts "create"
     @photo = Photo.new(params[:photo])
+    puts @photo.inspect
     respond_to do |format|
         if @photo.save
           format.html { render :text => "FILEID:" + @photo.file.album.url }

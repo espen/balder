@@ -59,8 +59,8 @@ class AlbumsController < ApplicationController
       unless params[:collection_id].empty?
         @album.collections << Collection.find( params[:collection_id] )
       end
-      flash[:notice] = "Album created!"
-      redirect_to @album
+      flash[:notice] = "Album created! Now add some nice photos."
+      redirect_to upload_album_photos_path( @album )
     else
       render :action => :new
     end

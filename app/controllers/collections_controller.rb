@@ -29,8 +29,8 @@ class CollectionsController < ApplicationController
   def create
     @collection = Collection.new(params[:collection])
     if @collection.save
-      flash[:notice] = "Collection created!"
-      redirect_to @collection
+      flash[:notice] = "Collection created! Now lets add a new album."
+      redirect_to new_collection_album_path(@collection)
     else
       render :action => :new
     end
