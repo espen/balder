@@ -56,11 +56,13 @@ class AlbumsController < ApplicationController
     @album = Album.new(params[:album])
 
     if @album.save
-      unless params[:collection_id].empty?
-        @album.collections << Collection.find( params[:collection_id] )
-      end
       flash[:notice] = "Album created! Now add some nice photos."
-      redirect_to upload_album_photos_path( @album )
+      if params[:collection_id]
+        @album.collections << Collection.find( params[:collection_id] )
+        redirect_to upload_collection_album_photos_path(params[:collection_id], @album )
+      else
+        redirect_to upload_album_photos_path( @album )
+      end
     else
       render :action => :new
     end
@@ -74,7 +76,11 @@ class AlbumsController < ApplicationController
     @album = Album.find( params[:id])
     if @album.update_attributes(params[:album])
       flash[:notice] = "Album updated!"
-      redirect_to @album
+      if params[:collection_id]
+        redirect_to collection_album_path(params[:collection_id], @album )
+      else
+        redirect_to @album
+      end
     else
       render :action => :edit
     end
@@ -83,7 +89,11 @@ class AlbumsController < ApplicationController
   def destroy
     @album = Album.find( params[:id])
     if @album.destroy
-      redirect_to albums_path
+      if params[:collection_id]
+        redirect_to collection_path(params[:collection_id] )
+      else
+        redirect_to albums_path
+      end
     else
       redirect_to @album
     end

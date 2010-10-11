@@ -18,7 +18,7 @@ jQuery(function($) {
 	    $('#map_canvas').show()
 	}
 	
-	$('#collection_albums .delete').livequery('click', function() {
+	$('#collection_albums .delete').live('click', function() {
 	    $(this).parent('span').fadeOut('slow', function() { $(this).remove() })
 	})
 	

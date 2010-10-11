@@ -8,6 +8,7 @@
 	<title><%= ENV['TITLE'] || "Photos" %></title>
 	<%= yield :head %>
 	<%= stylesheet_link_tag 'application', 'iphone' %>
+	<%= csrf_meta_tag %>
 </head>
 <body>
 <div id="container">
@@ -41,7 +42,7 @@
 
 </div>
 
-<%= javascript_include_tag 'jquery-1.3.2.js', 'jquery.livequery.js', 'balder' %>
+<%= javascript_include_tag 'jquery-1.4.2.js', 'rails', 'balder' %>
 <%= yield :javascript %>
 </body>
 </html>

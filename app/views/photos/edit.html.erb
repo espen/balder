@@ -3,13 +3,15 @@
 <%= image_tag @photo.file.preview.url %>
  
 <%= form_for @photo do |f| %>
+<%= hidden_field_tag :collection_id, params[:collection_id] %>
+<%= hidden_field_tag :album_id, params[:album_id] %>
   <%= f.error_messages %>
   <%= render :partial => "form", :object => f %>
   <%= f.submit "Update" %>
 <% end %>
 
 <% content_for :action_links do %>
-<%= link_to("Delete photo", { :action => "destroy", :id => @photo },
+<%= link_to("Delete photo", { :action => "destroy", :id => @photo, :collection_id => params[:collection_id] },
   :confirm => "Are you sure you want to delete this photo?",
   :method => :delete) %>
 <% end %>

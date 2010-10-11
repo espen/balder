@@ -74,9 +74,7 @@ class PhotosController < ApplicationController
   end
 
   def create
-    puts "create"
     @photo = Photo.new(params[:photo])
-    puts @photo.inspect
     respond_to do |format|
         if @photo.save
           format.html { render :text => "FILEID:" + @photo.file.album.url }
@@ -106,7 +104,13 @@ class PhotosController < ApplicationController
     @photo = Photo.find( params[:id])
     if @photo.update_attributes(params[:photo])
       flash[:notice] = "Photo updated!"
-      redirect_to @photo
+      if params[:collection_id]
+        redirect_to collection_album_photo_path( params[:collection_id], params[:album_id], @photo )
+      elsif params[:album_id]
+        redirect_to album_photo_path( params[:album_id], @photo )
+      else
+        redirect_to @photo
+      end
     else
       render :action => :edit
     end
@@ -132,7 +136,11 @@ class PhotosController < ApplicationController
     @photo = Photo.find( params[:id])
     @album = @photo.album
     if @photo.destroy
-      redirect_to @album
+      if params[:collection_id]
+        redirect_to collection_album_path( params[:collection_id], @album )
+      else
+        redirect_to @album
+      end
     else
       redirect_to @photo
     end

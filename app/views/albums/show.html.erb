@@ -42,10 +42,19 @@
 
 <% content_for :action_links do %>
 <% if has_role?("admin") %>
+<% if params[:collection_id] %>
+<%= link_to "PDF", collection_album_path(params[:collection_id],@album, :format => 'pdf') %> |&nbsp;
+<%= link_to "Edit album", edit_collection_album_path(params[:collection_id],@album) %> |&nbsp;
+<%= link_to "Edit all photos", edit_multiple_collection_album_photos_path(params[:collection_id],@album) %> |&nbsp;
+<%= link_to "Edit untouched photos", untouched_collection_album_photos_path(params[:collection_id], @album) %> |&nbsp;
+<%= link_to "Add photos", upload_collection_album_photos_path(params[:collection_id], @album) %>
+<% else %>
 <%= link_to "PDF", album_path(@album, :format => 'pdf') %> |&nbsp;
 <%= link_to "Edit album", edit_album_path(@album) %> |&nbsp;
 <%= link_to "Edit all photos", edit_multiple_album_photos_path(@album) %> |&nbsp;
 <%= link_to "Edit untouched photos", untouched_album_photos_path(@album) %> |&nbsp;
-<%= link_to "Add photos", upload_collection_album_photos_path(params[:collection_id], @album) %>
+<%= link_to "Add photos", upload_album_photos_path(@album) %>
+<% end %>
+
 <% end %>
 <% end %>
