@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do
-  resources :account, :as => "users"
+  resource :account, :controller => :users
   match "login", :to => "user_sessions#new", :as => :login
   match "authenticate", :to => "user_sessions#create", :as => :authenticate
   match "logout", :to => "user_sessions#destroy", :as => :logout
