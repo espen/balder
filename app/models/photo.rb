@@ -49,6 +49,10 @@ class Photo < ActiveRecord::Base
     end
     self.tags = ts
   end
+
+  def _delete
+    0
+  end
   
   protected
 
