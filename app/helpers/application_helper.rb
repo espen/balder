@@ -6,7 +6,7 @@ module ApplicationHelper
      levels.delete_at(0)
 
      #links = "You are here: "
-     links  = content_tag('a', "HOME", :href => "/") if include_home
+     links  = content_tag('a', "HOME", :href => root_path ) if include_home
      
      nocrumb = ["collections", "albums", "photos", "tags", "new", "edit", "tags"]
 
