@@ -1,11 +1,11 @@
 <% content_for :javascript do %>
-<script type="text/javascript" src="/javascripts/uploadify-2.1/jquery.uploadify.v2.1.0.min.js"></script>
-<script type="text/javascript" src="/javascripts/uploadify-2.1/swfobject.js"></script>
+<%= javascript_include_tag "uploadify-2.1/jquery.uploadify.v2.1.0.min.js" -%>
+<%= javascript_include_tag "uploadify-2.1/swfobject.js"  -%>
 
 <script type="text/javascript">
 $(document).ready(function() {
 	$('#photo_file').uploadify({
-			uploader:'/javascripts/uploadify-2.1/uploadify.swf',
+			uploader:'<%= javascript_path "uploadify-2.1/uploadify.swf" -%>',
 			script:'<%= photos_path %>',
 			fileDataName    : 'photo[file]',
 			scriptData: {
@@ -13,7 +13,7 @@ $(document).ready(function() {
 				'authenticity_token' : encodeURIComponent('<%= u form_authenticity_token if protect_against_forgery?%>'),
 				'photo[album_id]' : "<%= @album.id %>"
 			},
-			cancelImg:'/javascripts/jquery.uploadify-v1.6.2.mit/cancel.png',
+			cancelImg:'<%= javascript_path "jquery.uploadify-v1.6.2.mit/cancel.png" -%>',
 			multi:true,
 			auto:true,
 			onComplete : function (e,queueId,fileObj,res,data) {
