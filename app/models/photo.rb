@@ -5,8 +5,8 @@ class Photo < ActiveRecord::Base
   
   mount_uploader :file, FileUploader
   
-  #validates_uniqueness_of :path, :message => "Photo already exsists on disc"
-  validates_presence_of :title
+  validates :path, :presence => true, :uniqueness => true, :message => "Photo already exsists on disc"
+  validates :title, :presence => true
   
   before_validation :set_title
   #before_create :exif_read
@@ -86,6 +86,5 @@ class Photo < ActiveRecord::Base
     photo.Keywords = self.tags
     photo.save
   end
-  
 
 end

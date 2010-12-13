@@ -3,6 +3,8 @@ class Collection < ActiveRecord::Base
   has_many :albums, :through => :collection_albums
   attr_accessor :album_list
 
+  validates :title, :presence => true
+
   def to_param
      "#{id}-#{title.parameterize}"
   end

@@ -3,8 +3,8 @@ class Album < ActiveRecord::Base
   has_many :collection_albums
   has_many :collections, :through => :collection_albums
 
-  validates_uniqueness_of :path, :message => "Album already exsists on disc"
-  validates_presence_of :title, :message => "can't be blank"
+  validates :path, :presence => true, :uniqueness => true, :message => "Album already exsists on disc"
+  validates :title, :presence => true, :message => "can't be blank"
   
   before_validation :ensure_path, :set_title
   after_create :create_folders
@@ -13,22 +13,20 @@ class Album < ActiveRecord::Base
   attr_accessor :tags
   #attr_protected :path
   
-  scope :untouched, :conditions => "albums.id IN ( SELECT DISTINCT photos.album_id FROM photos WHERE photos.description IS NULL AND photos.id NOT IN ( SELECT photo_id FROM photo_tags) )", :order => 'title'
-  scope :unused, :conditions => "albums.id NOT IN (SELECT album_id FROM collection_albums)"
-  scope :used, :conditions => "albums.id IN (SELECT album_id FROM collection_albums)"
+  scope :untouched, where("albums.id IN ( SELECT DISTINCT photos.album_id FROM photos WHERE photos.description IS NULL AND photos.id NOT IN ( SELECT photo_id FROM photo_tags) )").order('title')
+  scope :unused, where("albums.id NOT IN (SELECT album_id FROM collection_albums)")
+  scope :used, where("albums.id IN (SELECT album_id FROM collection_albums)")
 
   def to_param
     "#{id}-#{title.parameterize}"
   end
-
-  
   
   def ensure_path
     self.path = self.title.parameterize unless self.path
   end
   
   def set_title
-    self.title = File.basename( self.path).titleize unless self.title || !self.path
+    self.title = File.basename(self.path).titleize unless self.title || !self.path
   end
   
   def tags

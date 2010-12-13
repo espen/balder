@@ -6,7 +6,7 @@ class Role < ActiveRecord::Base
   has_many :subroles, :through => :roleables, :source => :roleable, :source_type => 'Role'
   has_many :users, :through => :roleables, :source => :roleable, :source_type => 'User'
   
-  validates_uniqueness_of :name
+  validates :name, :presence => true, :uniqueness => true
   
   acts_as_permissible
 end
