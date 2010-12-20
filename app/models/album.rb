@@ -3,8 +3,8 @@ class Album < ActiveRecord::Base
   has_many :collection_albums
   has_many :collections, :through => :collection_albums
 
-  validates :path, :presence => true, :uniqueness => true, :message => "Album already exsists on disc"
-  validates :title, :presence => true, :message => "can't be blank"
+  validates :path, :presence => true, :uniqueness => true #, :message => "Album already exsists on disc"
+  validates :title, :presence => true #, :message => "can't be blank"
   
   before_validation :ensure_path, :set_title
   after_create :create_folders
