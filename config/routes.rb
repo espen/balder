@@ -51,7 +51,7 @@ ActionController::Routing::Routes.draw do
     resources :albums
   end
   
-  resources :users, :to => "admin/users#index"
+  resources :users, :controller => "admin/users"
   
   root :to => "collections#index"
 
