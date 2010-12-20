@@ -5,7 +5,7 @@ class Photo < ActiveRecord::Base
   
   mount_uploader :file, FileUploader
   
-  validates :path, :presence => true, :uniqueness => true, :message => "Photo already exsists on disc"
+  validates :path, :presence => true, :uniqueness => true
   validates :title, :presence => true
   
   before_validation :set_title
