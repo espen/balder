@@ -1,11 +1,12 @@
 class Photo < ActiveRecord::Base
+  # TODO: path not used? it should be removed from the DB
+
   belongs_to :album
   has_many :photo_tags, :dependent => :destroy
   has_many :tags, :through => :photo_tags
   
   mount_uploader :file, FileUploader
   
-  validates :path, :presence => true, :uniqueness => true
   validates :title, :presence => true
   
   before_validation :set_title
