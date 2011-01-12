@@ -10,7 +10,8 @@
 <% for album in @collection.albums %>
 <%= form.fields_for :album_list do |album_fields| %>
 <span>
-<img src="/images/delete-24x24.png" border="" class="delete" />
+<%= image_tag "delete-24x24.png", :class => "delete", :alt => "Delete" -%>
+
 <% if album.photos.empty? %>
 	<%= album.title %>
 <% else %>

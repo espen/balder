@@ -1,12 +1,13 @@
 class Photo < ActiveRecord::Base
+  # TODO: path not used? it should be removed from the DB
+
   belongs_to :album
   has_many :photo_tags, :dependent => :destroy
   has_many :tags, :through => :photo_tags
   
   mount_uploader :file, FileUploader
   
-  #validates_uniqueness_of :path, :message => "Photo already exsists on disc"
-  validates_presence_of :title
+  validates :title, :presence => true
   
   before_validation :set_title
   #before_create :exif_read
@@ -49,6 +50,10 @@ class Photo < ActiveRecord::Base
     end
     self.tags = ts
   end
+
+  def _delete
+    0
+  end
   
   protected
 
@@ -82,6 +87,5 @@ class Photo < ActiveRecord::Base
     photo.Keywords = self.tags
     photo.save
   end
-  
 
 end

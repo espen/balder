@@ -19,18 +19,12 @@
 	<% end %>
 	</div>
 	<h1>
-		<a href="/">
-		<% if ENV['LOGO'] %>
-		<%= image_tag ENV['LOGO'] %>
-		<% else %>
-		<%= ENV['TITLE'] || "Photos" %>
-		<% end %>
-		</a>
-		</h1>
-	<form action="/albums" method="get" id="search">
+		<%= link_to(if ENV['LOGO'] then image_tag(ENV['LOGO']) else (ENV['TITLE'] || "Photos") end, root_path) %>
+	</h1>
+	<% form_tag albums_path, { :id => :search } do -%>
 		<input type="text" name="q" class="textfield"/>
 		<input type="submit" value="Search" class="button" />
-    </form>
+	<% end -%>
     <hr class="seperator" />
 	<%= breadcrumbs %>
 </div>

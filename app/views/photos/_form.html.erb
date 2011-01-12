@@ -1,5 +1,5 @@
 <% content_for :javascript do %>
-<script src="/javascripts/tag/tag.js" type="text/javascript" charset="utf-8"></script>
+<%= javascript_include_tag "tag/tag"  -%>
 <% end %>
 <%= hidden_field_tag :all_tags, @tags %>
 <%= form.label :title %><br />
