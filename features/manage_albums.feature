@@ -27,8 +27,8 @@ Feature: Manage Albums
   Scenario: Create Valid Album
 	Given the following user records
     	| email              | password |
-    	| espen@inspired.no  | megmeg   |
-	When I am logged in as "espen@inspired.no" with password "megmeg"
+    	| balder@balderapp.com  | balder   |
+	When I am logged in as "balder@balderapp.com" with password "balder"
     And I am on the list of albums
     And I have no albums
     When I follow "New Album"

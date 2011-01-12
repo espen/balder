@@ -16,9 +16,9 @@ Rails::Initializer.run do |config|
   config.gem "authlogic"
   config.gem 'mime-types', :lib => 'mime/types'
   config.gem "carrierwave"
-  config.gem "mysql2"
+  config.gem "mysql2" unless ENV['HEROKU']
+  config.gem "aws-s3", :lib => "aws/s3" if ENV['HEROKU']
   #config.gem "mini_exiftool"
-  #config.gem "aws-s3", :lib => "aws/s3"
   
   config.load_paths += %W( #{RAILS_ROOT}/app/middleware )
       
