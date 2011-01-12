@@ -2,7 +2,7 @@
 
 Made by Espen Antonsen.
 
-Version 1.2 for Rails3 Beta
+Version 1.2.0rc1 for Rails3
 
 Issues:
 - carrierwave not saving to model, only to disk (testet on ubuntu)
