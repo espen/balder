@@ -10,8 +10,8 @@ class Photo < ActiveRecord::Base
   validates :title, :presence => true
   
   before_validation :set_title
-  #before_create :exif_read
-  #before_update :exif_write # should only write if tags are changed as images can be large and thus ExifTool will take a while to write to the file
+  before_create :exif_read
+  before_update :exif_write
 
   attr_accessor :tag_list
   #attr_protected :path
@@ -79,6 +79,7 @@ class Photo < ActiveRecord::Base
   end
   
   def exif_write
+    # should only write if tags are changed as images can be large and thus ExifTool will take a while to write to the file
     photo = MiniExiftool.new(self.path.file)
     photo.GPSLongitude = self.longitude
     photo.GPSLatitude = self.latitude

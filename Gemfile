@@ -9,16 +9,18 @@ gem "carrierwave", :git => 'git://github.com/jnicklas/carrierwave.git'
 #gem "mysql2"
 # PostgreSQL:
 gem 'pg'
+# SQLite
+gem 'sqlite3-ruby'
 
 # S3 support
 gem 'fog'
 
 # ImageMagick:
-gem "rmagick", :require => 'RMagick'
+#gem "rmagick", :require => 'RMagick'
 
 # FreeImage:
 #gem "RubyInline"
 #gem "image_science", :git => 'git://github.com/perezd/image_science.git'
 
 # MiniMagick
-#gem "mini_magick"
+gem "mini_magick"

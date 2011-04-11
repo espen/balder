@@ -31,7 +31,7 @@ Free for personal use. Contact me for commercial license.
 Rails 3.0
 
 Software
-- RMagicK (required for Carrierwave resizing). Can also use ImageScience
+- ImageMagicK (required for Carrierwave resizing). Can also use ImageScience
 Optional:
 	- ExifTool (required for Mini_EfixTool)
 
@@ -47,15 +47,15 @@ Optional:
 
 1. Clone the project from GitHub or Gitorious:
 	GitHub: git clone git://github.com/espen/balder.git
-	Gitorious: git clone git://gitorious.org/gallery-without-a-name/gallery-without-a-name.git
-2. install required software listed above
-3. Copy settings file:
-	cp gallery/config/database.example.yml gallery/config/database.yml
-	cp gallery/config/settings.example.yml gallery/config/settings.yml
-4. Create databsae user and edit settings files.
-5. rake db:create
-6. rake db:migrate
-7. Start up the project with your preferred web-server
+2. Install required software listed above
+3. 'bundle install' to install required gems.
+4. Adjust the settings in balder.rb
+5. Copy database file (not needed when hosting on Heroku):
+	cp config/database.example.yml config/database.yml
+6. Create database user and edit database file. (unless on Heroku or using SQLite3)
+7. rake db:create
+8. rake db:migrate
+9. Start up the project with your preferred web-server
 
 === Optional: add photos directly to disk
 

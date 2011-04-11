@@ -1,8 +1,8 @@
 development:
-    adapter: postgresql
-    database: balder_development
-    username: balder
-    password: changeme
+    adapter: sqlite3
+    database: db/development.sqlite3
+    pool: 5
+    timeout: 5000
 production:
     adapter: mysql
     encoding: utf8

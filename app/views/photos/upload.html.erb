@@ -4,6 +4,9 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	if(swfobject.hasFlashPlayerVersion("9.0.0")) {
+	    $('#noFlash').hide()
+	}
 	$('#photo_file').uploadify({
 			uploader:'<%= javascript_path "uploadify-2.1/uploadify.swf" -%>',
 			script:'<%= photos_path %>',
@@ -30,6 +33,8 @@ $(document).ready(function() {
 })
 </script>
 <% end %>
+<div id="noFlash">I'm really sorry, you need Flash to upload files.</div>
+
 <form>
 <input type="file" id="photo_file">
 <br>
