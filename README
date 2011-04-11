@@ -2,7 +2,7 @@
 
 Made by Espen Antonsen.
 
-Version 1.2.0rc1 for Rails3
+Version 1.2.0rc2 for Rails3
 
 Issues:
 - carrierwave not saving to model, only to disk (testet on ubuntu)
@@ -59,7 +59,7 @@ Optional:
 
 === Optional: add photos directly to disk
 
-The gallery has a web-based upload tool using Flash. Alternatively you can upload files directly by doing this:
+The gallery has a web-based upload tool. Alternatively you can upload files directly by doing this:
 
 Put photos in containing folders(albums) in the specified gallery folder.
 Hierarchy of folders is not fully supported.
@@ -73,8 +73,6 @@ This format is recommended:
 ./trip to iran/powder snow in dizin.jpg
 
 Every time you manually add photos to disk you must scan by visiting /photos/scan
-
-In future releases the scan will be automated.
 
 == Copyright and license info
 
