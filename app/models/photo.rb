@@ -70,7 +70,7 @@ class Photo < ActiveRecord::Base
   end
 
   def exif_read
-    photo = MiniExiftool.new(self.file.path)
+    photo = MiniExiftool.new(self.file.file.file)
     self.longitude = photo.GPSLongitude if self.longitude.nil?
     self.latitude = photo.GPSLatitude if self.latitude.nil?
     self.title = photo.DocumentName if self.title.nil?
@@ -80,7 +80,7 @@ class Photo < ActiveRecord::Base
   
   def exif_write
     # should only write if tags are changed as images can be large and thus ExifTool will take a while to write to the file
-    photo = MiniExiftool.new(self.path.file)
+    photo = MiniExiftool.new(self.file.file.file)
     photo.GPSLongitude = self.longitude
     photo.GPSLatitude = self.latitude
     photo.DocumentName = self.title
