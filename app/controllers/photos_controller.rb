@@ -1,5 +1,4 @@
 class PhotosController < ApplicationController
-#skip_before_filter :verify_authenticity_token
   before_filter :check_public_access
   before_filter :require_role_admin, :only => [:untouched, :upload, :new, :create, :edit, :update, :destroy]
 
@@ -75,6 +74,7 @@ class PhotosController < ApplicationController
 
   def create
     @photo = Photo.new(params[:photo])
+    @photo.file = params[:file]
     respond_to do |format|
         if @photo.save
           format.html { render :text => "FILEID:" + @photo.file.album.url }

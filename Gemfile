@@ -24,3 +24,6 @@ gem 'fog'
 
 # MiniMagick
 gem "mini_magick"
+
+# Mini exif tool
+gem "mini_exiftool"

@@ -1,42 +1,85 @@
 <% content_for :javascript do %>
-<%= javascript_include_tag "uploadify-2.1/jquery.uploadify.v2.1.0.min.js" -%>
-<%= javascript_include_tag "uploadify-2.1/swfobject.js"  -%>
+<style type="text/css">@import url(/javascripts/plupload/examples/css/plupload.queue.css);</style>
+<%= javascript_include_tag "plupload/js/plupload.full.min.js" -%>
+<%= javascript_include_tag "plupload/js/jquery.plupload.queue.min.js"  -%>
 
 <script type="text/javascript">
 $(document).ready(function() {
-	if(swfobject.hasFlashPlayerVersion("9.0.0")) {
-	    $('#noFlash').hide()
-	}
-	$('#photo_file').uploadify({
-			uploader:'<%= javascript_path "uploadify-2.1/uploadify.swf" -%>',
-			script:'<%= photos_path %>',
-			fileDataName    : 'photo[file]',
-			scriptData: {
-				'<%= get_session_key %>' : encodeURIComponent('<%= u cookies[get_session_key] %>'),
-				'authenticity_token' : encodeURIComponent('<%= u form_authenticity_token if protect_against_forgery?%>'),
+	
+	$("#uploader").pluploadQueue({
+			// General settings
+			runtimes : 'html5,browserplus,flash,silverlight,gears',
+			url : '<%= photos_path %>',
+			max_file_size : '10mb',
+			chunk_size : '1mb',
+			unique_names : true,
+			multipart: true,  
+			   multipart_params: {  
+				'authenticity_token' : '<%= form_authenticity_token %>',
 				'photo[album_id]' : "<%= @album.id %>"
-			},
-			cancelImg:'<%= javascript_path "jquery.uploadify-v1.6.2.mit/cancel.png" -%>',
-			multi:true,
-			auto:true,
-			onComplete : function (e,queueId,fileObj,res,data) {
-				if (res.substring(0, 7) === "FILEID:") {
-					var image = $('<img>').appendTo('#thumbs')
-					image.css('display','none')
-					image.attr('src', res.substring(7) )
-					image.fadeIn('slow')
+			   },
+
+			// Resize images on clientside if we can
+			//resize : {width : 320, height : 240, quality : 90},
+
+			// Specify what files to browse for
+			filters : [
+				{title : "Image files", extensions : "jpg,gif,png,bmp,jpeg,tif,tiff"}
+			],
+
+			// Flash settings
+			flash_swf_url : '/javascripts/plupload/js/plupload.flash.swf',
+
+			// Silverlight settings
+			silverlight_xap_url : '/javascripts/plupload/js/plupload.silverlight.xap',
+			
+			// Post init events, bound after the internal events
+				init : {
+
+					FileUploaded: function(up, file, info) {
+						// Called when a file has finished uploading
+						res = info.response;
+						if (res.substring(0, 7) === "FILEID:") {
+							var image = $('<img>').appendTo('#thumbs')
+							image.css('display','none')
+							image.attr('src', res.substring(7) )
+							image.fadeIn('slow')
+						}
+					}
 				}
-			},
-			onError : function (e,queueId,fileObj,errorObj,res) {
+		});
+
+		// Client side form validation
+		$('form').submit(function(e) {
+			console.log('hello test');
+			var uploader = $('#uploader').pluploadQueue();
+
+			// Validate number of uploaded files
+			if (uploader.total.uploaded == 0) {
+				// Files in queue upload them first
+				if (uploader.files.length > 0) {
+					// When all files are uploaded submit form
+					uploader.bind('UploadProgress', function() {
+						if (uploader.total.uploaded == uploader.files.length)
+							$('form').submit();
+					});
+
+					uploader.start();
+				} else
+					alert('You must at least upload one file.');
+
+				e.preventDefault();
 			}
-		})
+		});
 })
 </script>
 <% end %>
-<div id="noFlash">I'm really sorry, you need Flash to upload files.</div>
 
 <form>
-<input type="file" id="photo_file">
+<div id="uploader">
+        <p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
+    </div>
+
 <br>
 <div id="thumbs"></div>
 </form>
