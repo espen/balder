@@ -11,7 +11,7 @@ class Photo < ActiveRecord::Base
   
   before_validation :set_title, :set_path
   before_create :exif_read
-  before_update :exif_write
+  #before_update :exif_write
 
   attr_accessor :tag_list
   #attr_protected :path
