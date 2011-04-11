@@ -5,9 +5,9 @@ gem 'rails'
 gem 'mime-types', :require => 'mime/types'
 gem "carrierwave", :git => 'git://github.com/jnicklas/carrierwave.git' 
 # MySQL:
-#gem "mysql2"
+#gem 'mysql2'
 # PostgreSQL:
-gem 'pg'
+#gem 'pg'
 # SQLite
 gem 'sqlite3-ruby'
 
