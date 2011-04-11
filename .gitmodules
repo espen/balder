@@ -1,0 +1,3 @@
+[submodule "vendor/plugins/authlogic"]
+	path = vendor/plugins/authlogic
+	url = git://github.com/espen/authlogic.git
