@@ -104,5 +104,5 @@ DEPENDENCIES
   mini_exiftool
   mini_magick
   pg
-  rails (= 3.0.3)
+  rails
   sqlite3-ruby
