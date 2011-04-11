@@ -55,6 +55,8 @@ S3_BUCKET		For saving files to Amazon S3 (required for Heroku)
 
 As these are environment variables you can easily add them to Heroku:
 http://devcenter.heroku.com/articles/config-vars#rack_env_rails_env_merb_env
+For a brief introduction to how to set up Balder on Heroku see:
+http://blog.inspired.no/rails-photo-gallery-balder-on-heroku-and-s3-726
 
 == Installation
 
