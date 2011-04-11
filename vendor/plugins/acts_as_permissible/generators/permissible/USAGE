@@ -1,1 +1,0 @@
-./script/generate permissible <PermissionsModelName> [RolesModelName | --skip-roles] [--skip-migrations] [--rspec]
