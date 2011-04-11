@@ -34,8 +34,9 @@ jQuery(function($) {
 	    }
 	    $.getJSON("/albums/" + this.value + '/photos',
                 function(data){
+                    console.log( data[0].photo.file.album.url );
                     html = '<span style="display:none;"><img src="/images/delete-24x24.png" border="" class="delete" />'
-                    html += '<img alt="' + $("#available_albums :selected").val()  + '_collection" src="/thumbs/' + $("#available_albums :selected").text() + '/' + data[0].photo.id + '_album.jpg" />'
+                    html += '<img alt="' + $("#available_albums :selected").val()  + '_collection" src=' + data[0].photo.file.album.url + ' />'
                     html += '<input id="collection_album_list_' + $("#available_albums :selected").val()  + '" name="collection[album_list][' + $("#available_albums :selected").val()  + ']" type="hidden" />'
                     html += '</span>'
                     $('#collection_albums').append(html)
