@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
   before_filter :check_public_access
-  before_filter :require_role_admin, :only => [:untouched, :upload, :new, :create, :edit, :update, :destroy]
+  before_filter :require_role_admin, :only => [:untouched, :upload, :new, :create, :edit, :update, :destroy, :scan]
 
   def index
     if params[:tag_id] && params[:album_id]
