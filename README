@@ -2,11 +2,7 @@
 
 Made by Espen Antonsen.
 
-Version 1.2.0rc2 for Rails3
-
-Issues:
-- carrierwave not saving to model, only to disk (testet on ubuntu)
-- jpg files not being upload, no error written to log (testet on osx)
+Version 1.2.0 for Rails3
 
 http://balderapp.com
 
@@ -31,17 +27,34 @@ Free for personal use. Contact me for commercial license.
 Rails 3.0
 
 Software
-- ImageMagicK (required for Carrierwave resizing). Can also use ImageScience
-Optional:
-	- ExifTool (required for Mini_EfixTool)
+- ImageMagicK (required for Carrierwave resizing). Can also use ImageScience and MiniMagick
+- ExifTool (required for Mini_EfixTool). Can be disabled.
 
 Ruby Gems
 - AuthLogic
 - Mime-Types
 - Carrierwave
+- Mini_Exiftool (to read exif info to database and write exif to original file. See photo.rb model). Can be disabled.
 Optional:
 	- AWS/S3 (if saving to Amazon s3)
-	- Mini_Exiftool (to read exif info to database. See photo.rb model)
+	
+	
+== Configuration
+
+config/balder.rb has the following adjustable settings:
+
+STORAGE_PATH	Relative path to where the photos are stored. Default: uploads
+				Under the specified path two folders are used. "files" for original files and "thumbs" for generated thumbnails.
+				This can be adjusted in app/uploaders/file_uploader.rb
+PRIVATE			Require visitors to have a user and authenticate before viewing photos.
+TITLE			Title of site
+HEROKU			To be used on heroku.com. This will adjust carrierwave to save to Heroku's tmp area.
+S3_KEY			For saving files to Amazon S3 (required for Heroku)
+S3_SECRET		For saving files to Amazon S3 (required for Heroku)
+S3_BUCKET		For saving files to Amazon S3 (required for Heroku)
+
+As these are environment variables you can easily add them to Heroku:
+http://devcenter.heroku.com/articles/config-vars#rack_env_rails_env_merb_env
 
 == Installation
 
@@ -49,7 +62,7 @@ Optional:
 	GitHub: git clone git://github.com/espen/balder.git
 2. Install required software listed above
 3. 'bundle install' to install required gems.
-4. Adjust the settings in balder.rb
+4. Adjust the settings in balder.rb (See configuration above)
 5. Copy database file (not needed when hosting on Heroku):
 	cp config/database.example.yml config/database.yml
 6. Create database user and edit database file. (unless on Heroku or using SQLite3)
@@ -72,7 +85,16 @@ This format is recommended:
 ./trip to iran/mosque in yazd.jpg
 ./trip to iran/powder snow in dizin.jpg
 
-Every time you manually add photos to disk you must scan by visiting /photos/scan
+Every time you manually add photos to disk you must scan by visiting /photos/scan or run ScanFiles.Scan(false) from the console.
+
+== Version history
+
+1.2.0
+- New storage path: "/uploads/files/" instead of "/uploads/". Make sure you move your photos or adjust the storage path.
+
+== TODO
+
+- Testing...
 
 == Copyright and license info
 

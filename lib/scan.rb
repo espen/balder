@@ -34,11 +34,11 @@ module ScanFiles
   def self.ScanFile(path, debug)
     return unless [".jpeg", ".jpg", ".gif", ".png"].include?( File.extname(path).downcase )
     puts "analyze file " + path
-    photo = Photo.find_or_initialize_by_file( path )
+    photo = Photo.find_or_initialize_by_path( path )
     puts "new record " + photo.new_record?.to_s
     if photo.new_record?
       puts "Save file " + path.sub(@photos_path, '')
-      photo.file = File.open( path )
+      photo.file = File.open( path ) unless debug
       photo.album = Album.find_by_path( File.dirname( path ).sub(@photos_path, '') )
       photo.save! unless debug
       photo.file.recreate_versions! unless debug

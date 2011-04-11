@@ -9,7 +9,7 @@ class Photo < ActiveRecord::Base
   
   validates :title, :presence => true
   
-  before_validation :set_title
+  before_validation :set_title, :set_path
   before_create :exif_read
   before_update :exif_write
 
@@ -63,6 +63,10 @@ class Photo < ActiveRecord::Base
 
   def set_title
     self.title = self.file.file.basename.titleize unless self.title
+  end
+
+  def set_path
+    self.path = self.file.file.file.sub(File.expand_path(Rails.root.to_s + '/public/' + ENV['STORAGE_PATH'] + "/files" ) + "/","") unless self.path
   end
   
   def ensure_file
