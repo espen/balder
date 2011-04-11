@@ -1,6 +1,0 @@
-[submodule "vendor/plugins/authlogic"]
-	path = vendor/plugins/authlogic
-	url = git://github.com/espen/authlogic.git
-[submodule "vendor/plugins/acts_as_permissible"]
-	path = vendor/plugins/acts_as_permissible
-	url = git://github.com/espen/acts_as_permissible.git
