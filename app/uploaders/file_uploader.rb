@@ -8,7 +8,7 @@ class FileUploader < CarrierWave::Uploader::Base
        include CarrierWave::MiniMagick
   # Choose what kind of storage to use for this uploader
   if ENV['S3_KEY']
-    storage :s3
+    storage :fog
     
     def cache_dir
       "#{RAILS_ROOT}/tmp/uploads" if ENV['HEROKU'] == 'true'
