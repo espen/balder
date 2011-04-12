@@ -12,7 +12,8 @@ gem "carrierwave", :git => 'git://github.com/jnicklas/carrierwave.git'
 gem 'sqlite3-ruby'
 
 # S3 support
-gem 'fog'
+#gem 'fog'
+gem 'aws'
 
 # ImageMagick:
 #gem "rmagick", :require => 'RMagick'
