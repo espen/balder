@@ -8,38 +8,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :current_user_session
   
   before_filter :setup
-  #before_filter :adjust_format
-  layout :application_layout
 
   
   private
   
-  def application_layout
-    @browser_name ||= begin
-          if iphone_request?
-            'application.iphone'
-          else
-            'application'
-          end
-        end 
-    end
-  
-  # Set iPhone format if request to iphone.trawlr.com
-   def adjust_format
-     request.format = :iphone if iphone_request?
-     request.format = :ipad if ipad_request?
-   end
-
-   # Return true for requests to iphone.trawlr.com
-    def iphone_request?
-      return (request.subdomains.first == "iphone" || request.env['HTTP_USER_AGENT'].downcase.include?('iphone') )
-    end
-
-    # Return true for requests to iphone.trawlr.com
-    def ipad_request?
-      return (request.subdomains.first == "iphone" || request.env['HTTP_USER_AGENT'].downcase.include?('ipad') )
-    end
-    
     def setup
       redirect_to new_account_path if User.all.length == 0
     end

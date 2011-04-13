@@ -3,6 +3,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title><%= ENV['TITLE'] || "Photos" %></title>
+	<meta name = "viewport" content = "width = device-width">
+	<meta name = "viewport" content = "initial-scale = 1.0, user-scalable=no">
 	<%= yield :head %>
 	<%= stylesheet_link_tag 'application' %>
 	<%= csrf_meta_tag %>

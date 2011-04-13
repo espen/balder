@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rails'
 
 gem 'mime-types', :require => 'mime/types'
-gem "carrierwave", :git => 'git://github.com/jnicklas/carrierwave.git' 
+gem "carrierwave", :git => 'git://github.com/jnicklas/carrierwave.git'
 # MySQL:
 #gem 'mysql2'
 # PostgreSQL:
