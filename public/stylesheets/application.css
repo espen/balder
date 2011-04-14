@@ -243,3 +243,11 @@ DIV#collection_albums IMG.delete {
 	right:  8px;
 	top:  8px;
 }
+
+
+@media screen and (max-width: 480px) {
+    DIV#collection_albums {
+    	width:  100%;
+    }
+    
+}
