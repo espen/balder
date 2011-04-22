@@ -245,9 +245,11 @@ DIV#collection_albums IMG.delete {
 }
 
 
-@media screen and (max-width: 480px) {
+@media screen and (device-width: 480px) {
+    #container {
+        width: 100%;
+    }
     DIV#collection_albums {
     	width:  100%;
-    }
-    
+    }    
 }
