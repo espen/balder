@@ -70,10 +70,10 @@ ActiveRecord::Schema.define(:version => 20100412220801) do
     t.integer  "album_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "path"
     t.float    "longitude"
     t.float    "latitude"
     t.string   "file"
-    t.text     "path"
   end
 
   add_index "photos", ["album_id"], :name => "index_photos_on_album_id"
