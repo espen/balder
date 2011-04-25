@@ -1,4 +1,4 @@
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 <style type="text/css">@import url(/javascripts/plupload/examples/css/plupload.queue.css);</style>
 <%= javascript_include_tag "plupload/js/plupload.full.min.js" -%>
 <%= javascript_include_tag "plupload/js/jquery.plupload.queue.min.js"  -%>
@@ -11,10 +11,9 @@ $(document).ready(function() {
 			runtimes : 'html5,browserplus,flash,silverlight,gears',
 			url : '<%= photos_path %>',
 			max_file_size : '10mb',
-			chunk_size : '1mb',
-			unique_names : true,
 			multipart: true,  
 			   multipart_params: {  
+				'<%= get_session_key %>' : encodeURIComponent('<%= u cookies[get_session_key] %>'),
 				'authenticity_token' : '<%= form_authenticity_token %>',
 				'photo[album_id]' : "<%= @album.id %>"
 			   },
@@ -51,7 +50,6 @@ $(document).ready(function() {
 
 		// Client side form validation
 		$('form').submit(function(e) {
-			console.log('hello test');
 			var uploader = $('#uploader').pluploadQueue();
 
 			// Validate number of uploaded files
