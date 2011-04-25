@@ -2,7 +2,7 @@
 
 Made by Espen Antonsen.
 
-Version 1.2.0 for Rails3
+Version 1.2.1 for Rails3. See the rails2 branch for previous version.
 
 http://balderapp.com
 
@@ -27,18 +27,14 @@ Free for personal use. Contact me for commercial license.
 Rails 3.0
 
 Software
-- ImageMagicK (required for Carrierwave resizing). Can also use ImageScience and MiniMagick
-- ExifTool (required for Mini_EfixTool). Can be disabled.
-
-Ruby Gems
-- AuthLogic
-- Mime-Types
-- Carrierwave
-- Mini_Exiftool (to read exif info to database and write exif to original file. See photo.rb model). Can be disabled.
+Default:
+- ExifTool (required for Mini_EfixTool). Can be disabled. Default is to read EXIF tags but not write them to the file when database is updated as writing EXIF is slow. To enable just uncomment exif_write in photo.rb
+- ImageMagicK. Carrierwave can use either RMagicK or MiniMagicK (default). To change resize option the correct gem must be used (specified in Gemfile) and change included setting for Carrierwave in file_uploader.rb
 Optional:
-	- AWS/S3 (if saving to Amazon s3)
-	
-	
+- ImageScience.
+
+Ruby Gems: See Gemfile
+
 == Configuration
 
 config/balder.rb has the following adjustable settings:
@@ -74,7 +70,7 @@ http://blog.inspired.no/rails-photo-gallery-balder-on-heroku-and-s3-726
 
 === Optional: add photos directly to disk
 
-The gallery has a web-based upload tool. Alternatively you can upload files directly by doing this:
+The gallery has a web-based upload tool. Alternatively you can upload files directly to the upload folder. This means you can import an existing folder based photo collection to Balder.
 
 Put photos in containing folders(albums) in the specified gallery folder.
 Hierarchy of folders is not fully supported.
@@ -91,12 +87,21 @@ Every time you manually add photos to disk you must scan by visiting /photos/sca
 
 == Version history
 
+1.2.1
+- Using plupupload instead of uploadify for non-flash upload options. Can now use html5, normal form, silverlight, gears and browserplus for photo upload.
+
 1.2.0
 - New storage path: "/uploads/files/" instead of "/uploads/". Make sure you move your photos or adjust the storage path.
 
 == TODO
 
 - Testing...
+
+== IDEAS
+- Themes
+- Improved UX
+- Mobile/Tablet friendly display using CSS media queries
+Patches welcome!
 
 == Copyright and license info
 

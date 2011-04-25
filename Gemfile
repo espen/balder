@@ -4,15 +4,22 @@ gem 'rails'
 
 gem 'mime-types', :require => 'mime/types'
 gem "carrierwave", :git => 'git://github.com/jnicklas/carrierwave.git'
+
+# -- Database
+# SQLite
+gem 'sqlite3-ruby'
 # MySQL:
 #gem 'mysql2'
 # PostgreSQL:
 #gem 'pg'
-# SQLite
-gem 'sqlite3-ruby'
 
-# S3 support
+# -- Cloud storage
+# AWS S3 support. Can be disabled if using local file system instead of cloud storage.
 gem 'fog'
+
+# -- Photo resizing
+# MiniMagick
+gem "mini_magick"
 
 # ImageMagick:
 #gem "rmagick", :require => 'RMagick'
@@ -21,8 +28,6 @@ gem 'fog'
 #gem "RubyInline"
 #gem "image_science", :git => 'git://github.com/perezd/image_science.git'
 
-# MiniMagick
-gem "mini_magick"
-
-# Mini exif tool
+# -- EXIF
+# Mini exif tool. Can be disabled. Remove exif_read and exif_write filters in photo model
 gem "mini_exiftool"
