@@ -40,7 +40,7 @@
 
 
 
-<% content_for :action_links do %>
+<%= content_for :action_links do %>
 <% if has_role?("admin") %>
 <% if params[:collection_id] %>
 <%= link_to "PDF", collection_album_path(params[:collection_id],@album, :format => 'pdf') %> |&nbsp;

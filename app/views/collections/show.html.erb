@@ -13,7 +13,7 @@
 </div>
 <% end %>
 
-<% content_for :action_links do %>
+<%= content_for :action_links do %>
 <% if has_role?("admin") %>
 <%= link_to "PDF", collection_path(@collection, :format => 'pdf') %> |&nbsp;
 <%= link_to "Edit collection", edit_collection_path(@collection) %> | 

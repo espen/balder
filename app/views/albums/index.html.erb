@@ -10,7 +10,7 @@
 </div>
 <% end %>
 
-<% content_for :action_links do %>
+<%= content_for :action_links do %>
 <%= link_to "Show just the photos tagged with #{params[:q]}", photos_path(:q => params[:q]) if params[:q] %>
 <% if has_role?("admin") %>
 <%= " |&nbsp;" if params[:q] %>

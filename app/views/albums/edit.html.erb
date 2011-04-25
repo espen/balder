@@ -7,7 +7,7 @@
 <% end %>
  
 
-<% content_for :action_links do %>
+<%= content_for :action_links do %>
 <% if has_role?("admin") %>
 
 <%= link_to("Delete album", { :action => "destroy", :id => @album, :collection_id => params[:collection_id] },

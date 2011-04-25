@@ -6,7 +6,7 @@
   <%= f.submit "Update" %>
 <% end %>
 
-<% content_for :action_links do %>
+<%= content_for :action_links do %>
 <%= link_to("Delete this collection", { :action => "destroy", :id => @collection },
   :confirm => "Are you sure you want to delete this collection?",
   :method => :delete) %>
