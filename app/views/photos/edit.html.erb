@@ -10,7 +10,7 @@
   <%= f.submit "Update" %>
 <% end %>
 
-<% content_for :action_links do %>
+<%= content_for :action_links do %>
 <%= link_to("Delete photo", { :action => "destroy", :id => @photo, :collection_id => params[:collection_id] },
   :confirm => "Are you sure you want to delete this photo?",
   :method => :delete) %>

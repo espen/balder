@@ -23,7 +23,7 @@
 <%= link_to tag, tag_photos_path(tag) %>
 <% end %>
 
-<% content_for :action_links do %>
+<%= content_for :action_links do %>
 <% if has_role?("admin") %>
 <% if params[:collection_id] %>
 <%= link_to "Edit photo", edit_collection_album_photo_path(params[:collection_id], params[:album_id], @photo) %>
