@@ -25,7 +25,7 @@ class Prince
     # Finds where the application lives, so we can call it.
     @exe_path = `which prince`.chomp
   	@style_sheets = ''
-  	@log_file = "#{RAILS_ROOT}/log/prince.log"
+  	@log_file = "#{Rails.root.to_s}/log/prince.log"
   	@logger = RAILS_DEFAULT_LOGGER
   end
   

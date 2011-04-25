@@ -11,7 +11,7 @@ class FileUploader < CarrierWave::Uploader::Base
     storage :s3
     
     def cache_dir
-      "#{RAILS_ROOT}/tmp/uploads" if ENV['HEROKU'] == 'true'
+      "#{Rails.root.to_s}/tmp/uploads" if ENV['HEROKU'] == 'true'
     end
   else
     storage :file
