@@ -1,4 +1,4 @@
-$LOAD_PATH.unshift(RAILS_ROOT + '/vendor/plugins/cucumber/lib') if File.directory?(RAILS_ROOT + '/vendor/plugins/cucumber/lib')
+$LOAD_PATH.unshift(Rails.root.to_s + '/vendor/plugins/cucumber/lib') if File.directory?(Rails.root.to_s + '/vendor/plugins/cucumber/lib')
 
 begin
   require 'cucumber/rake/task'
