@@ -2,8 +2,10 @@ source 'http://rubygems.org'
 
 gem 'rails'
 
+gem 'authlogic'
+
 gem 'mime-types', :require => 'mime/types'
-gem "carrierwave", :git => 'git://github.com/jnicklas/carrierwave.git'
+gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git'
 
 # -- Database
 # SQLite
@@ -15,7 +17,7 @@ gem 'sqlite3-ruby'
 
 # -- Cloud storage
 # AWS S3 support. Can be disabled if using local file system instead of cloud storage.
-gem 'fog'
+gem 'fog', :git => 'git://github.com/geemus/fog.git'
 
 # -- Photo resizing
 # MiniMagick
