@@ -1,0 +1,39 @@
+/*
+    ColorBox Core Style
+    The following rules are the styles that are consistant between all ColorBox themes
+*/
+#colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden;}
+#cboxOverlay{position:fixed; width:100%; height:100%;}
+#cboxMiddleLeft, #cboxBottomLeft{clear:left;}
+#cboxContent{position:relative; overflow:visible;}
+#cboxLoadedContent{overflow:auto;}
+#cboxLoadedContent iframe{display:block; width:100%; height:100%; border:0;}
+#cboxTitle{margin:0;}
+#cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%;}
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
+
+/* 
+	ColorBox example user style
+	These rules are ordered and tabbed in a way that represents the order/nesting of the generated HTML, 
+	in hope that this will make the relationship easier to understand. Thanks, jack@colorpowered.com
+*/
+#cboxOverlay{background:#fff;}
+
+#colorBox{}
+	#cboxTopLeft{width:27px; height:27px; background:url(images/borderTopLeft.png) 0 0 no-repeat;}
+	#cboxTopCenter{height:27px; background:url(images/borderTopCenter.png) 0 0 repeat-x;}
+	#cboxTopRight{width:27px; height:27px; background:url(images/borderTopRight.png) 0 0 no-repeat;}
+	#cboxBottomLeft{width:27px; height:27px; background:url(images/borderBottomLeft.png) 0 0 no-repeat;}
+	#cboxBottomCenter{height:27px; background:url(images/borderBottomCenter.png) 0 0 repeat-x;}
+	#cboxBottomRight{width:27px; height:27px; background:url(images/borderBottomRight.png) 0 0 no-repeat;}
+	#cboxMiddleLeft{width:27px; background:url(images/borderMiddleLeft.png) 0 0 repeat-y;}
+	#cboxMiddleRight{width:27px; background:url(images/borderMiddleRight.png) 0 0 repeat-y;}
+	#cboxContent{background:#fff;}
+            #cboxLoadedContent{margin-bottom:20px;}
+            #cboxTitle{position:absolute; bottom:0px; left:0; text-align:center; width:100%; color:#999;}
+            #cboxCurrent{position:absolute; bottom:0px; left:100px; color:#999;}
+            #cboxSlideshow{position:absolute; bottom:0px; right:42px; color:#444;}
+            #cboxPrevious{position:absolute; bottom:0px; left:0; color:#444;}
+            #cboxNext{position:absolute; bottom:0px; left:63px; color:#444;}
+            #cboxLoadingOverlay{background:url(images/loading.gif) 5px 5px no-repeat #fff;}
+            #cboxClose{position:absolute; bottom:0; right:0; display:block; color:#444;}
