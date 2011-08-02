@@ -1,34 +1,13 @@
-GIT
-  remote: git://github.com/geemus/fog.git
-  revision: 72855da3d7b21d5c1ba4f25da6be4f04375c68b9
-  specs:
-    fog (0.7.2)
-      builder
-      excon (~> 0.6.1)
-      formatador (>= 0.1.3)
-      json
-      mime-types
-      net-ssh (>= 2.1.3)
-      nokogiri (>= 1.4.4)
-      ruby-hmac
-
-GIT
-  remote: git://github.com/jnicklas/carrierwave.git
-  revision: d2cb99103a4fd3a4927ea616b251809969831fbe
-  specs:
-    carrierwave (0.5.3)
-      activesupport (~> 3.0)
-
 GEM
   remote: http://rubygems.org/
   specs:
     abstract (1.0.0)
-    actionmailer (3.0.7)
-      actionpack (= 3.0.7)
-      mail (~> 2.2.15)
-    actionpack (3.0.7)
-      activemodel (= 3.0.7)
-      activesupport (= 3.0.7)
+    actionmailer (3.0.9)
+      actionpack (= 3.0.9)
+      mail (~> 2.2.19)
+    actionpack (3.0.9)
+      activemodel (= 3.0.9)
+      activesupport (= 3.0.9)
       builder (~> 2.1.2)
       erubis (~> 2.6.6)
       i18n (~> 0.5.0)
@@ -36,78 +15,95 @@ GEM
       rack-mount (~> 0.6.14)
       rack-test (~> 0.5.7)
       tzinfo (~> 0.3.23)
-    activemodel (3.0.7)
-      activesupport (= 3.0.7)
+    activemodel (3.0.9)
+      activesupport (= 3.0.9)
       builder (~> 2.1.2)
       i18n (~> 0.5.0)
-    activerecord (3.0.7)
-      activemodel (= 3.0.7)
-      activesupport (= 3.0.7)
-      arel (~> 2.0.2)
+    activerecord (3.0.9)
+      activemodel (= 3.0.9)
+      activesupport (= 3.0.9)
+      arel (~> 2.0.10)
       tzinfo (~> 0.3.23)
-    activeresource (3.0.7)
-      activemodel (= 3.0.7)
-      activesupport (= 3.0.7)
-    activesupport (3.0.7)
-    arel (2.0.9)
-    authlogic (3.0.2)
-      activerecord (~> 3.0.7)
-      activerecord (~> 3.0.7)
+    activeresource (3.0.9)
+      activemodel (= 3.0.9)
+      activesupport (= 3.0.9)
+    activesupport (3.0.9)
+    arel (2.0.10)
+    authlogic (3.0.3)
+      activerecord (>= 3.0.7)
+      activerecord (>= 3.0.7)
     builder (2.1.2)
+    carrierwave (0.5.6)
+      activesupport (~> 3.0)
     erubis (2.6.6)
       abstract (>= 1.0.0)
-    excon (0.6.3)
-    formatador (0.1.3)
+    excon (0.6.5)
+    fog (0.10.0)
+      builder
+      excon (~> 0.6.5)
+      formatador (~> 0.2.0)
+      mime-types
+      multi_json (~> 1.0.3)
+      net-scp (~> 1.0.4)
+      net-ssh (~> 2.1.4)
+      nokogiri (~> 1.5.0)
+      ruby-hmac
+    formatador (0.2.0)
     i18n (0.5.0)
-    json (1.5.1)
     mail (2.2.19)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
-    mini_exiftool (1.3.0)
-    mini_magick (3.2.1)
-      subexec (~> 0.0.4)
+    mini_exiftool (1.3.1)
+    mini_magick (3.3)
+      subexec (~> 0.1.0)
+    multi_json (1.0.3)
+    net-scp (1.0.4)
+      net-ssh (>= 1.99.1)
     net-ssh (2.1.4)
-    nokogiri (1.4.4)
-    polyglot (0.3.1)
-    rack (1.2.2)
+    nokogiri (1.5.0)
+    polyglot (0.3.2)
+    rack (1.2.3)
     rack-mount (0.6.14)
       rack (>= 1.0.0)
     rack-test (0.5.7)
       rack (>= 1.0)
-    rails (3.0.7)
-      actionmailer (= 3.0.7)
-      actionpack (= 3.0.7)
-      activerecord (= 3.0.7)
-      activeresource (= 3.0.7)
-      activesupport (= 3.0.7)
+    rails (3.0.9)
+      actionmailer (= 3.0.9)
+      actionpack (= 3.0.9)
+      activerecord (= 3.0.9)
+      activeresource (= 3.0.9)
+      activesupport (= 3.0.9)
       bundler (~> 1.0)
-      railties (= 3.0.7)
-    railties (3.0.7)
-      actionpack (= 3.0.7)
-      activesupport (= 3.0.7)
+      railties (= 3.0.9)
+    railties (3.0.9)
+      actionpack (= 3.0.9)
+      activesupport (= 3.0.9)
       rake (>= 0.8.7)
+      rdoc (~> 3.4)
       thor (~> 0.14.4)
-    rake (0.8.7)
+    rake (0.9.2)
+    rdoc (3.9.1)
     ruby-hmac (0.4.0)
-    sqlite3 (1.3.3)
+    sqlite3 (1.3.4)
     sqlite3-ruby (1.3.3)
       sqlite3 (>= 1.3.3)
-    subexec (0.0.4)
+    subexec (0.1.0)
     thor (0.14.6)
-    treetop (1.4.9)
+    treetop (1.4.10)
+      polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.27)
+    tzinfo (0.3.29)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   authlogic
-  carrierwave!
-  fog!
+  carrierwave
+  fog
   mime-types
   mini_exiftool
   mini_magick

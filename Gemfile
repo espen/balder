@@ -5,19 +5,19 @@ gem 'rails'
 gem 'authlogic'
 
 gem 'mime-types', :require => 'mime/types'
-gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git'
+gem 'carrierwave'
 
 # -- Database
 # SQLite
 gem 'sqlite3-ruby'
 # MySQL:
-#gem 'mysql2'
+#gem 'mysql2', '~> 0.2.7' # Use version 0.3 and up for Rails 3.1
 # PostgreSQL:
 #gem 'pg'
 
 # -- Cloud storage
 # AWS S3 support. Can be disabled if using local file system instead of cloud storage.
-gem 'fog', :git => 'git://github.com/geemus/fog.git'
+gem 'fog'
 
 # -- Photo resizing
 # MiniMagick

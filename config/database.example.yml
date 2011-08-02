@@ -3,8 +3,15 @@ development:
     database: db/development.sqlite3
     pool: 5
     timeout: 5000
+development_mysql_osx:
+    adapter: mysql2
+    encoding: utf8
+    username: balder
+    password: changeme
+    database: balder_development
+    socket: /tmp/mysql.sock
 production:
-    adapter: mysql
+    adapter: mysql2
     encoding: utf8
     username: balder
     password: changeme
