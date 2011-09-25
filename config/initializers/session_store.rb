@@ -3,7 +3,7 @@
 Balder::Application.config.session_store :cookie_store, :key => '_balder_session'
 
 Rails.application.config.middleware.insert_before(
-  ActionDispatch::Session::CookieStore,
+  Rails.application.config.session_store,
   FlashSessionCookieMiddleware,
   Rails.application.config.session_options[:key]
 )
