@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0'
+gem 'rails', '3.0.10'
 
 gem 'authlogic'
 
@@ -8,13 +8,12 @@ gem 'mime-types', :require => 'mime/types'
 gem 'carrierwave'
 
 # -- Heroku
-# Uncomment both and enable required db adapter below
-gem 'heroku'
-gem 'pg'
+#gem 'heroku'
+#gem 'pg'
 
 # -- Database
 # SQLite:
-#gem 'sqlite3-ruby'
+gem 'sqlite3-ruby'
 # MySQL:
 #gem 'mysql2', '~> 0.2.7' # Use version 0.3 and up for Rails 3.1
 # PostgreSQL:
