@@ -1,4 +1,7 @@
-/* @override http://localhost:3000/stylesheets/application.css */
+/* @override 
+	http://localhost:3000/stylesheets/application.css
+	http://photos.inspired.no/stylesheets/application.css?1316927557
+*/
 
 /* @group Reset */
 
@@ -242,14 +245,4 @@ DIV#collection_albums IMG.delete {
 	cursor:  pointer;
 	right:  8px;
 	top:  8px;
-}
-
-
-@media screen and (device-width: 480px) {
-    #container {
-        width: 100%;
-    }
-    DIV#collection_albums {
-    	width:  100%;
-    }    
 }
