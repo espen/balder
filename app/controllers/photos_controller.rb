@@ -4,11 +4,14 @@ class PhotosController < ApplicationController
 
   def index
     if params[:tag_id] && params[:album_id]
-      @photos = Tag.find_by_title( params[:tag_id] ).photos.find(:all, :conditions => ['photos.album_id = :album', {:album => Album.find(params[:album_id] ) } ], :order => "photos.id ASC")
+      @tag = Tag.find_by_title!( params[:tag_id] )
+      @photos = @tag.photos.find(:all, :conditions => ['photos.album_id = :album', {:album => Album.find(params[:album_id] ) } ], :order => "photos.id ASC")
     elsif params[:tag_id]
-      @photos = Tag.find_by_title( params[:tag_id] ).photos.find(:all, :order => "photos.id ASC")
+      @tag = Tag.find_by_title!( params[:tag_id] )
+      @photos = @tag.photos.find(:all, :order => "photos.id ASC")
     elsif params[:album_id]
-      @photos = Album.find( params[:album_id]).photos.find(:all, :order => "photos.id ASC")
+      @album = Album.find( params[:album_id])
+      @photos = @album.photos.find(:all, :order => "photos.id ASC")
     elsif params[:q]
       #search = params[:q]
       #search = search.split("AND").map{|q|q.strip}
