@@ -7,13 +7,16 @@ gem 'authlogic'
 gem 'mime-types', :require => 'mime/types'
 gem 'carrierwave'
 
+# -- Heroku
+gem 'heroku'
+
 # -- Database
 # SQLite
-gem 'sqlite3-ruby'
+#gem 'sqlite3-ruby'
 # MySQL:
 #gem 'mysql2', '~> 0.2.7' # Use version 0.3 and up for Rails 3.1
-# PostgreSQL:
-#gem 'pg'
+# PostgreSQL: (use this on Heroku)
+gem 'pg'
 
 # -- Cloud storage
 # AWS S3 support. Can be disabled if using local file system instead of cloud storage.
