@@ -22,6 +22,3 @@ test: &TEST
     database: gallery_test
     username: balder
     password: changeme
-
-cucumber:
-  <<: *TEST
