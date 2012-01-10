@@ -2,7 +2,7 @@
 
 Made by Espen Antonsen.
 
-Version 1.2.1 for Rails3. See the rails2 branch for previous version.
+Version 1.2.2 for Rails 3.1. See the rails2 branch for previous version.
 
 http://balderapp.com
 
@@ -20,7 +20,7 @@ http://balderapp.com
 
 == Requirements
 
-Rails 3.0
+Rails 3.1
 
 Software
 Default:
@@ -58,7 +58,7 @@ http://blog.inspired.no/rails-photo-gallery-balder-on-heroku-and-s3-726
 	GitHub: git clone git://github.com/espen/balder.git
 2. Install required software listed above
 3. 'bundle install' to install required gems.
-4. Adjust the settings in balder.rb (See configuration above)
+4. Adjust the settings in balder.rb or as Heroku config variables (See configuration above)
 5. Copy database file (not needed when hosting on Heroku):
 	cp config/database.example.yml config/database.yml
 6. Create database user and edit database file. (unless on Heroku or using SQLite3)
@@ -84,6 +84,9 @@ This format is recommended:
 Every time you manually add photos to disk you must scan by visiting /photos/scan or run ScanFiles.Scan(false) from the console.
 
 == Version history
+
+1.2.2
+- Rails 3.1
 
 1.2.1
 - Using plupupload instead of uploadify for non-flash upload options. Can now use html5, normal form, silverlight, gears and browserplus for photo upload.
