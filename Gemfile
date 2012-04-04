@@ -13,11 +13,11 @@ gem 'carrierwave'
 
 # -- Database
 # SQLite:
-gem 'sqlite3-ruby'
+#gem 'sqlite3-ruby'
 # MySQL:
 #gem 'mysql2'
 # PostgreSQL:
-#gem 'pg'
+gem 'pg'
 
 # -- Cloud storage
 # AWS S3 support. Can be disabled if using local file system instead of cloud storage.
