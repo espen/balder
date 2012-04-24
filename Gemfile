@@ -5,7 +5,7 @@ gem 'rails', '3.2.3'
 gem 'authlogic'
 
 gem 'mime-types', :require => 'mime/types'
-gem 'carrierwave'
+gem 'carrierwave', '0.6.1'
 
 # -- Heroku
 #gem 'heroku'

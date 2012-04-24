@@ -33,7 +33,7 @@ GEM
       activerecord (>= 3.0.7)
       activerecord (>= 3.0.7)
     builder (3.0.0)
-    carrierwave (0.6.2)
+    carrierwave (0.6.1)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
     erubis (2.7.0)
@@ -111,7 +111,7 @@ PLATFORMS
 
 DEPENDENCIES
   authlogic
-  carrierwave
+  carrierwave (= 0.6.1)
   fog
   mime-types
   mini_exiftool
