@@ -13,7 +13,7 @@ $(document).ready(function() {
 			max_file_size : '10mb',
 			multipart: true,  
 			   multipart_params: {  
-				'<%= get_session_key %>' : encodeURIComponent('<%= u cookies[get_session_key] %>'),
+				'<%= get_session_key %>' : encodeURIComponent('<%= cookies[get_session_key] %>'),
 				'authenticity_token' : '<%= form_authenticity_token %>',
 				'photo[album_id]' : "<%= @album.id %>"
 			   },
