@@ -13,7 +13,9 @@ gem 'carrierwave', '0.6.1'
 
 # -- Database
 # SQLite:
-#gem 'sqlite3-ruby'
+group :development do
+  gem 'sqlite3-ruby'
+end
 # MySQL:
 #gem 'mysql2'
 # PostgreSQL:
