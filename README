@@ -20,7 +20,7 @@ http://balderapp.com
 
 == Requirements
 
-Rails 3.1
+Rails 3.2
 
 Software
 Default:
@@ -84,6 +84,9 @@ This format is recommended:
 Every time you manually add photos to disk you must scan by visiting /photos/scan or run ScanFiles.Scan(false) from the console.
 
 == Version history
+
+1.2.3
+- Rails 1.2.3
 
 1.2.2
 - Rails 3.1
