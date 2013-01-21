@@ -3,7 +3,10 @@ Balder::Application.routes.draw do
   match "login", :to => "user_sessions#new", :as => :login
   match "authenticate", :to => "user_sessions#create", :as => :authenticate
   match "logout", :to => "user_sessions#destroy", :as => :logout
-
+  
+  resources :authentications
+  match '/auth/:provider/callback' => 'authentications#create'
+  
   resources :photos do
     collection do
       get :untouched
@@ -50,7 +53,7 @@ Balder::Application.routes.draw do
     resources :photos
     resources :albums
   end
-  
+
   resources :users, :controller => "admin/users"
   
   root :to => "collections#index"
