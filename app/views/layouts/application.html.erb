@@ -16,7 +16,7 @@
 	<div id="action_links">
 	<%= yield :action_links %>
 	<% if current_user %>
-	Logged in as <%= current_user.name %>
+	Logged in as <%= link_to(current_user.name, 'account') %>
 	<%= link_to 'Logout', logout_path %>
 	<% end %>
 	</div>
