@@ -12,5 +12,5 @@
   <br />
   <%= f.submit "Login" %>
 
-  <a href="/auth/facebook">Sign in with Facebook</a>
+  <%= link_to "Sign in with Facebook", "/auth/facebook" unless ENV['FACEBOOK_ID'].nil? %>
 <% end %>
