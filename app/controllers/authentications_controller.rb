@@ -23,12 +23,6 @@ class AuthenticationsController < ApplicationController
       user.authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
       user.apply_omniauth(omniauth)
 
-      puts "\nOH HAI"
-      puts user.inspect << "\n"
-      puts user.save.inspect
-      puts user.errors.inspect
-      puts user.authentications.first.errors.inspect
-
       if user.save
         flash[:notice] = 'User created and signed in successfully.'
         sign_in_and_redirect(user)
