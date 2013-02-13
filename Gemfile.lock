@@ -60,7 +60,9 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.21)
-    mini_exiftool (1.4.2)
+    mini_exiftool (1.6.0)
+    mini_exiftool_vendored (8.9.7.v2)
+      mini_exiftool (>= 1.6.0)
     mini_magick (3.4)
       subexec (~> 0.2.1)
     multi_json (1.5.1)
@@ -124,7 +126,7 @@ DEPENDENCIES
   carrierwave (= 0.6.1)
   fog
   mime-types
-  mini_exiftool
+  mini_exiftool_vendored
   mini_magick
   pg
   rails (= 3.2.12)
