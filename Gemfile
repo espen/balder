@@ -15,19 +15,17 @@ gem 'omniauth-facebook'
 gem 'mime-types', :require => 'mime/types'
 gem 'carrierwave', '0.6.1'
 
-# -- Heroku
-#gem 'heroku'
-#gem 'pg'
-
 # -- Database
 # SQLite:
 group :development do
   gem 'sqlite3-ruby'
 end
-# MySQL:
-#gem 'mysql2'
-# PostgreSQL:
-gem 'pg'
+group :production do
+  # MySQL:
+  #gem 'mysql2'
+  # PostgreSQL (default on heroku):
+  gem 'pg'
+end
 
 # -- Cloud storage
 # AWS S3 support. Can be disabled if using local file system instead of cloud storage.
