@@ -1,4 +1,4 @@
-== Welcome to Balder photo gallery
+# Welcome to Balder photo gallery
 
 Made by Espen Antonsen.
 
@@ -6,7 +6,7 @@ Version 1.3.0 for Rails 3.2. See the rails2 branch for previous version.
 
 http://balderapp.com
 
-== Features
+## Features
 
 * Stores photos to disk in folders or on S3 (can run from Heroku...yay)
 * Create multiple thumbnails of custom sizes
@@ -19,7 +19,7 @@ http://balderapp.com
 * Geo-location of albums & photos with Google Maps integration.
 * Authenticate with Facebook Connect
 
-== Requirements
+## Requirements
 
 Rails 3.2
 
@@ -34,7 +34,7 @@ Optional:
 
 Ruby Gems: See Gemfile
 
-== Configuration
+## Configuration
 
 config/balder.rb has the following adjustable settings:
 
@@ -55,7 +55,7 @@ http://devcenter.heroku.com/articles/config-vars#rack_env_rails_env_merb_env
 For a brief introduction to how to set up Balder on Heroku see:
 http://blog.inspired.no/rails-photo-gallery-balder-on-heroku-and-s3-726
 
-== Installation
+## Installation
 
 1. Clone the project from GitHub or Gitorious:
 	GitHub: git clone git://github.com/espen/balder.git
@@ -69,7 +69,7 @@ http://blog.inspired.no/rails-photo-gallery-balder-on-heroku-and-s3-726
 8. rake db:migrate
 9. Start up the project with your preferred web-server
 
-=== Optional: add photos directly to disk
+### Optional: add photos directly to disk
 
 The gallery has a web-based upload tool. Alternatively you can upload files directly to the upload folder. This means you can import an existing folder based photo collection to Balder.
 
@@ -86,7 +86,7 @@ This format is recommended:
 
 Every time you manually add photos to disk you must scan by visiting /photos/scan or run ScanFiles.Scan(false) from the console.
 
-== Version history
+## Version history
 
 1.3.0
 - Facebook Connect
@@ -103,16 +103,23 @@ Every time you manually add photos to disk you must scan by visiting /photos/sca
 1.2.0
 - New storage path: "/uploads/files/" instead of "/uploads/". Make sure you move your photos or adjust the storage path.
 
-== TODO
+## Todo
 
 - Testing...
 
-== IDEAS
+## Ideas
+
 - Themes
 - Improved UX
 - Mobile/Tablet friendly display using CSS media queries
+- Caching
+
 Patches welcome!
 
-== Copyright and license info
+## Contributions
+
+Made with help from @formigarafa, @grrowl, @vanicat and @arne.
+
+## Copyright and license info
 
 This code is copyrighted by Espen Antonsen. The source code is available free under the MIT License.
