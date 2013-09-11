@@ -47,6 +47,8 @@ HEROKU			To be used on heroku.com. This will adjust carrierwave to save to Herok
 S3_KEY			For saving files to Amazon S3 (required for Heroku)
 S3_SECRET		For saving files to Amazon S3 (required for Heroku)
 S3_BUCKET		For saving files to Amazon S3 (required for Heroku)
+FACEBOOK_ID The id for your Facebook application for Facebook Connect authentication
+FACEBOOK_SECRET The secret for your Facebook application for Facebook Connect authentication
 
 As these are environment variables you can easily add them to Heroku:
 http://devcenter.heroku.com/articles/config-vars#rack_env_rails_env_merb_env
@@ -85,6 +87,9 @@ This format is recommended:
 Every time you manually add photos to disk you must scan by visiting /photos/scan or run ScanFiles.Scan(false) from the console.
 
 == Version history
+
+1.3.0
+- Facebook Connect
 
 1.2.3
 - Rails 3.2
