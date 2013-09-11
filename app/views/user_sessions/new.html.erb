@@ -11,4 +11,6 @@
   <%= f.check_box :remember_me %><%= f.label :remember_me %><br />
   <br />
   <%= f.submit "Login" %>
+
+  <%= link_to "Sign in with Facebook", "/auth/facebook" unless ENV['FACEBOOK_ID'].nil? %>
 <% end %>

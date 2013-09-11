@@ -5,3 +5,5 @@ ENV['STORAGE_PATH']       = "uploads" if ENV['STORAGE_PATH'].nil?
 #ENV['S3_KEY']           = ''
 #ENV['S3_SECRET']        = ''
 #ENV['S3_BUCKET']        = ''
+#ENV['FACEBOOK_ID']       = ''
+#ENV['FACEBOOK_SECRET']   = ''
