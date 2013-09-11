@@ -2,7 +2,7 @@
 
 Made by Espen Antonsen.
 
-Version 1.2.3 for Rails 3.2. See the rails2 branch for previous version.
+Version 1.3.0 for Rails 3.2. See the rails2 branch for previous version.
 
 http://balderapp.com
 
@@ -17,6 +17,7 @@ http://balderapp.com
 * Tag photos. Can also tag albums (actually all photos in album is tagged)
 * User management with roles and permissions
 * Geo-location of albums & photos with Google Maps integration.
+* Authenticate with Facebook Connect
 
 == Requirements
 
