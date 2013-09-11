@@ -86,7 +86,7 @@ Every time you manually add photos to disk you must scan by visiting /photos/sca
 == Version history
 
 1.2.3
-- Rails 1.2.3
+- Rails 3.2
 
 1.2.2
 - Rails 3.1
