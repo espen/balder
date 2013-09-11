@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 
 group :heroku do
-  gem 'thin'
+  gem 'unicorn'
   gem 'rails_12factor'
 end
 
