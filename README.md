@@ -116,7 +116,7 @@ Every time you manually add photos to disk you must scan by visiting /photos/sca
 
 Patches welcome!
 
-## Contributions
+## Contributors
 
 Made with help from @formigarafa, @grrowl, @vanicat and @arne.
 
