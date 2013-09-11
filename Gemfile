@@ -4,7 +4,7 @@ group :heroku do
   gem 'thin'
 end
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.14'
 
 gem 'authlogic'
 gem 'omniauth'
