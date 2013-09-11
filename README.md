@@ -38,20 +38,17 @@ Ruby Gems: See Gemfile
 
 config/balder.rb has the following adjustable settings:
 
-* *STORAGE_PATH* Relative path to where the photos are stored. Default: uploads. Under the specified path two folders are used. "files" for original files and "thumbs" for generated thumbnails. This can be adjusted in app/uploaders/file_uploader.rb
-* *PRIVATE* Require visitors to have a user and authenticate before viewing photos.
-* *TITLE* Title of site
-* *HEROKU* To be used on heroku.com. This will adjust carrierwave to save to Heroku's tmp area.
-* *S3_KEY* For saving files to Amazon S3 (required for Heroku)
-* *S3_SECRET* For saving files to Amazon S3 (required for Heroku)
-* *S3_BUCKET* For saving files to Amazon S3 (required for Heroku)
-* *FACEBOOK_ID* The id for your Facebook application for Facebook Connect authentication
-* *FACEBOOK_SECRET* The secret for your Facebook application for Facebook Connect authentication
+* **STORAGE_PATH** Relative path to where the photos are stored. Default: uploads. Under the specified path two folders are used. "files" for original files and "thumbs" for generated thumbnails. This can be adjusted in app/uploaders/file_uploader.rb
+* **PRIVATE** Require visitors to have a user and authenticate before viewing photos.
+* **TITLE** Title of site
+* **HEROKU** To be used on heroku.com. This will adjust carrierwave to save to Heroku's tmp area.
+* **S3_KEY** For saving files to Amazon S3 (required for Heroku)
+* **S3_SECRET** For saving files to Amazon S3 (required for Heroku)
+* **S3_BUCKET** For saving files to Amazon S3 (required for Heroku)
+* **FACEBOOK_ID** The id for your Facebook application for Facebook Connect authentication
+* **FACEBOOK_SECRET** The secret for your Facebook application for Facebook Connect authentication
 
-As these are environment variables you can easily add them to Heroku:
-http://devcenter.heroku.com/articles/config-vars#rack_env_rails_env_merb_env
-For a brief introduction to how to set up Balder on Heroku see:
-http://blog.inspired.no/rails-photo-gallery-balder-on-heroku-and-s3-726
+As these are environment variables [you can easily add them to Heroku](http://devcenter.heroku.com/articles/config-vars#rack_env_rails_env_merb_env). For a brief introduction to how to set up Balder on Heroku see [this blog post](http://blog.inspired.no/rails-photo-gallery-balder-on-heroku-and-s3-726).
 
 ## Installation
 
@@ -76,11 +73,11 @@ Hierarchy of folders is not fully supported.
 
 This format is recommended:
 
-./ski weekend in hemsedal/snow.jpg
-./ski weekend in hemsedal/afterski.jpg
-./trip to iran/beautiful girls in tehran.jpg
-./trip to iran/mosque in yazd.jpg
-./trip to iran/powder snow in dizin.jpg
+- ./ski weekend in hemsedal/snow.jpg
+- ./ski weekend in hemsedal/afterski.jpg
+- ./trip to iran/beautiful girls in tehran.jpg
+- ./trip to iran/mosque in yazd.jpg
+- ./trip to iran/powder snow in dizin.jpg
 
 Every time you manually add photos to disk you must scan by visiting /photos/scan or run ScanFiles.Scan(false) from the console.
 
@@ -103,7 +100,7 @@ Every time you manually add photos to disk you must scan by visiting /photos/sca
 
 ## Todo
 
-- Testing...
+- Testing... (yeah I know, sorry)
 
 ## Ideas
 
