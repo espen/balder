@@ -40,6 +40,8 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.0)
     excon (0.13.4)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     fog (1.3.1)
       builder
       excon (~> 0.13.0)
@@ -51,10 +53,14 @@ GEM
       nokogiri (~> 1.5.0)
       ruby-hmac
     formatador (0.2.1)
+    hashie (2.0.5)
     hike (1.2.1)
+    httpauth (0.2.0)
     i18n (0.6.1)
     journey (1.0.4)
     json (1.7.7)
+    jwt (0.1.8)
+      multi_json (>= 1.5)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -66,10 +72,25 @@ GEM
     mini_magick (3.4)
       subexec (~> 0.2.1)
     multi_json (1.5.1)
+    multipart-post (1.2.0)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-ssh (2.3.0)
     nokogiri (1.5.2)
+    oauth2 (0.8.1)
+      faraday (~> 0.8)
+      httpauth (~> 0.1)
+      jwt (~> 0.1.4)
+      multi_json (~> 1.0)
+      rack (~> 1.2)
+    omniauth (1.1.4)
+      hashie (>= 1.2, < 3)
+      rack
+    omniauth-facebook (1.4.1)
+      omniauth-oauth2 (~> 1.1.0)
+    omniauth-oauth2 (1.1.1)
+      oauth2 (~> 0.8.0)
+      omniauth (~> 1.0)
     pg (0.13.2)
     polyglot (0.3.3)
     rack (1.4.5)
@@ -128,6 +149,8 @@ DEPENDENCIES
   mime-types
   mini_exiftool_vendored
   mini_magick
+  omniauth
+  omniauth-facebook
   pg
   rails (= 3.2.12)
   sqlite3-ruby
