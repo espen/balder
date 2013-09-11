@@ -19,20 +19,18 @@ http://balderapp.com
 * Geo-location of albums & photos with Google Maps integration.
 * Authenticate with Facebook Connect
 
-## Requirements
+## Optinal image processing
 
-Rails 3.2
+Default Balder uses mini_magick and mini_exiftool_vendored.
 
-Software
-Default:
-- ExifTool (required for Mini_EfixTool). Can be disabled. Default is to read EXIF tags but not write them to the file when database is updated as writing EXIF is slow. To enable just uncomment exif_write in photo.rb
-Can be installed from: http://www.sno.phy.queensu.ca/~phil/exiftool/
+Optional:
+
 - ImageMagicK. Carrierwave can use either RMagicK or MiniMagicK (default). To change resize option the correct gem must be used (specified in Gemfile) and change included setting for Carrierwave in file_uploader.rb
 Can be installed from: http://www.imagemagick.org
-Optional:
 - ImageScience which requires FreeImage. Can be installed from: http://sourceforge.net/projects/freeimage/
+- ExifTool (required for Mini_EfixTool). Can be disabled. Default is to read EXIF tags but not write them to the file when database is updated as writing EXIF is slow. To enable just uncomment exif_write in photo.rb
+Can be installed from: http://www.sno.phy.queensu.ca/~phil/exiftool/
 
-Ruby Gems: See Gemfile
 
 ## Configuration
 
