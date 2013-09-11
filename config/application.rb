@@ -8,7 +8,7 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module Balder
   class Application < Rails::Application
-    
+
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/
     config.autoload_paths += %W(#{config.root}/lib #{config.root}/app/middleware/)
@@ -17,5 +17,7 @@ module Balder
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :password_confirmation]
+
+    config.assets.enabled = false
   end
 end
