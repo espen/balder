@@ -23,7 +23,7 @@
 	<h1>
 		<%= link_to(if ENV['LOGO'] then image_tag(ENV['LOGO']) else (ENV['TITLE'] || "Photos") end, root_path) %>
 	</h1>
-	<%= form_tag albums_path, { :id => :search } do -%>
+	<%= form_tag albums_path, { :method => :get, :id => :search } do -%>
 		<input type="text" name="q" class="textfield"/>
 		<input type="submit" value="Search" class="button" />
 	<% end -%>
