@@ -8,6 +8,7 @@ end
 
 gem 'rails', '~> 3.2'
 
+gem 'scrypt'
 gem 'authlogic'
 gem 'omniauth'
 gem 'omniauth-facebook'
