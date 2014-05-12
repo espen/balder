@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
     c.merge_validates_confirmation_of_password_field_options({:unless => :networked?})
     c.merge_validates_length_of_password_field_options({:unless => :networked?})
     c.merge_validates_length_of_password_confirmation_field_options({:unless => :networked?})
-    c.transition_from_crypto_providers = Authlogic::CryptoProviders::Sha512
+    c.crypto_provider = Authlogic::CryptoProviders::Sha512
   end
   acts_as_permissible
 
