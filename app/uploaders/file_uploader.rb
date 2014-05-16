@@ -24,17 +24,13 @@ class FileUploader < CarrierWave::Uploader::Base
     ENV['STORAGE_PATH'] + "/files/#{model.album.path}"
   end
 
-  # Provide a default URL as a default if there hasn't been a file uploaded
-  #     def default_url
-  #       "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-  #     end
+  process :auto_orient # this should go before all other "process" steps
 
-  # Process files as they are uploaded.
-  #     process :scale => [200, 300]
-  #
-  #     def scale(width, height)
-  #       # do something
-  #     end
+  def auto_orient
+    manipulate! do |image|
+      image.tap(&:auto_orient)
+    end
+  end
 
   # Create different versions of your uploaded files
        version :collection do
