@@ -19,7 +19,7 @@ http://balderapp.com
 * Geo-location of albums & photos with Google Maps integration.
 * Authenticate with Facebook Connect
 
-## Optinal image processing
+## Optional image processing
 
 Default Balder uses mini_magick and mini_exiftool_vendored.
 
