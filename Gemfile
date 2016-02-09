@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.3.0'
+
 group :heroku do
   gem 'unicorn'
   gem 'rails_12factor'
