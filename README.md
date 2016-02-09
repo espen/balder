@@ -81,6 +81,9 @@ Every time you manually add photos to disk you must scan by visiting /photos/sca
 
 ## Version history
 
+1.4.0
+- Ruby 2.3
+
 1.3.0
 - Facebook Connect
 
