@@ -6,6 +6,8 @@ Version 1.3.0 for Rails 3.2. See the rails2 branch for previous version.
 
 http://balderapp.com
 
+Example gallery: http://photos.inspired.no
+
 ## Features
 
 * Stores photos to disk in folders or on S3 (can run from Heroku...yay)
