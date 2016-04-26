@@ -27,6 +27,9 @@ group :production do
   # PostgreSQL (default on heroku):
   gem 'pg'
 end
+group :test do
+  gem 'test-unit'
+end
 
 # -- Cloud storage
 # AWS S3 support. Can be disabled if using local file system instead of cloud storage.
