@@ -27,7 +27,7 @@ Default Balder uses mini_magick and mini_exiftool_vendored.
 
 Optional:
 
-- ImageMagicK. Carrierwave can use either RMagicK or MiniMagicK (default). To change resize option the correct gem must be used (specified in Gemfile) and change included setting for Carrierwave in file_uploader.rb
+- ImageMagick. Carrierwave can use either RMagick or MiniMagick (default). To change resize option the correct gem must be used (specified in Gemfile) and change included setting for Carrierwave in file_uploader.rb
 Can be installed from: http://www.imagemagick.org
 - ImageScience which requires FreeImage. Can be installed from: http://sourceforge.net/projects/freeimage/
 - ExifTool (required for Mini_EfixTool). Can be disabled. Default is to read EXIF tags but not write them to the file when database is updated as writing EXIF is slow. To enable just uncomment exif_write in photo.rb
