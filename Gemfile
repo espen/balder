@@ -1,13 +1,9 @@
 source 'https://rubygems.org'
 
-ruby '2.3.0'
-
-group :heroku do
-  gem 'unicorn'
-  gem 'rails_12factor'
-end
+ruby '2.5.7'
 
 gem 'rails', '~> 3.2'
+gem 'json'
 
 gem 'authlogic'
 gem 'omniauth'
@@ -19,17 +15,18 @@ gem 'carrierwave', '~> 0.6.1'
 # -- Database
 # SQLite:
 group :development do
+  gem 'sqlite3', '<1.4'
   gem 'sqlite3-ruby'
 end
 group :production do
+  gem 'unicorn'
+  gem 'rails_12factor'
   # MySQL:
   #gem 'mysql2'
   # PostgreSQL (default on heroku):
-  gem 'pg'
+  gem 'pg', '<1'
 end
-group :test do
-  gem 'test-unit'
-end
+gem 'test-unit'
 
 # -- Cloud storage
 # AWS S3 support. Can be disabled if using local file system instead of cloud storage.
