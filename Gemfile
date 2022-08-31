@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.5.7'
 
-gem 'rails', '~> 3.2'
+gem 'rails', '~> 6.1'
 gem 'json'
 
 gem 'authlogic'
